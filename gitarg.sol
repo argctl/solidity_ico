@@ -72,14 +72,13 @@ contract gitarg {
     return allow;
   }
   function approve(address _spender, uint256 _value) public returns (bool success) {
-    uint length = spendDownFunds.length;
-    // _msgSender()
+    //TODO - check balance
+    //TODO - collapse records by owner
     spendDownFunds.push(SpendDown(msg.sender, _spender, _value));
     return true;
   }
   function allowance(address _owner, address _spender) public view returns (uint256 remaining) {
-    //return spendDownFunds[_owner].amount;
-    //return spendDownFunds[
+    // REVIEW
     for (uint i = 0; i < spendDownFunds.length; i++) {
       if (spendDownFunds[i].spender == _spender && spendDownFunds[i].owner == _owner) {
         return spendDownFunds[i].amount;
