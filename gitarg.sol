@@ -38,15 +38,24 @@ contract gitarg {
   }
 
   // ICO ERC-20 standard functions
+
+  //https://eips.ethereum.org/EIPS/eip-20#name
+  // function definition can be changed to pure - not in standard
   function name() public view returns (string memory) {
     return "gitarg";  
   }
+  //https://eips.ethereum.org/EIPS/eip-20#symbol
+  // function definition can be changed to pure - not in standard
   function symbol() public view returns (string memory) {
     return "GIT";
   }
+  //https://eips.ethereum.org/EIPS/eip-20#decimals
+  // function definition can be changed to pure - not in standard
   function decimals() public view returns (uint8) {
     return 6;
   }
+  //https://eips.ethereum.org/EIPS/eip-20#decimals
+  // function definition can be changed to pure - not in standard
   function totalSupply() public view returns (uint256) {
     return 100100000;
   }
