@@ -1,6 +1,10 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity >="0.8.19";
 // Intended use: exchange for services on gitarg decentralized platform and ada NFTs (release date June 2nd - June 15th 2023)
+// TODO 
+// * lock password interface
+// * unlock password interface
+// * timestamp based lockout
 
 contract gitarg {
   struct SpendDown {
@@ -30,6 +34,8 @@ contract gitarg {
   mapping(address => bool) private locked;
 
   uint256 totalSupply_ = 1000 ether;
+
+  // TODO - modifier for lock
 
   constructor() {
     balances[msg.sender] = totalSupply_;
