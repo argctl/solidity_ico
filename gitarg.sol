@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: UNLICENSED
-// Intended use: exchange for services on gitarg decentralized platform and ada NFTs (release date June 2nd - June 15th 2023)
 pragma solidity >="0.8.19";
+// Intended use: exchange for services on gitarg decentralized platform and ada NFTs (release date June 2nd - June 15th 2023)
 
 contract gitarg {
   struct SpendDown {
@@ -19,7 +19,8 @@ contract gitarg {
 
   //mapping(address => SpendDown[]) spendDownFunds;
   //mapping(address => SpendDown) spendDownFunds;
-  SpendDown[] spendDownFunds;
+  //SpendDown[] spendDownFunds;
+  mapping(address => mapping (address => uint256)) allowed;
   
   mapping(address => address[]) private coop;
   //mapping(address => uint256) private spendDown;
@@ -27,6 +28,12 @@ contract gitarg {
   address[] owners;
   mapping(address => uint256) private balances;
   mapping(address => bool) private locked;
+
+  uint256 totalSupply_ = 1000 ether;
+
+  constructor() {
+    balances[msg.sender] = totalSupply_;
+  }
 
   // These functions may not be allowed
   function lock() public returns (bool) {
@@ -58,41 +65,56 @@ contract gitarg {
   //https://eips.ethereum.org/EIPS/eip-20#decimals
   // function definition can be changed to pure - not in standard
   function totalSupply() public view returns (uint256) {
-    return 100100000;
+    return totalSupply_;
   }
   function balanceOf(address _owner) public view returns (uint256 balance) {
+    require(!locked[msg.sender] && !locked[_owner]);
     return balances[_owner];
   }
   function transfer(address _to, uint256 _value) public returns (bool success) {
-    require(!locked[msg.sender]);
+    require(!locked[msg.sender] && !locked[_to]);
+    require(_value <= balances[msg.sender]);
+    balances[msg.sender] = balances[msg.sender] - _value;
+    balances[_to] = balances[_to] + _value;
     emit Transfer(msg.sender, _to, _value);
     return true;
   }
   function transferFrom(address _from, address _to, uint256 _value) public returns (bool success) {
-    address[] memory coopList = coop[_from]; 
-    bool allow = false;
-    for (uint i = 0; i < coopList.length; i++) {
-      if(coopList[i] == _to) {
-        allow = true;
-        continue;
-      }
-    }
-    require(allow);
+    require(!locked[msg.sender] && !locked[_from] && !locked[_to]);
+    require(_value <= balances[_from]);
+    require(_value <= allowed[_from][msg.sender]);
+    balances[_from] = balances[_from] - _value;
+    allowed[_from][msg.sender] = allowed[_from][msg.sender] - _value;
+    balances[_to] = balances[_to] + _value;
+    //address[] memory coopList = coop[_from]; 
+    //bool allow = false;
+    //for (uint i = 0; i < coopList.length; i++) {
+      //if(coopList[i] == _to) {
+        //allow = true;
+        //continue;
+      //}
+    //}
+    //require(allow);
     emit Transfer(_from, _to, _value);
-    return allow;
+    return true;
   }
   function approve(address _spender, uint256 _value) public returns (bool success) {
+    require(!locked[msg.sender] && !locked[_spender]);
     //TODO - check balance
     //TODO - collapse records by owner
-    spendDownFunds.push(SpendDown(msg.sender, _spender, _value));
+    //spendDownFunds.push(SpendDown(msg.sender, _spender, _value));
+    allowed[msg.sender][_spender] = _value;
+    emit Approval(msg.sender, _spender, _value);
     return true;
   }
   function allowance(address _owner, address _spender) public view returns (uint256 remaining) {
     // REVIEW
-    for (uint i = 0; i < spendDownFunds.length; i++) {
-      if (spendDownFunds[i].spender == _spender && spendDownFunds[i].owner == _owner) {
-        return spendDownFunds[i].amount;
-      }
-    }
+    //for (uint i = 0; i < spendDownFunds.length; i++) {
+     // if (spendDownFunds[i].spender == _spender && spendDownFunds[i].owner == _owner) {
+      //  return spendDownFunds[i].amount;
+      //}
+    //}
+    require(!locked[msg.sender] && !locked[_owner] && !locked[_spender]);
+    return allowed[_owner][_spender];
   }
 }
