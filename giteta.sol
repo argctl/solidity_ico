@@ -17,11 +17,14 @@ contract giteta {
   mapping(address => Repo[]) private repos;
   mapping(string => Commit[]) private namedRepos;
   mapping(string => Repo) private repoByName;
+  // TODO - either generate address or use nested struct if supported
+  mapping(string => Commit[]) private commitsByRepoName;
   constructor() {
       
   }
   function commit(string memory hash, string memory repo) public returns (uint) {
-    return 0;
+    commitsByRepoName[hash].push(Commit(hash, block.timestamp));
+    return block.number;
   }
   function commit(string memory hash) public returns (uint) {
     return 0;
