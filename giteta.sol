@@ -15,6 +15,8 @@ contract giteta {
   // REVIEW - should every repo force new address or address independent repos?
   mapping(address => Commit[]) private commits;
   mapping(address => Repo[]) private repos;
+  mapping(string => Commit[]) private namedRepos;
+  mapping(string => Repo) private repoByName;
   constructor() {
       
   }
@@ -22,6 +24,9 @@ contract giteta {
     return 0;
   }
   function commit(string memory hash) public returns (uint) {
+    return 0;
+  }
+  function commit(string memory hash, address repo) public returns (uint) {
     return 0;
   }
   function repo(string memory name, string memory url) public returns (uint) {
