@@ -23,7 +23,7 @@ contract giteta {
       
   }
   function commit(string memory hash, string memory repo) public returns (uint) {
-    commitsByRepoName[hash].push(Commit(hash, block.timestamp));
+    commitsByRepoName[repo].push(Commit(hash, block.timestamp));
     return block.number;
   }
   function commit(string memory hash) public returns (uint) {
