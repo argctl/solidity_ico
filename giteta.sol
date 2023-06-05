@@ -11,7 +11,7 @@ contract giteta {
   struct Repo {
     string name;
     string url;
-    //address wallet;
+    address wallet;
   }
   // REVIEW - should every repo force new address or address independent repos?
   mapping(address => Commit[]) private commits;
@@ -32,9 +32,13 @@ contract giteta {
     return block.number;
   }
   function commit(string memory hash, address repo) public returns (uint) {
+    
     return 0;
   }
   function repo(string memory name, string memory url) public returns (uint) {
-    return 0;
+    Repo memory repo = Repo(name, url, msg.sender);
+    repos[msg.sender].push(repo);
+    repoByName[name] = repo;
+    return block.timestamp;
   }
 }
