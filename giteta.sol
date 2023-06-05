@@ -4,6 +4,7 @@ pragma solidity >= "0.8.18";
 contract giteta {
   // TODO - make address argument for relays
   address gitarg = 0xb3Bdb3e25BB580CA98480a5fD7c98E6516750685;
+  // REVIEW - should include commit message or not for security?
   struct Commit {
     string commit;
     uint256 timestamp;
@@ -32,8 +33,8 @@ contract giteta {
     return block.number;
   }
   function commit(string memory hash, address repo) public returns (uint) {
-    
-    return 0;
+    commits[repo].push(Commit(hash, block.timestamp));   
+    return block.number;
   }
   function repo(string memory name, string memory url) public returns (uint) {
     Repo memory repo = Repo(name, url, msg.sender);
