@@ -22,6 +22,7 @@ contract giteta {
   mapping(string => Repo) private repoByName;
   // TODO - either generate address or use nested struct if supported
   mapping(string => Commit[]) private commitsByRepoName;
+  mapping(address => Repo) private addressRepo;
   constructor() {
       
   }
@@ -45,6 +46,6 @@ contract giteta {
   }
   function repo(address wallet, string memory name, string memory url) public returns (uint) {
     require(!repoLock[wallet]);
-    // TODO
+    addressRepo[wallet] = Repo(name, url, wallet)
   }
 }
