@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: BUSL-1.1
 pragma solidity >= "0.8.18";
+import "./gitarg.sol";
 
 contract giteta {
   // TODO - make address argument for relays
@@ -46,6 +47,6 @@ contract giteta {
   }
   function repo(address wallet, string memory name, string memory url) public returns (uint) {
     require(!repoLock[wallet]);
-    addressRepo[wallet] = Repo(name, url, wallet)
+    addressRepo[wallet] = Repo(name, url, wallet);
   }
 }
