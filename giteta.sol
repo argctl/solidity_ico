@@ -15,6 +15,7 @@ contract giteta {
     address wallet;
   }
   // REVIEW - should every repo force new address or address independent repos?
+  mapping(address => bool) private repoLock;
   mapping(address => Commit[]) private commits;
   mapping(address => Repo[]) private repos;
   mapping(string => Commit[]) private namedRepos;
@@ -41,5 +42,9 @@ contract giteta {
     repos[msg.sender].push(repo);
     repoByName[name] = repo;
     return block.timestamp;
+  }
+  function repo(address wallet, string memory name, string memory url) public returns (uint) {
+    require(!repoLock[wallet]);
+    // TODO
   }
 }
