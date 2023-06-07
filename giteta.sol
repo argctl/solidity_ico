@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: BUSL-1.1
 pragma solidity >= "0.8.18";
-import "./gitarg.sol";
+import "./libraries/gitorg.sol";
 
 contract giteta {
   // TODO - make address argument for relays
@@ -15,8 +15,13 @@ contract giteta {
     string url;
     address wallet;
   }
+  struct Account {
+    address wallet;
+    uint stash;
+  }
   // REVIEW - should every repo force new address or address independent repos?
   mapping(address => bool) private repoLock;
+  mapping(address => Account) private accounts;
   mapping(address => Commit[]) private commits;
   mapping(address => Repo[]) private repos;
   mapping(string => Commit[]) private namedRepos;
@@ -27,6 +32,16 @@ contract giteta {
   constructor() {
       
   }
+  function account(address wallet) public payable returns (uint) {
+    Account memory account = Account(wallet, msg.value); 
+    accounts[wallet] = account;
+    return 0;
+  }
+  function set(address wallet) public payable returns (uint) {
+    require(accounts[wallet].wallet == msg.sender);
+    // TODO - map to gitarg coin with gitorg library
+    accounts[wallet].stash = msg.value;
+  } 
   function commit(string memory hash, string memory repo) public returns (uint) {
     commitsByRepoName[repo].push(Commit(hash, block.timestamp));
     return block.number;
