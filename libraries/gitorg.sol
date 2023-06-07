@@ -12,7 +12,10 @@ library gitorg {
   function donate(address giteta, address gitarg) public returns (uint) {
     return 0;
   }
-  function direct(address giteta, address gitarg, uint stash) public returns (uint) {
+  function direct(address _giteta, address _gitarg, uint stash) public returns (uint) {
+    giteta eta = giteta(_giteta);
+    gitarg arg = gitarg(_gitarg);
+    // TODO - stash from msg.value or account stash?
     require(stash <= msg.value); // REVIEW - query for rate on contract? 
     // TODO - giteta gitarg bridge
     return 0;
