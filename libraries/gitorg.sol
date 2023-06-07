@@ -1,7 +1,10 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity >= "0.8.18";
+import "../giteta.sol";
+import "../gitarg.sol";
 
 //library so that there is a single point and interface to externals reference
+
 library gitorg {
   // TODO - library interface exteranal to gitarg
   // uses contract addresses to pool/poll versioning data 
@@ -10,7 +13,7 @@ library gitorg {
     return 0;
   }
   function direct(address giteta, address gitarg, uint stash) public returns (uint) {
-    require(stash >= msg.value); // REVIEW - query for rate on contract? 
+    require(stash <= msg.value); // REVIEW - query for rate on contract? 
     // TODO - giteta gitarg bridge
     return 0;
   }
