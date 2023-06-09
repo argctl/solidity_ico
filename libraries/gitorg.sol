@@ -13,6 +13,7 @@ library gitorg {
     return 0;
   }
   function direct(address _giteta, address _gitarg, uint stash) public returns (uint) {
+    // REVIEW - recycle to either contract address or escrow wallet to cycle GITARG coin
     giteta eta = giteta(_giteta);
     gitarg arg = gitarg(_gitarg);
     // TODO - stash from msg.value or account stash?
