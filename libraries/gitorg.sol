@@ -16,6 +16,7 @@ library gitorg {
     // REVIEW - recycle to either contract address or escrow wallet to cycle GITARG coin
     giteta eta = giteta(_giteta);
     gitarg arg = gitarg(_gitarg);
+    address wallet = eta.getGitargWallet();
     // TODO - stash from msg.value or account stash?
     require(stash <= msg.value); // REVIEW - query for rate on contract? 
     // TODO - giteta gitarg bridge
