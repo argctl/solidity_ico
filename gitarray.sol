@@ -20,7 +20,8 @@ abstract contract gitarray is Gitarray {
   function org(address _gitorg) internal override returns (uint) {
     return block.timestamp;
   }
-  function arg(address _giteta) internal override returns (uint) {
+  function arg(address _gitarg) internal override returns (uint) {
     return block.timestamp;
   }
+  //function contracts(address _giteta, address _gitorg, address _gitarg
 }
