@@ -4,6 +4,7 @@ import "interfaces/gitarray.sol";
 
 abstract contract gitarray is Gitarray {
   address gitargWallet;
+  
   constructor () {
     gitargWallet = msg.sender;
   }
@@ -21,6 +22,9 @@ abstract contract gitarray is Gitarray {
     return block.timestamp;
   }
   function arg(address _gitarg) internal override returns (uint) {
+    if (_gitarg != gitargWallet) {
+      
+    }
     return block.timestamp;
   }
   //function contracts(address _giteta, address _gitorg, address _gitarg
