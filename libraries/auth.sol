@@ -27,7 +27,7 @@ library auth {
     return result;
   }
   // result should be empty pointer to Log storage array
-  function query(address _contract, Log[] storage actions, Log[] storage result) private returns (Log[] storage) {
+  function query(Log[] storage actions, address _contract, Log[] storage result) private returns (Log[] storage) {
     for (uint i = 0; i < actions.length; i++) {
       if (actions[i]._contract == _contract) {
         if (actions[i].restricted && actions[i].wallet != msg.sender) continue;
@@ -36,5 +36,12 @@ library auth {
     }  
     return result;
   }
-  //function query(uint up, uint down)
+  function query(Log[] storage actions, uint up, uint down, Log[] storage result) private returns (Log[] storage) {
+    for (uint i = 0; i < actions.length; i++) {
+      if (actions[i].timestamp >= down && actions[i].timestamp <= up) {
+        result.push(actions[i]);
+      }
+    }
+    return result;
+  }
 }
