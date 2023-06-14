@@ -16,4 +16,13 @@ library auth {
     actions.push(log);
     return actions;
   }
+  // result should be empty pointer to Log storage array
+  function query(address _contract, Log[] storage actions, Log[] storage result) private returns (Log[] storage) {
+    for (uint i = 0; i < actions.length; i++) {
+      if (actions[i]._contract == _contract) {
+        result.push(actions[i]);
+      }
+    }  
+    return result;
+  }
 }
