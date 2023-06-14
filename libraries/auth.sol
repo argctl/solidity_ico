@@ -4,15 +4,16 @@ pragma solidity >= "0.8.18";
 library auth {
   // TODO - enum for contract type
   // REVIEW - it's possible that msg.sender isn't available to library and to restrictive
+  enum Type { GITARG, GITETA, GITARRAY, GITORG }
   struct Log {
     address wallet;
     uint timestamp;
     address _contract;
-    string _type;
+    Type _type;
     string _action;
     bool restricted;
   }
-  function action (address _contract, string calldata _type,
+  function action (address _contract, Type _type,
     string calldata _action, Log[] storage actions) internal returns (Log[] storage) {
     Log memory log = Log(msg.sender, block.timestamp, _contract, _type, _action, true); // TODO - update to remove restriction
     actions.push(log);
