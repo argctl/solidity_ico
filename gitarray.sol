@@ -5,6 +5,7 @@ import "giteta.sol";
 
 abstract contract gitarray is Gitarray {
   address gitargWallet;
+  mapping (address => giteta) Giteta;
   
   constructor () {
     gitargWallet = msg.sender;
@@ -19,6 +20,7 @@ abstract contract gitarray is Gitarray {
   function eta(address _giteta) internal override returns (uint) {
     giteta _eta = giteta(_giteta);
     // TODO - map
+    Giteta[msg.sender] = _eta;
     return block.timestamp;
   }
   function eta() external returns (uint) {
