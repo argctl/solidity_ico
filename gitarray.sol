@@ -18,13 +18,12 @@ abstract contract gitarray is Gitarray {
     return gitargWallet;
   }
   function eta(address _giteta) internal override returns (uint) {
-    giteta _eta = giteta(_giteta);
-    // TODO - map
-    Giteta[msg.sender] = _eta;
+    Giteta[msg.sender] = giteta(_giteta);
     return block.timestamp;
   }
   function eta() external returns (uint) {
     giteta _eta = new giteta();
+    Giteta[msg.sender] = _eta;
     return block.timestamp;
   }
   function org(address _gitorg) internal override returns (uint) {
