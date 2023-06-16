@@ -1,0 +1,8 @@
+0000000000000000000000000000000000000000 d28f57c22e9c21b85c662d068137b6149b9256d6 David Kamer <me@davidkamer.com> 1686611824 -0400	branch: Created from gitarray
+d28f57c22e9c21b85c662d068137b6149b9256d6 b5c21b5e2b06109e2b4eac3612f6a0e176f4b9f5 David Kamer <me@davidkamer.com> 1686698096 -0400	commit: auth struct
+b5c21b5e2b06109e2b4eac3612f6a0e176f4b9f5 7fa2d9b780f3c402c23b0cfbf4732c64bfda287b David Kamer <me@davidkamer.com> 1686703571 -0400	commit: auth action function
+7fa2d9b780f3c402c23b0cfbf4732c64bfda287b e3c5b649d9ce00aeb909eb9c4d3d54381b944749 David Kamer <me@davidkamer.com> 1686704399 -0400	commit: first query
+e3c5b649d9ce00aeb909eb9c4d3d54381b944749 5110a5355ad7630d0da9ff6e20e40ee0bea5f961 David Kamer <me@davidkamer.com> 1686765125 -0400	commit: results by wallet
+5110a5355ad7630d0da9ff6e20e40ee0bea5f961 c0a85e1a133734f2da4c96d5e36866e08f5cff3d David Kamer <me@davidkamer.com> 1686777319 -0400	commit: restrict logs automatically
+c0a85e1a133734f2da4c96d5e36866e08f5cff3d c0139461187846e97efbb2024808617fee35cb13 David Kamer <me@davidkamer.com> 1686780207 -0400	commit: timestamp query
+c0139461187846e97efbb2024808617fee35cb13 0d9fe9245942c3031e00cab8b21c73c8063d3656 David Kamer <me@davidkamer.com> 1686786506 -0400	commit: type enum

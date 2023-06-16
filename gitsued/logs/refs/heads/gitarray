@@ -1,0 +1,16 @@
+0000000000000000000000000000000000000000 97d9c3718df005fec11bf17fd1dc74a41cbf860d David Kamer <me@davidkamer.com> 1686065651 -0400	branch: Created from main
+97d9c3718df005fec11bf17fd1dc74a41cbf860d 9ef2e80aee6c8b253de26adddf4d9ec1f41259fc David Kamer <me@davidkamer.com> 1686081280 -0400	commit: burn interface
+9ef2e80aee6c8b253de26adddf4d9ec1f41259fc 89b46b10fdb5837b67a542c8c63a8b356e277b40 David Kamer <me@davidkamer.com> 1686509752 -0400	rebase (finish): refs/heads/gitarray onto 509552009911b0b6372e7b796b7a57e337a3b614
+89b46b10fdb5837b67a542c8c63a8b356e277b40 1ed82aa12eeb17e1d3f39a8f61c635daeb275cb7 David Kamer <me@davidkamer.com> 1686510306 -0400	commit: gitarray hash interface
+1ed82aa12eeb17e1d3f39a8f61c635daeb275cb7 8b2aa8cc69c8cd7431ad0e149dbe24b8bc9e5be2 David Kamer <me@davidkamer.com> 1686513073 -0400	commit: function names
+8b2aa8cc69c8cd7431ad0e149dbe24b8bc9e5be2 99ba9f28d7f2320cd4e39d480d3ea0c5a1752c85 David Kamer <me@davidkamer.com> 1686539620 -0400	commit: git addresses
+99ba9f28d7f2320cd4e39d480d3ea0c5a1752c85 02623adb761d87d2301359d10c377ab420027727 David Kamer <me@davidkamer.com> 1686592020 -0400	commit: restrict visibility
+02623adb761d87d2301359d10c377ab420027727 ae6af71d120a73cfc113a060434cdba15e13700c David Kamer <me@davidkamer.com> 1686596082 -0400	commit: gitarray functions
+ae6af71d120a73cfc113a060434cdba15e13700c 6909a87d1f3e325f73bf3991a9ee6634e4df4a89 David Kamer <me@davidkamer.com> 1686611276 -0400	commit: gitarg contract address name
+6909a87d1f3e325f73bf3991a9ee6634e4df4a89 d28f57c22e9c21b85c662d068137b6149b9256d6 David Kamer <me@davidkamer.com> 1686611783 -0400	commit: switch for ico
+d28f57c22e9c21b85c662d068137b6149b9256d6 8c3512ffb6e5f3d8f48b78f3609c2151991a0962 David Kamer <me@davidkamer.com> 1686787048 -0400	commit: import giteta
+8c3512ffb6e5f3d8f48b78f3609c2151991a0962 5f8acba40010747b5def96a36482ce1785865974 David Kamer <me@davidkamer.com> 1686792410 -0400	commit: giteta contract tie in
+5f8acba40010747b5def96a36482ce1785865974 fa855d8dbc8dd0cb4c2789ef7cb61f14f03c6d30 David Kamer <me@davidkamer.com> 1686812898 -0400	commit: giteta storage
+fa855d8dbc8dd0cb4c2789ef7cb61f14f03c6d30 8f95ef572e8b265a776439c0ab1c14bb4db65d71 David Kamer <me@davidkamer.com> 1686850870 -0400	commit: giteta map
+8f95ef572e8b265a776439c0ab1c14bb4db65d71 775e895d27185df4d698d5badae4b772f7a6bce2 David Kamer <me@davidkamer.com> 1686852558 -0400	merge gitorg: Merge made by the 'ort' strategy.
+775e895d27185df4d698d5badae4b772f7a6bce2 9102797ec7526329d29fc6c34609ad76fa50a5dc David Kamer <me@davidkamer.com> 1686858473 -0400	commit: transfer repos

@@ -1,0 +1,19 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+	ignorecase = true
+	precomposeunicode = true
+[remote "origin"]
+	url = git@github.com:Epict33tus/solidity_ico.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "main"]
+	remote = origin
+	merge = refs/heads/main
+[remote "gitlab"]
+	url = main
+	fetch = +refs/heads/*:refs/remotes/gitlab/*
+[remote "relay"]
+	url = git@gitlab.com:me2211/gitarg_eth_ico.git
+	fetch = +refs/heads/*:refs/remotes/relay/*

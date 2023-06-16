@@ -1,0 +1,3 @@
+0000000000000000000000000000000000000000 0f6c47edf5b762eaf8e87872705d42cd2db7718e David Kamer <me@davidkamer.com> 1686896002 -0400	branch: Created from main
+0f6c47edf5b762eaf8e87872705d42cd2db7718e e583de19b2187ff0197f2821cdd3c951cccd9331 David Kamer <me@davidkamer.com> 1686896911 -0400	commit: uh oh
+e583de19b2187ff0197f2821cdd3c951cccd9331 706eb94241fe83ac2ab5d48a414540c3c48b81c6 David Kamer <me@davidkamer.com> 1686897294 -0400	revert: Revert "library with checks"

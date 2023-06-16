@@ -1,0 +1,100 @@
+0000000000000000000000000000000000000000 7bc8c8cfcbfae4abb619a67022536f79c7645c16 David Kamer <me@davidkamer.com> 1685591603 -0400	commit (initial): init commit
+7bc8c8cfcbfae4abb619a67022536f79c7645c16 ce9c37daec713555449646baef85a0076af333db David Kamer <me@davidkamer.com> 1685632997 -0400	commit: data struct update
+ce9c37daec713555449646baef85a0076af333db 5bad58180cc1b173278dff2e8d971f20866d5bdb David Kamer <me@davidkamer.com> 1685634949 -0400	commit: notes
+5bad58180cc1b173278dff2e8d971f20866d5bdb af199ef9f20cb4b05306ca8ed9f732ef4df56275 David Kamer <me@davidkamer.com> 1685660852 -0400	commit: add comments for compiler warnings standard
+af199ef9f20cb4b05306ca8ed9f732ef4df56275 09dc64c772b6d70c8a11ad5c3180df555436a980 David Kamer <me@davidkamer.com> 1685674665 -0400	commit: stated purpose - review twitter for more details
+09dc64c772b6d70c8a11ad5c3180df555436a980 e757b41e92753c9c6a5d245797b43d62fd87fcc6 David Kamer <me@davidkamer.com> 1685724323 -0400	commit: functional ico
+e757b41e92753c9c6a5d245797b43d62fd87fcc6 59069dbcac53aebb4019140d92d157d7ae85b3cd David Kamer <me@davidkamer.com> 1685725982 -0400	commit: todos
+59069dbcac53aebb4019140d92d157d7ae85b3cd 570f956b0a6c6a20a99102c0772a9d4db47a27b8 David Kamer <me@davidkamer.com> 1685805226 -0400	commit: readme overview
+570f956b0a6c6a20a99102c0772a9d4db47a27b8 444bd86540afcbdf512f92c2419f55866ee2a4dd David Kamer <me@davidkamer.com> 1685809910 -0400	commit: licenses
+444bd86540afcbdf512f92c2419f55866ee2a4dd edcd1d2df2d07fc30ee88033ef0857df55806de1 David Kamer <me@davidkamer.com> 1685809972 -0400	commit: change version
+edcd1d2df2d07fc30ee88033ef0857df55806de1 7d88d07673de48047444fadb4ea6a1516e6b66da David Kamer <me@davidkamer.com> 1685810067 -0400	commit: commit hash contract skeleton
+7d88d07673de48047444fadb4ea6a1516e6b66da 11379c9ec52297203d0b0921d411cf6d052779bf David Kamer <me@davidkamer.com> 1685849921 -0400	commit: giteta skeleton
+11379c9ec52297203d0b0921d411cf6d052779bf 008b9ef505c789563db9c3b27c467ec01d925d2d David Kamer <me@davidkamer.com> 1685908428 -0400	commit: repo mappings
+008b9ef505c789563db9c3b27c467ec01d925d2d f4dd61eb86ee33a779faac7a3675fc111708259a David Kamer <me@davidkamer.com> 1685910308 -0400	commit: basic commit method
+f4dd61eb86ee33a779faac7a3675fc111708259a 7e547c3725e6b45b2d7a61bfefc00ea7057d57d3 David Kamer <me@davidkamer.com> 1685913155 -0400	commit: fix map index to repo
+7e547c3725e6b45b2d7a61bfefc00ea7057d57d3 b533de5e11e36d9f45c3176208b53a380441584f David Kamer <me@davidkamer.com> 1685934009 -0400	commit: wallet based repo commits
+b533de5e11e36d9f45c3176208b53a380441584f 83b0b3fa7ba08d27037a596b8f10e1d6e54a1f29 David Kamer <me@davidkamer.com> 1685984091 -0400	commit: basic repo implementation
+83b0b3fa7ba08d27037a596b8f10e1d6e54a1f29 83b0b3fa7ba08d27037a596b8f10e1d6e54a1f29 David Kamer <me@davidkamer.com> 1685984833 -0400	checkout: moving from main to hooks
+83b0b3fa7ba08d27037a596b8f10e1d6e54a1f29 cc0b7fb24ca7670ebd87243f21e15a69270d58db David Kamer <me@davidkamer.com> 1685984895 -0400	commit: githooks file
+cc0b7fb24ca7670ebd87243f21e15a69270d58db 83b0b3fa7ba08d27037a596b8f10e1d6e54a1f29 David Kamer <me@davidkamer.com> 1685998343 -0400	checkout: moving from hooks to main
+83b0b3fa7ba08d27037a596b8f10e1d6e54a1f29 db18bd23fafbd87ce369dc26e8b4dd8f3dc17372 David Kamer <me@davidkamer.com> 1685998848 -0400	commit: hidden repo name commits
+db18bd23fafbd87ce369dc26e8b4dd8f3dc17372 6f04ae1666c74a2e0ccdf427fbbb06e7de8e358b David Kamer <me@davidkamer.com> 1686015262 -0400	commit: add repo lock and assignable repo
+6f04ae1666c74a2e0ccdf427fbbb06e7de8e358b c241e8938757de341b18b77c452df5a915b42cef David Kamer <me@davidkamer.com> 1686061481 -0400	commit: repo by wallet
+c241e8938757de341b18b77c452df5a915b42cef a3bc729695f08a76412a18f63679ace311f7eab4 David Kamer <me@davidkamer.com> 1686065535 -0400	commit: skeleton for burn interface
+a3bc729695f08a76412a18f63679ace311f7eab4 97d9c3718df005fec11bf17fd1dc74a41cbf860d David Kamer <me@davidkamer.com> 1686065616 -0400	commit: theoretical import
+97d9c3718df005fec11bf17fd1dc74a41cbf860d 97d9c3718df005fec11bf17fd1dc74a41cbf860d David Kamer <me@davidkamer.com> 1686065672 -0400	checkout: moving from main to gitorg
+97d9c3718df005fec11bf17fd1dc74a41cbf860d 97d9c3718df005fec11bf17fd1dc74a41cbf860d David Kamer <me@davidkamer.com> 1686065700 -0400	checkout: moving from gitorg to gitarray
+97d9c3718df005fec11bf17fd1dc74a41cbf860d 9ef2e80aee6c8b253de26adddf4d9ec1f41259fc David Kamer <me@davidkamer.com> 1686081280 -0400	commit: burn interface
+9ef2e80aee6c8b253de26adddf4d9ec1f41259fc 97d9c3718df005fec11bf17fd1dc74a41cbf860d David Kamer <me@davidkamer.com> 1686084504 -0400	checkout: moving from gitarray to gitorg
+97d9c3718df005fec11bf17fd1dc74a41cbf860d ce691c4aacbfd352102db6d190440066c047b8a8 David Kamer <me@davidkamer.com> 1686155363 -0400	commit: gitorg direct
+ce691c4aacbfd352102db6d190440066c047b8a8 97d9c3718df005fec11bf17fd1dc74a41cbf860d David Kamer <me@davidkamer.com> 1686157667 -0400	checkout: moving from gitorg to main
+97d9c3718df005fec11bf17fd1dc74a41cbf860d ce691c4aacbfd352102db6d190440066c047b8a8 David Kamer <me@davidkamer.com> 1686157942 -0400	checkout: moving from main to gitorg
+ce691c4aacbfd352102db6d190440066c047b8a8 97d9c3718df005fec11bf17fd1dc74a41cbf860d David Kamer <me@davidkamer.com> 1686163511 -0400	checkout: moving from gitorg to main
+97d9c3718df005fec11bf17fd1dc74a41cbf860d 9d84e04f0e3cf4e8d3c112145cde1bead7355bc8 David Kamer <me@davidkamer.com> 1686164016 -0400	commit: tentative accounts implementation
+9d84e04f0e3cf4e8d3c112145cde1bead7355bc8 ce691c4aacbfd352102db6d190440066c047b8a8 David Kamer <me@davidkamer.com> 1686171794 -0400	checkout: moving from main to gitorg
+ce691c4aacbfd352102db6d190440066c047b8a8 ef2573d4109abd2234b207beabdf907caca73ce5 David Kamer <me@davidkamer.com> 1686174012 -0400	commit: greater than switch
+ef2573d4109abd2234b207beabdf907caca73ce5 68579b2a449c8091994d489e0252808bc14429af David Kamer <me@davidkamer.com> 1686175239 -0400	commit: objects from contracts
+68579b2a449c8091994d489e0252808bc14429af 8c8f1185a8fb64759b544ae0be49dae02a6861cd David Kamer <me@davidkamer.com> 1686331720 -0400	commit: note for ico lifecycle
+8c8f1185a8fb64759b544ae0be49dae02a6861cd 9d84e04f0e3cf4e8d3c112145cde1bead7355bc8 David Kamer <me@davidkamer.com> 1686417120 -0400	checkout: moving from gitorg to main
+9d84e04f0e3cf4e8d3c112145cde1bead7355bc8 f41a4c871102a8e955abafc9a2f54272898a3c39 David Kamer <me@davidkamer.com> 1686417614 -0400	commit: access gitarg wallet in giteta
+f41a4c871102a8e955abafc9a2f54272898a3c39 8c8f1185a8fb64759b544ae0be49dae02a6861cd David Kamer <me@davidkamer.com> 1686421025 -0400	checkout: moving from main to gitorg
+8c8f1185a8fb64759b544ae0be49dae02a6861cd f41a4c871102a8e955abafc9a2f54272898a3c39 David Kamer <me@davidkamer.com> 1686421301 -0400	checkout: moving from gitorg to main
+f41a4c871102a8e955abafc9a2f54272898a3c39 509552009911b0b6372e7b796b7a57e337a3b614 David Kamer <me@davidkamer.com> 1686421317 -0400	commit: bak pattern
+509552009911b0b6372e7b796b7a57e337a3b614 8c8f1185a8fb64759b544ae0be49dae02a6861cd David Kamer <me@davidkamer.com> 1686422880 -0400	checkout: moving from main to gitorg
+8c8f1185a8fb64759b544ae0be49dae02a6861cd 509552009911b0b6372e7b796b7a57e337a3b614 David Kamer <me@davidkamer.com> 1686422899 -0400	rebase (start): checkout main
+509552009911b0b6372e7b796b7a57e337a3b614 a52a19c7eb97405eac286bee2dc5bc2e22cbc2a9 David Kamer <me@davidkamer.com> 1686422899 -0400	rebase (pick): gitorg direct
+a52a19c7eb97405eac286bee2dc5bc2e22cbc2a9 86c0a189e21786c8ff9fc134f95e2f8936edc55a David Kamer <me@davidkamer.com> 1686422899 -0400	rebase (pick): greater than switch
+86c0a189e21786c8ff9fc134f95e2f8936edc55a 457207a9cd049f2dde69d765b14e39cb3b9a57e5 David Kamer <me@davidkamer.com> 1686422899 -0400	rebase (pick): objects from contracts
+457207a9cd049f2dde69d765b14e39cb3b9a57e5 b7d149f4c6f0367dc2ccaed00c6f7fbeab6eaefc David Kamer <me@davidkamer.com> 1686422899 -0400	rebase (pick): note for ico lifecycle
+b7d149f4c6f0367dc2ccaed00c6f7fbeab6eaefc b7d149f4c6f0367dc2ccaed00c6f7fbeab6eaefc David Kamer <me@davidkamer.com> 1686422899 -0400	rebase (finish): returning to refs/heads/gitorg
+b7d149f4c6f0367dc2ccaed00c6f7fbeab6eaefc 226a73287f34dbf830be6a240cfef61d1b2e9827 David Kamer <me@davidkamer.com> 1686509415 -0400	commit: add wallet from gitarg contract
+226a73287f34dbf830be6a240cfef61d1b2e9827 c779d2ab1d261966ac86208db7b6ed252a17b764 David Kamer <me@davidkamer.com> 1686509501 -0400	commit (amend): add gitarg wallet from giteta contract
+c779d2ab1d261966ac86208db7b6ed252a17b764 509552009911b0b6372e7b796b7a57e337a3b614 David Kamer <me@davidkamer.com> 1686509714 -0400	checkout: moving from gitorg to main
+509552009911b0b6372e7b796b7a57e337a3b614 9ef2e80aee6c8b253de26adddf4d9ec1f41259fc David Kamer <me@davidkamer.com> 1686509749 -0400	checkout: moving from main to gitarray
+9ef2e80aee6c8b253de26adddf4d9ec1f41259fc 509552009911b0b6372e7b796b7a57e337a3b614 David Kamer <me@davidkamer.com> 1686509752 -0400	rebase (start): checkout main
+509552009911b0b6372e7b796b7a57e337a3b614 89b46b10fdb5837b67a542c8c63a8b356e277b40 David Kamer <me@davidkamer.com> 1686509752 -0400	rebase (pick): burn interface
+89b46b10fdb5837b67a542c8c63a8b356e277b40 89b46b10fdb5837b67a542c8c63a8b356e277b40 David Kamer <me@davidkamer.com> 1686509752 -0400	rebase (finish): returning to refs/heads/gitarray
+89b46b10fdb5837b67a542c8c63a8b356e277b40 1ed82aa12eeb17e1d3f39a8f61c635daeb275cb7 David Kamer <me@davidkamer.com> 1686510306 -0400	commit: gitarray hash interface
+1ed82aa12eeb17e1d3f39a8f61c635daeb275cb7 8b2aa8cc69c8cd7431ad0e149dbe24b8bc9e5be2 David Kamer <me@davidkamer.com> 1686513073 -0400	commit: function names
+8b2aa8cc69c8cd7431ad0e149dbe24b8bc9e5be2 99ba9f28d7f2320cd4e39d480d3ea0c5a1752c85 David Kamer <me@davidkamer.com> 1686539620 -0400	commit: git addresses
+99ba9f28d7f2320cd4e39d480d3ea0c5a1752c85 02623adb761d87d2301359d10c377ab420027727 David Kamer <me@davidkamer.com> 1686592020 -0400	commit: restrict visibility
+02623adb761d87d2301359d10c377ab420027727 ae6af71d120a73cfc113a060434cdba15e13700c David Kamer <me@davidkamer.com> 1686596082 -0400	commit: gitarray functions
+ae6af71d120a73cfc113a060434cdba15e13700c 6909a87d1f3e325f73bf3991a9ee6634e4df4a89 David Kamer <me@davidkamer.com> 1686611276 -0400	commit: gitarg contract address name
+6909a87d1f3e325f73bf3991a9ee6634e4df4a89 d28f57c22e9c21b85c662d068137b6149b9256d6 David Kamer <me@davidkamer.com> 1686611783 -0400	commit: switch for ico
+d28f57c22e9c21b85c662d068137b6149b9256d6 d28f57c22e9c21b85c662d068137b6149b9256d6 David Kamer <me@davidkamer.com> 1686611876 -0400	checkout: moving from gitarray to auth
+d28f57c22e9c21b85c662d068137b6149b9256d6 b5c21b5e2b06109e2b4eac3612f6a0e176f4b9f5 David Kamer <me@davidkamer.com> 1686698096 -0400	commit: auth struct
+b5c21b5e2b06109e2b4eac3612f6a0e176f4b9f5 7fa2d9b780f3c402c23b0cfbf4732c64bfda287b David Kamer <me@davidkamer.com> 1686703571 -0400	commit: auth action function
+7fa2d9b780f3c402c23b0cfbf4732c64bfda287b e3c5b649d9ce00aeb909eb9c4d3d54381b944749 David Kamer <me@davidkamer.com> 1686704399 -0400	commit: first query
+e3c5b649d9ce00aeb909eb9c4d3d54381b944749 5110a5355ad7630d0da9ff6e20e40ee0bea5f961 David Kamer <me@davidkamer.com> 1686765125 -0400	commit: results by wallet
+5110a5355ad7630d0da9ff6e20e40ee0bea5f961 c0a85e1a133734f2da4c96d5e36866e08f5cff3d David Kamer <me@davidkamer.com> 1686777319 -0400	commit: restrict logs automatically
+c0a85e1a133734f2da4c96d5e36866e08f5cff3d c0139461187846e97efbb2024808617fee35cb13 David Kamer <me@davidkamer.com> 1686780207 -0400	commit: timestamp query
+c0139461187846e97efbb2024808617fee35cb13 0d9fe9245942c3031e00cab8b21c73c8063d3656 David Kamer <me@davidkamer.com> 1686786506 -0400	commit: type enum
+0d9fe9245942c3031e00cab8b21c73c8063d3656 d28f57c22e9c21b85c662d068137b6149b9256d6 David Kamer <me@davidkamer.com> 1686786635 -0400	checkout: moving from auth to gitarray
+d28f57c22e9c21b85c662d068137b6149b9256d6 8c3512ffb6e5f3d8f48b78f3609c2151991a0962 David Kamer <me@davidkamer.com> 1686787048 -0400	commit: import giteta
+8c3512ffb6e5f3d8f48b78f3609c2151991a0962 5f8acba40010747b5def96a36482ce1785865974 David Kamer <me@davidkamer.com> 1686792410 -0400	commit: giteta contract tie in
+5f8acba40010747b5def96a36482ce1785865974 fa855d8dbc8dd0cb4c2789ef7cb61f14f03c6d30 David Kamer <me@davidkamer.com> 1686812898 -0400	commit: giteta storage
+fa855d8dbc8dd0cb4c2789ef7cb61f14f03c6d30 8f95ef572e8b265a776439c0ab1c14bb4db65d71 David Kamer <me@davidkamer.com> 1686850870 -0400	commit: giteta map
+8f95ef572e8b265a776439c0ab1c14bb4db65d71 775e895d27185df4d698d5badae4b772f7a6bce2 David Kamer <me@davidkamer.com> 1686852558 -0400	merge gitorg: Merge made by the 'ort' strategy.
+775e895d27185df4d698d5badae4b772f7a6bce2 775e895d27185df4d698d5badae4b772f7a6bce2 David Kamer <me@davidkamer.com> 1686852615 -0400	reset: moving to HEAD
+775e895d27185df4d698d5badae4b772f7a6bce2 c779d2ab1d261966ac86208db7b6ed252a17b764 David Kamer <me@davidkamer.com> 1686852625 -0400	checkout: moving from gitarray to gitorg
+c779d2ab1d261966ac86208db7b6ed252a17b764 775e895d27185df4d698d5badae4b772f7a6bce2 David Kamer <me@davidkamer.com> 1686852703 -0400	checkout: moving from gitorg to gitarray
+775e895d27185df4d698d5badae4b772f7a6bce2 9102797ec7526329d29fc6c34609ad76fa50a5dc David Kamer <me@davidkamer.com> 1686858473 -0400	commit: transfer repos
+9102797ec7526329d29fc6c34609ad76fa50a5dc 509552009911b0b6372e7b796b7a57e337a3b614 David Kamer <me@davidkamer.com> 1686858514 -0400	checkout: moving from gitarray to main
+509552009911b0b6372e7b796b7a57e337a3b614 9102797ec7526329d29fc6c34609ad76fa50a5dc David Kamer <me@davidkamer.com> 1686858575 -0400	checkout: moving from main to gitarray
+9102797ec7526329d29fc6c34609ad76fa50a5dc 509552009911b0b6372e7b796b7a57e337a3b614 David Kamer <me@davidkamer.com> 1686861770 -0400	checkout: moving from gitarray to main
+509552009911b0b6372e7b796b7a57e337a3b614 9102797ec7526329d29fc6c34609ad76fa50a5dc David Kamer <me@davidkamer.com> 1686861775 -0400	merge gitarray: Fast-forward
+9102797ec7526329d29fc6c34609ad76fa50a5dc 3f7604193cce1def3bbd43b9b18efe09d109ebfe David Kamer <me@davidkamer.com> 1686861783 -0400	merge auth: Merge made by the 'ort' strategy.
+3f7604193cce1def3bbd43b9b18efe09d109ebfe 0f6c47edf5b762eaf8e87872705d42cd2db7718e David Kamer <me@davidkamer.com> 1686888429 -0400	commit: library with checks
+0f6c47edf5b762eaf8e87872705d42cd2db7718e 0f6c47edf5b762eaf8e87872705d42cd2db7718e David Kamer <me@davidkamer.com> 1686896007 -0400	checkout: moving from main to gitarg
+0f6c47edf5b762eaf8e87872705d42cd2db7718e e583de19b2187ff0197f2821cdd3c951cccd9331 David Kamer <me@davidkamer.com> 1686896911 -0400	commit: uh oh
+e583de19b2187ff0197f2821cdd3c951cccd9331 0f6c47edf5b762eaf8e87872705d42cd2db7718e David Kamer <me@davidkamer.com> 1686896920 -0400	checkout: moving from gitarg to main
+0f6c47edf5b762eaf8e87872705d42cd2db7718e e583de19b2187ff0197f2821cdd3c951cccd9331 David Kamer <me@davidkamer.com> 1686897112 -0400	checkout: moving from main to gitarg
+e583de19b2187ff0197f2821cdd3c951cccd9331 706eb94241fe83ac2ab5d48a414540c3c48b81c6 David Kamer <me@davidkamer.com> 1686897294 -0400	revert: Revert "library with checks"
+706eb94241fe83ac2ab5d48a414540c3c48b81c6 0f6c47edf5b762eaf8e87872705d42cd2db7718e David Kamer <me@davidkamer.com> 1686897356 -0400	checkout: moving from gitarg to main
+0f6c47edf5b762eaf8e87872705d42cd2db7718e 706eb94241fe83ac2ab5d48a414540c3c48b81c6 David Kamer <me@davidkamer.com> 1686897381 -0400	checkout: moving from main to gitarg
+706eb94241fe83ac2ab5d48a414540c3c48b81c6 0f6c47edf5b762eaf8e87872705d42cd2db7718e David Kamer <me@davidkamer.com> 1686897502 -0400	checkout: moving from gitarg to main
+0f6c47edf5b762eaf8e87872705d42cd2db7718e 706eb94241fe83ac2ab5d48a414540c3c48b81c6 David Kamer <me@davidkamer.com> 1686898318 -0400	checkout: moving from main to gitarg
+706eb94241fe83ac2ab5d48a414540c3c48b81c6 0f6c47edf5b762eaf8e87872705d42cd2db7718e David Kamer <me@davidkamer.com> 1686898699 -0400	checkout: moving from gitarg to 0f6c47edf5b762eaf8e87872705d42cd2db7718e
+0f6c47edf5b762eaf8e87872705d42cd2db7718e 0f6c47edf5b762eaf8e87872705d42cd2db7718e David Kamer <me@davidkamer.com> 1686898725 -0400	checkout: moving from 0f6c47edf5b762eaf8e87872705d42cd2db7718e to main
+0f6c47edf5b762eaf8e87872705d42cd2db7718e 706eb94241fe83ac2ab5d48a414540c3c48b81c6 David Kamer <me@davidkamer.com> 1686898872 -0400	checkout: moving from main to gitarg

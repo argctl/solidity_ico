@@ -1,0 +1,12 @@
+Revert "library with checks"
+
+This reverts commit 0f6c47edf5b762eaf8e87872705d42cd2db7718e.
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# On branch gitarg
+# Changes to be committed:
+#	modified:   gitarray.sol
+#	modified:   libraries/gitorg.sol
+#

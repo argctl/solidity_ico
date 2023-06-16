@@ -1,0 +1,8 @@
+0000000000000000000000000000000000000000 97d9c3718df005fec11bf17fd1dc74a41cbf860d David Kamer <me@davidkamer.com> 1686065642 -0400	branch: Created from main
+97d9c3718df005fec11bf17fd1dc74a41cbf860d ce691c4aacbfd352102db6d190440066c047b8a8 David Kamer <me@davidkamer.com> 1686155363 -0400	commit: gitorg direct
+ce691c4aacbfd352102db6d190440066c047b8a8 ef2573d4109abd2234b207beabdf907caca73ce5 David Kamer <me@davidkamer.com> 1686174012 -0400	commit: greater than switch
+ef2573d4109abd2234b207beabdf907caca73ce5 68579b2a449c8091994d489e0252808bc14429af David Kamer <me@davidkamer.com> 1686175239 -0400	commit: objects from contracts
+68579b2a449c8091994d489e0252808bc14429af 8c8f1185a8fb64759b544ae0be49dae02a6861cd David Kamer <me@davidkamer.com> 1686331720 -0400	commit: note for ico lifecycle
+8c8f1185a8fb64759b544ae0be49dae02a6861cd b7d149f4c6f0367dc2ccaed00c6f7fbeab6eaefc David Kamer <me@davidkamer.com> 1686422899 -0400	rebase (finish): refs/heads/gitorg onto 509552009911b0b6372e7b796b7a57e337a3b614
+b7d149f4c6f0367dc2ccaed00c6f7fbeab6eaefc 226a73287f34dbf830be6a240cfef61d1b2e9827 David Kamer <me@davidkamer.com> 1686509415 -0400	commit: add wallet from gitarg contract
+226a73287f34dbf830be6a240cfef61d1b2e9827 c779d2ab1d261966ac86208db7b6ed252a17b764 David Kamer <me@davidkamer.com> 1686509501 -0400	commit (amend): add gitarg wallet from giteta contract
