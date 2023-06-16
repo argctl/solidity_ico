@@ -27,7 +27,7 @@ abstract contract gitarray is Gitarray {
     Giteta[msg.sender] = new giteta();
     return block.timestamp;
   }
-  function org(address _gitorg) internal override returns (uint) {
+  function org() internal override returns (uint) {
     return block.timestamp;
   }
   
