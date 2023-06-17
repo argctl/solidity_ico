@@ -2,12 +2,13 @@
 pragma solidity >= "0.8.18";
 import "interfaces/gitarray.sol";
 import "giteta.sol";
-import "gitarg.sol";
+import "gitarg_proxy.sol";
 import "libraries/gitorg.sol";
 
 abstract contract gitarray is Gitarray {
   address gitargWallet;
   mapping (address => giteta) Giteta;
+  mapping (address => gitarg_proxy) gitargProxies;
   
   constructor () {
     gitargWallet = msg.sender;
@@ -27,15 +28,11 @@ abstract contract gitarray is Gitarray {
     Giteta[msg.sender] = new giteta();
     return block.timestamp;
   }
-  function org() internal override returns (uint) {
-    return block.timestamp;
-  }
   
   function arg(address _gitarg) internal override returns (uint) {
     if (_gitarg != gitargWallet) {
-      
+      gitargProxies[_gitarg] = gitarg_proxy(_gitarg);     
     }
-    
     return block.timestamp;
   }
   function direct(address _giteta, address _gitarg, address repo, uint stash, address payable _to) public payable returns (uint) {
