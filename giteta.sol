@@ -61,4 +61,40 @@ contract giteta {
     require(!repoLock[wallet]);
     addressRepo[wallet] = Repo(name, url, wallet);
   }
+  function log(string[] memory logEntries) public returns (uint) { //uint[]
+    /*
+    commit e6c47dc17a0a711e07a75f267b6bc428d626b13c
+    Author: David Kamer <me@davidkamer.com>
+    Date:   Fri Jun 16 12:30:11 2023 -0400
+
+    refactor
+
+    commit e9537ece4130fdd24ed902417d5b80bb008c20ba
+    Author: David Kamer <me@davidkamer.com>
+    Date:   Fri Jun 16 03:16:07 2023 -0400
+
+    important note! 
+    */
+    require(!repoLock[msg.sender]);
+    for (uint i = 0; i < logEntries.length; i++) {
+      string memory logEntry = logEntries[i];
+      bytes memory logBytes = bytes(logEntry);
+      uint count = 0;
+      bytes memory date;
+      for (uint i = 0; i < logBytes.length; i++) {
+        // TODO - map commit
+        if (count == 0) {
+
+        }
+        // TODO - store commit date from dev terminal
+        if (count == 2) {
+          
+        }
+        if (logBytes[i] == '\n') {
+          count++;
+        }
+      }
+    }
+    return 0;
+  }
 }
