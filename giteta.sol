@@ -80,17 +80,40 @@ contract giteta {
       string memory logEntry = logEntries[i];
       bytes memory logBytes = bytes(logEntry);
       uint count = 0;
+      //bytes memory date;
+      bytes memory commit;
+      bytes memory author;
       bytes memory date;
+      bool flag = true;
+      uint byteCount = 0;
+      // REVIEW - need second iterator for bytes arrays
       for (uint i = 0; i < logBytes.length; i++) {
         // TODO - map commit
         if (count == 0) {
-
+          if (flag) {
+            commit[byteCount] = logBytes[i];
+            byteCount++;
+          }
+          if (logBytes[i] == ' ') flag = true;
         }
         // TODO - store commit date from dev terminal
+        if (count == 1) {
+          if (flag) {
+            author[byteCount] = logBytes[i]; 
+            byteCount++;
+          }
+          if (logBytes[i] == ' ') flag = true;
+        }
         if (count == 2) {
-          
+          if (flag) {
+            date[byteCount] = logBytes[i];
+            byteCount++;
+          }
+          if (logBytes[i] == ' ') flag = true;
         }
         if (logBytes[i] == '\n') {
+          flag = false;
+          byteCount = 0;
           count++;
         }
       }
