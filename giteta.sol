@@ -10,14 +10,22 @@ contract giteta {
     string commit;
     uint256 timestamp;
   }
+  
+  struct Access {
+    address wallet;
+    uint256 timestamp;
+  }
+  struct Log {
+    address wallet;
+    bytes commit;
+    bytes author;
+    bytes date;
+  }
   struct Repo {
     string name;
     string url;
     address wallet;
-  }
-  struct Access {
-    address wallet;
-    uint256 timestamp;
+    Log[] log;
   }
   // REVIEW - should every repo force new address or address independent repos?
   mapping(address => bool) private repoLock;
@@ -52,16 +60,18 @@ contract giteta {
     return block.number;
   }
   function repo(string memory name, string memory url) public returns (uint) {
-    Repo memory repo = Repo(name, url, msg.sender);
+    Log[] memory log;
+    Repo memory repo = Repo(name, url, msg.sender, log);
     repos[msg.sender].push(repo);
     repoByName[name] = repo;
     return block.timestamp;
   }
   function repo(address wallet, string memory name, string memory url) public returns (uint) {
     require(!repoLock[wallet]);
-    addressRepo[wallet] = Repo(name, url, wallet);
+    Log[] memory log;
+    addressRepo[wallet] = Repo(name, url, wallet, log);
   }
-  function log(string[] memory logEntries) public returns (uint) { //uint[]
+  function log(address repo, string[] memory logEntries) public returns (uint) { //uint[]
     /*
     commit e6c47dc17a0a711e07a75f267b6bc428d626b13c
     Author: David Kamer <me@davidkamer.com>
@@ -76,6 +86,7 @@ contract giteta {
     important note! 
     */
     require(!repoLock[msg.sender]);
+    
     for (uint i = 0; i < logEntries.length; i++) {
       string memory logEntry = logEntries[i];
       bytes memory logBytes = bytes(logEntry);
@@ -84,6 +95,7 @@ contract giteta {
       bytes memory commit;
       bytes memory author;
       bytes memory date;
+      bytes memory message;
       bool flag = true;
       uint byteCount = 0;
       // REVIEW - need second iterator for bytes arrays
@@ -111,12 +123,18 @@ contract giteta {
           }
           if (logBytes[i] == ' ') flag = true;
         }
+        if (count == 4) {
+          message[byteCount] = logBytes[i];
+          byteCount++;
+        }
+        // REVIEW - 2 byte counts for escape?
         if (logBytes[i] == '\n') {
           flag = false;
           byteCount = 0;
           count++;
         }
       }
+      addressRepo[repo].log.push(Log(msg.sender, message, author, date));
     }
     return 0;
   }
