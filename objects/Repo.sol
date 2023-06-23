@@ -7,7 +7,14 @@ contract Repo {
   string name;
   string url;
   address owner;
+  mapping(address => uint) buyerContributions;
+  address[] buyers;
   uint value;
+
+  modifier seller (address payable _seller) {
+    require(msg.sender == owner && _seller == owner);
+    _;
+  }
   
   constructor(string memory _name, string memory _url) payable {
     name = _name;
@@ -15,12 +22,22 @@ contract Repo {
     owner = msg.sender;
     value = msg.value;
   }
-  function sell(address _owner, address payable _seller, uint _value) public {
-    require(msg.sender == owner && _seller == owner);
+  function sell(address _owner, address payable _seller, uint _value) public seller(_seller) {
     require(_value <= value);
     uint diff = value - _value;
     value = diff;
     _seller.transfer(_value);
     owner = _owner;
   }
+  function add() payable public {
+    if(buyerContributions[msg.sender] == 0) buyers.push(msg.sender);
+    buyerContributions[msg.sender] = msg.value; 
+    value += msg.value;
+  }
+  // sell by value of buyer (_owner)
+  function safeSell(address _owner, address payable _seller) public seller(_seller) {
+      
+  }
+  // sell by highest value
+  function highSell(address _owner, address payable _seller, uint _value) public seller(_seller) {}
 }
