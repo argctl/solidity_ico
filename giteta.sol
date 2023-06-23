@@ -2,6 +2,7 @@
 pragma solidity >= "0.8.18";
 import "./gitarg.sol";
 
+
 contract giteta {
   // TODO - make address argument for relays
   address gitarg = 0xb3Bdb3e25BB580CA98480a5fD7c98E6516750685;
@@ -25,7 +26,6 @@ contract giteta {
     string name;
     string url;
     address wallet;
-    Log[] log;
   }
   // REVIEW - should every repo force new address or address independent repos?
   mapping(address => bool) private repoLock;
@@ -36,6 +36,7 @@ contract giteta {
   // TODO - either generate address or use nested struct if supported
   mapping(string => Commit[]) private commitsByRepoName;
   mapping(address => Repo) private addressRepo;
+  mapping(address => Log[]) private repoLog;
 
   address private gitargWallet;
   Access[] private accessList;
@@ -60,16 +61,14 @@ contract giteta {
     return block.number;
   }
   function repo(string memory name, string memory url) public returns (uint) {
-    Log[] memory log;
-    Repo memory repo = Repo(name, url, msg.sender, log);
+    Repo memory repo = Repo(name, url, msg.sender);
     repos[msg.sender].push(repo);
     repoByName[name] = repo;
     return block.timestamp;
   }
   function repo(address wallet, string memory name, string memory url) public returns (uint) {
     require(!repoLock[wallet]);
-    Log[] memory log;
-    addressRepo[wallet] = Repo(name, url, wallet, log);
+    addressRepo[wallet] = Repo(name, url, wallet);
   }
   function log(address repo, string[] memory logEntries) public returns (uint) { //uint[]
     /*
@@ -86,6 +85,8 @@ contract giteta {
     important note! 
     */
     require(!repoLock[msg.sender]);
+    Log[] memory log;
+    repoLog[repo] = log;
     
     for (uint i = 0; i < logEntries.length; i++) {
       string memory logEntry = logEntries[i];
@@ -134,7 +135,7 @@ contract giteta {
           count++;
         }
       }
-      addressRepo[repo].log.push(Log(msg.sender, message, author, date));
+      repoLog[repo].push(Log(msg.sender, message, author, date));
     }
     return 0;
   }
