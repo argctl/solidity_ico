@@ -35,9 +35,16 @@ contract Repo {
     value += msg.value;
   }
   // sell by value of buyer (_owner)
-  function safeSell(address _owner, address payable _seller) public seller(_seller) {
-      
+  function safeSell(address _owner, address payable _seller, uint _value) public seller(_seller) {
+    
   }
   // sell by highest value
-  function highSell(address _owner, address payable _seller, uint _value) public seller(_seller) {}
+  function highSell(address _owner, address payable _seller) public seller(_seller) {
+    uint _value;
+    for(uint i = 0; i < buyers.length; i++) {
+      uint amount = buyerContributions[buyers[i]];
+      if (value > _value) _value = amount;
+    }
+    this.sell(_owner, _seller, _value);
+  }
 }
