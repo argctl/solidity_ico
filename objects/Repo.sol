@@ -2,6 +2,8 @@
 // TODO - change to unlicense (unlinsenced?) 
 pragma solidity >= "0.8.18";
 
+import "./Commit.sol";
+
 contract Repo {
 
   string name;
@@ -13,6 +15,10 @@ contract Repo {
 
   modifier seller (address payable _seller) {
     require(msg.sender == owner && _seller == owner);
+    _;
+  }
+  modifier owned () {
+    require(msg.sender == owner);
     _;
   }
   
@@ -54,5 +60,9 @@ contract Repo {
     }
     // we don't care about the bid, just the highest value
     this.sell(_owner, _seller, _value);
+  }
+  function commit(address _repo, address _wallet, bytes memory _commit, bytes memory _author, bytes memory _date) public owned returns (address) {
+    Commit com = new Commit(_repo, _wallet, _commit, _author, _date);  
+    return address(com);
   }
 }
