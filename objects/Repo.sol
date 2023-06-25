@@ -36,7 +36,14 @@ contract Repo {
   }
   // sell by value of buyer (_owner)
   function safeSell(address _owner, address payable _seller, uint _value) public seller(_seller) {
-    
+    for(uint i = 0; i < buyers.length; i++) {
+      uint amount = buyerContributions[buyers[i]];
+      if (_value == amount) {
+        require(buyers[i] == _owner);
+        this.sell(_owner, _seller, _value);
+        break;
+      }
+    }   
   }
   // sell by highest value
   function highSell(address _owner, address payable _seller) public seller(_seller) {
@@ -45,6 +52,7 @@ contract Repo {
       uint amount = buyerContributions[buyers[i]];
       if (value > _value) _value = amount;
     }
+    // we don't care about the bid, just the highest value
     this.sell(_owner, _seller, _value);
   }
 }
