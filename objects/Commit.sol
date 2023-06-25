@@ -7,7 +7,7 @@ contract Commit {
   bytes commit;
   bytes author;
   bytes date;
-  constructor(address _wallet, address _repo, bytes _commit, bytes _author, bytes _date) {
+  constructor(address _wallet, address _repo, bytes memory _commit, bytes memory _author, bytes memory _date) {
     wallet = _wallet;
     repo = _repo;
     commit = _commit;
