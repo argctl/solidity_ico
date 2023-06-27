@@ -6,21 +6,58 @@ import "gitarg_proxy.sol";
 import "libraries/gitorg.sol";
 
 abstract contract gitarray is Gitarray {
+  
   address gitargWallet;
   address[] private handshakes;
   mapping (address => uint) private handshakeValues;
+  mapping (address => uint) private handshakeStash;
   mapping (address => giteta) Giteta;
   mapping (address => gitarg_proxy) gitargProxies;
+  bool private vault;
+
+  uint private stash;
+  uint private trap;
+  uint public ration;
+  uint public proposal;
   
-  constructor (address[] memory _handshakes, uint[] memory values) {
+  constructor (address[] memory _handshakes, uint[] memory values, bool _vault, uint _ration) {
     require(_handshakes.length == values.length);
     for (uint i = 0; i < _handshakes.length; i++) {
       handshakeValues[handshakes[i]] = values[i]; 
     }
+    handshakes = _handshakes;
     gitargWallet = msg.sender;
+    vault = _vault;
+    ration = _ration;
   }
-  //function setFee()
+  function propose(uint _ration) public returns (uint) {
+    require(gitargWallet == msg.sender);
+    proposal = _ration;
+    return block.timestamp;
+  }
+  function vote(address _handshake) public payable {
+    require(handshakeStash[_handshake] == 0);
+    handshakeStash[_handshake] = msg.value;
+    stash += msg.value;
+  }
+  function setTrap() public payable {
+    require(msg.sender == gitargWallet);
+    trap = msg.value;
+  }
+  function set() public payable {
+    require(trap == msg.value); 
+    uint total;
+    uint votes;
+    for(uint i = 0; i < handshakes.length; i++) {
+      total += handshakeStash[handshakes[i]];
+      votes += handshakeValues[handshakes[i]];
+    }
+    if (vault) require(total == votes);
+    require(total >= votes);
+    ration = proposal;
+  }
   function burn(address wallet, uint commits) internal override returns (uint) {
+    // TODO - direct
     return block.timestamp;
   }
   function hash(address wallet, string memory codeHash, string memory message,
