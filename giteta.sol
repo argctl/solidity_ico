@@ -70,7 +70,7 @@ contract giteta {
     //interchain so no LinkSecret needed
     require(!repoLock[_Repo]);
     Repo repo = Repo(_Repo);
-    repos[wallet].push(repoByUrl[url]);
+    repos[_Repo].push(repoByUrl[url]);
   }
   function log(address repo, string[] memory logEntries) public returns (uint) { //uint[]
     /*
