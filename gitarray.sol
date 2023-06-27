@@ -7,17 +7,25 @@ import "libraries/gitorg.sol";
 
 abstract contract gitarray is Gitarray {
   address gitargWallet;
+  address[] private handshakes;
+  mapping (address => uint) private handshakeValues;
   mapping (address => giteta) Giteta;
   mapping (address => gitarg_proxy) gitargProxies;
   
-  constructor () {
+  constructor (address[] memory _handshakes, uint[] memory values) {
+    require(_handshakes.length == values.length);
+    for (uint i = 0; i < _handshakes.length; i++) {
+      handshakeValues[handshakes[i]] = values[i]; 
+    }
     gitargWallet = msg.sender;
   }
+  //function setFee()
   function burn(address wallet, uint commits) internal override returns (uint) {
     return block.timestamp;
   }
   function hash(address wallet, string memory codeHash, string memory message,
     string memory commitHash, uint clientTimestamp, uint blockTimestamp) internal override returns (address) {
+    //keccak256(codeHash);
     return gitargWallet;
   }
   function eta(address _giteta) internal override returns (uint) {
