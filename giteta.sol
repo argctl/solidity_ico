@@ -4,6 +4,7 @@ import "./gitarg.sol";
 import "./objects/Repo.sol";
 import "./objects/Commit.sol";
 
+// TimeLog handshake string/bytes for blockchain interface
 
 contract giteta {
   // TODO - make address argument for relays
@@ -30,9 +31,9 @@ contract giteta {
   mapping(address => SimpleCommit[]) private commits;
   mapping(address => Repo[]) private repos;
   mapping(string => SimpleCommit[]) private namedRepos;
-  mapping(string => Repo) private repoByName;
+  mapping(string => Repo) private repoByUrl;
   // TODO - either generate address or use nested struct if supported
-  mapping(string => SimpleCommit[]) private commitsByRepoName;
+  mapping(string => SimpleCommit[]) private commitsByUrl;
   mapping(address => Repo) private addressRepo;
   mapping(address => Log[]) private repoLog;
 
@@ -47,7 +48,7 @@ contract giteta {
     return gitargWallet;
   }
   function commit(string memory hash, string memory repo) public returns (uint) {
-    commitsByRepoName[repo].push(SimpleCommit(hash, block.timestamp));
+    commitsByUrl[repo].push(SimpleCommit(hash, block.timestamp));
     return block.number;
   }
   function commit(string memory hash) public returns (uint) {
@@ -61,11 +62,15 @@ contract giteta {
   function repo(string memory name, string memory url) public returns (uint) {
     Repo repo = new Repo(name, url);
     repos[msg.sender].push(repo);
-    repoByName[name] = repo;
+    repoByUrl[url] = repo;
     return block.timestamp;
   }
-  function repo(address wallet, string memory name, string memory url) public returns (uint) {
-    require(!repoLock[wallet]);
+  // move repo to new wallet organization
+  function repo(address _Repo, string memory name, string memory url) public returns (uint) {
+    //interchain so no LinkSecret needed
+    require(!repoLock[_Repo]);
+    Repo repo = Repo(_Repo);
+    repos[wallet].push(repoByUrl[url]);
   }
   function log(address repo, string[] memory logEntries) public returns (uint) { //uint[]
     /*
