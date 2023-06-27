@@ -21,7 +21,7 @@ contract gitarg {
   mapping(address => uint256) private balances;
   mapping(address => bool) private locked;
 
-  uint256 totalSupply_ = 1000 ether;
+  //uint256 totalSupply_ = 1000 ether;
 
   constructor() {
     balances[msg.sender] = totalSupply_;
