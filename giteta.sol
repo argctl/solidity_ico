@@ -24,6 +24,7 @@ contract giteta {
     bytes commit;
     bytes author;
     bytes date;
+    bytes message;
   }
   
   // REVIEW - should every repo force new address or address independent repos?
@@ -137,8 +138,25 @@ contract giteta {
           count++;
         }
       }
-      repoLog[repo].push(Log(msg.sender, message, author, date));
+      repoLog[repo].push(Log(msg.sender, message, author, date, message));
     }
+    
     return 0;
+  }
+  function logCommitMap(address repo, uint commits, string memory repoURL) public returns (Log[] memory) {
+    Log[] memory logs = repoLog[repo];
+    Log[] memory returnLogs;
+    require(logs.length < commits);
+    SimpleCommit[] memory simpleCommits = commitsByUrl[repoURL];
+    for (uint i = 0; i < commits; i++) {
+      SimpleCommit memory simpleCommit = simpleCommits[i];
+      for (uint j = 0; j < commits; j++) {
+        if (keccak256(abi.encodePacked(logs[j].commit)) == keccak256(abi.encodePacked(bytes(simpleCommit.hash)))) {
+          // TODO - commit object - on switch?
+          returnLogs[i] = logs[j];
+        }
+      }
+    }
+    return returnLogs;
   }
 }
