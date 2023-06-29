@@ -143,16 +143,20 @@ contract giteta {
     
     return 0;
   }
-  function logCommitMap(address repo, uint commits, string memory repoURL) public returns (Log[] memory) {
-    Log[] memory logs = repoLog[repo];
+  function logCommitMap(address _repo, uint commits, string memory repoURL) public returns (Log[] memory) {
+    Log[] memory logs = repoLog[_repo];
     Log[] memory returnLogs;
     require(logs.length < commits);
+    Repo repo = Repo(_repo);
     SimpleCommit[] memory simpleCommits = commitsByUrl[repoURL];
     for (uint i = 0; i < commits; i++) {
       SimpleCommit memory simpleCommit = simpleCommits[i];
       for (uint j = 0; j < commits; j++) {
+        Log memory log = logs[j];
         if (keccak256(abi.encodePacked(logs[j].commit)) == keccak256(abi.encodePacked(bytes(simpleCommit.hash)))) {
           // TODO - commit object - on switch?
+          // REVIEW - msg.sender?
+          repo.commit(msg.sender, _repo, log.message, log.author, log.date);
           returnLogs[i] = logs[j];
         }
       }

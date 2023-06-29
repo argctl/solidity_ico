@@ -12,6 +12,7 @@ contract Repo {
   mapping(address => uint) buyerContributions;
   address[] buyers;
   uint value;
+  Commit[] commits;
 
   modifier seller (address payable _seller) {
     require(msg.sender == owner && _seller == owner);
@@ -61,8 +62,9 @@ contract Repo {
     // we don't care about the bid, just the highest value
     this.sell(_owner, _seller, _value);
   }
-  function commit(address _repo, address _wallet, bytes memory _commit, bytes memory _author, bytes memory _date) public owned returns (address) {
-    Commit com = new Commit(_repo, _wallet, _commit, _author, _date);  
+  function commit(address _wallet, address _repo, bytes memory _message, bytes memory _author, bytes memory _date) public owned returns (address) {
+    Commit com = new Commit(_wallet, _repo, _message, _author, _date);  
+    commits.push(com);
     return address(com);
   }
 }
