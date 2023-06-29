@@ -1,9 +1,10 @@
 // SPDX-License-Identifier: BUSL-1.1
 pragma solidity >= "0.8.18";
-import "interfaces/gitarray.sol";
-import "giteta.sol";
-import "gitarg_proxy.sol";
-import "libraries/gitorg.sol";
+import "./interfaces/gitarray.sol";
+import "./giteta.sol";
+import "./gitarg_proxy.sol";
+import "./libraries/gitorg.sol";
+import "./gitarg.sol";
 
 abstract contract gitarray is Gitarray {
   
@@ -19,8 +20,12 @@ abstract contract gitarray is Gitarray {
   uint private trap;
   uint public ration;
   uint public proposal;
+
+  gitarg private Gitarg;
+  giteta private Giteta;
+
   
-  constructor (address[] memory _handshakes, uint[] memory values, bool _vault, uint _ration) {
+  constructor (address _gitarg, address _giteta, address[] memory _handshakes, uint[] memory values, bool _vault, uint _ration) {
     require(_handshakes.length == values.length);
     for (uint i = 0; i < _handshakes.length; i++) {
       handshakeValues[handshakes[i]] = values[i]; 
@@ -29,6 +34,8 @@ abstract contract gitarray is Gitarray {
     gitargWallet = msg.sender;
     vault = _vault;
     ration = _ration;
+    Gitarg = gitarg(_gitarg);
+    Giteta = giteta(_giteta);
   }
   function propose(uint _ration) public returns (uint) {
     require(gitargWallet == msg.sender);
@@ -56,8 +63,14 @@ abstract contract gitarray is Gitarray {
     require(total >= votes);
     ration = proposal;
   }
-  function burn(address wallet, uint commits) internal override returns (uint) {
+  function burn(address _Repo, uint commits) internal override returns (uint) {
     // TODO - direct
+    Repo repo = Repo(_Repo);
+    // ration
+    uint cost = commits * ration;
+    // charge ration for each commit that's ran against log
+    // commits
+    // direct in gitorg?
     return block.timestamp;
   }
   function hash(address wallet, string memory codeHash, string memory message,
