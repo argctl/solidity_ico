@@ -24,7 +24,7 @@ library gitorg {
     arg.transfer(wallet, stash);
     //eta.transfer(repo);
     // TODO - giteta gitarg bridge
-    return 0;
+    return block.timestamp;
   }
   function stats() public returns (uint) {
     return 0;
