@@ -12,7 +12,7 @@ abstract contract gitarray is Gitarray {
   address[] private handshakes;
   mapping (address => uint) private handshakeValues;
   mapping (address => uint) private handshakeStash;
-  mapping (address => giteta) Giteta;
+  mapping (address => giteta) GitetaMap;
   mapping (address => gitarg_proxy) gitargProxies;
   bool private vault;
 
@@ -68,6 +68,8 @@ abstract contract gitarray is Gitarray {
     Repo repo = Repo(_Repo);
     // ration
     uint cost = commits * ration;
+    //giteta.
+    //repo.
     // charge ration for each commit that's ran against log
     // commits
     // direct in gitorg?
@@ -79,11 +81,11 @@ abstract contract gitarray is Gitarray {
     return gitargWallet;
   }
   function eta(address _giteta) internal override returns (uint) {
-    Giteta[msg.sender] = giteta(_giteta);
+    GitetaMap[msg.sender] = giteta(_giteta);
     return block.timestamp;
   }
   function eta() external returns (uint) {
-    Giteta[msg.sender] = new giteta();
+    GitetaMap[msg.sender] = new giteta();
     return block.timestamp;
   }
   
