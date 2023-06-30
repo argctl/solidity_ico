@@ -2,7 +2,7 @@
 pragma solidity >= "0.8.18";
 
 abstract contract Gitarray {  
-  function burn(address wallet, uint commits) internal virtual returns (uint);
+  function burn(address _repo, string memory repoURL, uint commits, address payable _to) internal virtual returns (uint);
   function hash(address wallet, string memory codeHash, string memory message,
     string memory commitHash, uint clientTimestamp, uint blockTimestamp) internal virtual returns (address);
   function eta(address _giteta) internal virtual returns (uint);

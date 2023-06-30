@@ -12,14 +12,14 @@ library gitorg {
   function donate(address giteta, address gitarg) public returns (uint) {
     return 0;
   }
-  function direct(address _giteta, address _gitarg, address repo, uint stash, address _to) public returns (uint) {
+  function direct(address _giteta, address _gitarg, address repo, uint stash, address payable _to) public returns (uint) {
     // REVIEW - recycle to either contract address or escrow wallet to cycle GITARG coin
     giteta eta = giteta(_giteta);
     gitarg arg = gitarg(_gitarg);
     address wallet = eta.getGitargWallet();
     require(_to == wallet);
     // TODO - stash from msg.value or account stash?
-    require(stash >= msg.value * 100000); // REVIEW - query for rate on contract? 
+    //require(stash >= msg.value * 100000); // REVIEW - query for rate on contract? 
     // TODO - use gitarray setter value for inflation deflation control
     arg.transfer(wallet, stash);
     //eta.transfer(repo);

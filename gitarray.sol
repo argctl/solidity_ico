@@ -63,13 +63,18 @@ abstract contract gitarray is Gitarray {
     require(total >= votes);
     ration = proposal;
   }
-  function burn(address _Repo, uint commits) internal override returns (uint) {
+  function burn(address _repo, string memory repoURL, uint commits, address payable _to) internal override returns (uint) {
     // TODO - direct
-    Repo repo = Repo(_Repo);
+    Repo repo = Repo(_repo);
     // ration
     uint cost = commits * ration;
-    //giteta.
+    //function logCommitMap(address _repo, uint commits, string memory repoURL) public returns (Log[] memory) {
+    Giteta.logCommitMap(_repo, commits, repoURL);
     //repo.
+
+    //gitorg.direct(_giteta, _gitarg, repo, stash, _to);
+    require(gitargWallet == _to);
+    gitorg.direct(address(Giteta), address(Gitarg), _repo, cost, _to);
     // charge ration for each commit that's ran against log
     // commits
     // direct in gitorg?
