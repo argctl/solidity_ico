@@ -29,7 +29,7 @@ contract giteta {
   function commit(address repo, string memory message, string memory author, string memory date) public returns (uint) {
     Commit c = new Commit(msg.sender, repo, message, author, date);
     Repo repo = Repo(repo);
-    Time time = Time(address(c), block.timestamp);
+    Time memory time = Time(address(c), block.timestamp);
     commits[repo].push(time);
     valuing[address(c)] = time;
     return block.timestamp;
@@ -38,7 +38,7 @@ contract giteta {
   function up(address commit) public returns (uint) { //re-up?
     // subtract timestamps 
     // TODO - repo owner or gitarray tie in?
-    Time time = valuing[commit];
+    Time memory time = valuing[commit];
     uint value = block.timestamp - time.timestamp;
     values[commit] = value;
     return value;
@@ -52,13 +52,26 @@ contract giteta {
     return values[commit];
   }
   // query commits by range, repo or value
-  function query(uint start, uint end) public return (Time[] memory) {
-    
+  function query(address repo, uint start, uint end) public returns (Time[] memory) {
+    Time[] memory _commits;
+    Time[] memory repo = commits[Repo(repo)];
+    for (uint i = 0; i < repo.length; i++) {
+      Time memory time = repo[i];
+      if (time.timestamp >= start && time.timestamp <= end) _commits[i] = time;
+    }
+    return _commits; 
   }
-  function query(address repo) public return (Time[] memory) {
-    return commits[repo];
+  function query(address repo) public returns (Time[] memory) {
+    return commits[Repo(repo)];
   }
-  function query(uint value) public return (Time[] memory) {
-    return value;
+  function query(address _repo, uint value) public returns (Time[] memory) {
+    Time[] memory _commits;
+    Time[] memory repo = commits[Repo(_repo)];
+    for (uint i = 0; i < repo.length; i++) {
+      if (values[repo[i].commit] == value) {
+        _commits[i] = repo[i];
+      }
+    }
+    return _commits;
   }
 }
