@@ -4,12 +4,15 @@ pragma solidity >= "0.8.18";
 contract Commit {
   address repo;
   address wallet;
-  bytes message;
-  bytes author;
-  bytes date;
+  string message;
+  string author;
+  string date;
   bytes hash;
   uint hashTime;
-  constructor(address _wallet, address _repo, bytes memory _message, bytes memory _author, bytes memory _date) {
+
+  address creator; // likely giteta contract
+  constructor(address _wallet, address _repo, string memory _message, string memory _author, string memory _date) {
+    creator = msg.sender;
     wallet = _wallet;
     repo = _repo;
     message = _message;
