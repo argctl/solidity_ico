@@ -39,17 +39,17 @@ contract gitarg {
 
   //https://eips.ethereum.org/EIPS/eip-20#name
   // function definition can be changed to pure - not in standard
-  function name() public view returns (string memory) {
+  function name() public pure returns (string memory) {
     return "gitarg";  
   }
   //https://eips.ethereum.org/EIPS/eip-20#symbol
   // function definition can be changed to pure - not in standard
-  function symbol() public view returns (string memory) {
+  function symbol() public pure returns (string memory) {
     return "GIT";
   }
   //https://eips.ethereum.org/EIPS/eip-20#decimals
   // function definition can be changed to pure - not in standard
-  function decimals() public view returns (uint8) {
+  function decimals() public pure returns (uint8) {
     return 6;
   }
   //https://eips.ethereum.org/EIPS/eip-20#decimals
