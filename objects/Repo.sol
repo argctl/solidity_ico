@@ -9,10 +9,13 @@ contract Repo {
   string name;
   string url;
   address owner;
+  address gitArrayInstance;
   mapping(address => uint) buyerContributions;
   address[] buyers;
   uint value;
   Commit[] commits;
+
+  address creator;
 
   modifier seller (address payable _seller) {
     require(msg.sender == owner && _seller == owner);
@@ -22,11 +25,18 @@ contract Repo {
     require(msg.sender == owner);
     _;
   }
+
+  modifier created () {
+    require(msg.sender == creator);
+    _;
+  }
   
-  constructor(string memory _name, string memory _url) payable {
+  constructor(string memory _name, string memory _url, address _owner) payable {
+    creator = msg.sender;
     name = _name;
     url = _url;
-    owner = msg.sender;
+    owner = _owner;
+    gitArrayInstance = msg.sender;
     value = msg.value;
   }
   function sell(address _owner, address payable _seller, uint _value) public seller(_seller) {
@@ -62,9 +72,8 @@ contract Repo {
     // we don't care about the bid, just the highest value
     this.sell(_owner, _seller, _value);
   }
-  function commit(address _wallet, address _repo, bytes memory _message, bytes memory _author, bytes memory _date) public owned returns (address) {
-    Commit com = new Commit(_wallet, _repo, _message, _author, _date);  
-    commits.push(com);
-    return address(com);
+
+  function getOwner() public view returns (address) {
+    return owner;
   }
 }
