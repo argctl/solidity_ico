@@ -14,6 +14,7 @@ contract Repo {
   address[] buyers;
   uint value;
   Commit[] commits;
+  mapping (address => Commit) contributorCommits;
 
   address creator;
 
@@ -29,6 +30,12 @@ contract Repo {
   modifier created () {
     require(msg.sender == creator);
     _;
+  }
+
+  function commit(Commit _commit, address sender) public returns(uint) {
+    commits.push(_commit);//i
+    contributorCommits[sender] = _commit;
+    return block.timestamp;
   }
   
   constructor(string memory _name, string memory _url, address _owner) payable {

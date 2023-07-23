@@ -6,7 +6,6 @@ abstract contract Gitarray {
   function hash(address wallet, string memory codeHash, string memory message,
     string memory commitHash, uint clientTimestamp, uint blockTimestamp) internal virtual returns (address);
   function eta(address _giteta) internal virtual returns (uint);
-  function org(address _gitorg) internal virtual returns (uint);
   function arg(address _gitarg) internal virtual returns (uint);
   //TODO
 }
