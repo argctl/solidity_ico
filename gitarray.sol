@@ -6,16 +6,80 @@ import "./gitarg.sol";
 import "./objects/Repo.sol";
 import "./objects/Commit.sol";
 
+contract Proposal {
+  uint private proposal;
+  string private value;
+  address private object;
+  address private creator;
+  bool public safeMode = true;
+
+  modifier safe () {
+    if (safeMode) require(msg.sender == creator);
+    _;
+  }
+
+  constructor(uint _proposal, string memory _value, address _object) {
+    creator = msg.sender;  
+    object = _object;
+    value = _value;
+    proposal = _proposal;
+  }
+  function disableSafeMode () public safe() returns(uint)  {
+    require(msg.sender == creator);
+    safeMode = false;
+    return block.timestamp;
+  }
+  function getProposal() public view safe() returns(uint) {
+    if (safeMode) require(msg.sender == creator);
+    return proposal;
+  }
+  function getValue() public view safe() returns(string memory) {
+    if (safeMode) require(msg.sender == creator);
+    return value;
+  }
+  function getObject() public view safe() returns(address) {
+    if (safeMode) require(msg.sender == creator);
+    return object;
+  }
+  function getCreator() public view safe() returns(address) {
+    if (safeMode) require(msg.sender == creator);
+    return creator;
+  }
+}
+
 contract Handshakes {
   address creator;
   address owner;
   mapping(address => uint) handshakes;
-  constructor(address[] memory _handshakes, address _owner) {
+  uint threshold;
+
+  address proposal;
+  uint proposalTime;
+  constructor(address[] memory _handshakes, address _owner, uint _threshold) {
     creator = msg.sender;
     owner = _owner;
+    proposal = proposal;
+    if (threshold == 0) {
+      threshold = _handshakes.length;
+    } else {
+      threshold = _threshold;
+    }
     for (uint i = 0; i < _handshakes.length; i++) {
       handshakes[_handshakes[i]] = block.timestamp;
     }
+  }
+  function setProposal(address _proposal) public returns(uint) {
+    proposal = _proposal;
+    proposalTime = block.timestamp;
+    return block.timestamp;
+  }
+  function isHandshake(address sender) public view returns(bool) {
+    // review - owner and creator or just owner
+    require(creator == msg.sender || owner == msg.sender);
+    return handshakes[sender] != 0;
+  }
+  function isHandshake() public view returns(bool) {
+    return handshakes[msg.sender] != 0;
   }
 }
 
@@ -31,12 +95,12 @@ contract gitarray {
     threshold = _handshakes.length;
     creator = msg.sender;
     owner = _owner;
-    Handshakes handshakes = new Handshakes(_handshakes, _owner);
+    Handshakes handshakes = new Handshakes(_handshakes, _owner, threshold);
     signers[msg.sender] = handshakes;
   }  
-  //constructor(string memory _name, string memory _url, address _owner) payable {
+  // REVIEW - customizable threshold?
   function repo(address[] memory _handshakes, string memory _name, string memory _url, address _owner) public returns(uint) {
-    Handshakes handshakes = new Handshakes(_handshakes, _owner);
+    Handshakes handshakes = new Handshakes(_handshakes, _owner, threshold);
     signers[msg.sender] = handshakes;
     Repo _repo = new Repo(_name, _url, _owner);
     repos[msg.sender] = _repo;
@@ -44,6 +108,17 @@ contract gitarray {
     return block.timestamp;
   }
   // TODO - commit with one or more handshakes
+
+  function commit(address signer, string memory _message, string memory _author, string memory _date) public returns(uint) {
+    Handshakes handshakes = signers[signer];
+    Repo _repo = repos[signer];
+    require(handshakes.isHandshake(msg.sender));
+    //constructor(address _wallet, address _repo, string memory _message, string memory _author, string memory _date) {
+    Commit _commit = new Commit(msg.sender, address(_repo), _message, _author, _date);
+    _repo.commit(_commit, msg.sender);
+    return block.timestamp;
+  }
+
   // REVIEW - commit call total?
   //function commit()
   // REVIEW - in handshakes object
