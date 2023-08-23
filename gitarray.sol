@@ -24,7 +24,7 @@ contract Proposal {
     value = _value;
     proposal = _proposal;
   }
-  function disableSafeMode () public safe() returns(uint)  {
+  function disableSafeMode() public safe() returns(uint)  {
     require(msg.sender == creator);
     safeMode = false;
     return block.timestamp;
@@ -51,11 +51,19 @@ contract Handshakes {
   address creator;
   address owner;
   mapping(address => uint) handshakes;
+  mapping(address => uint) private shook;
   uint threshold;
 
   address proposal;
   uint proposalTime;
-  constructor(address[] memory _handshakes, address _owner, uint _threshold) {
+
+  bool corp;
+
+  modifier owned () {
+    if (corp) require(msg.sender == owner);
+  }
+
+  constructor(address[] memory _handshakes, address _owner, uint _threshold, bool corp) {
     creator = msg.sender;
     owner = _owner;
     proposal = proposal;
@@ -80,6 +88,20 @@ contract Handshakes {
   }
   function isHandshake() public view returns(bool) {
     return handshakes[msg.sender] != 0;
+  }
+  function shake() public {
+    shook[msg.sender] = block.timestamp;
+  }
+  // TODO - expiry on handshake check with greaterthan
+  function check(address[] memory shakes, address[] memory noshakes) public owned {
+    for (uint i = 0; i < shakes.length; i++) {
+      require(handshakes[shakes[i]] != 0);
+      require(shook[shakes[i]] != 0);
+    }
+    for (uint i = 0; i < noshakes.length; i++) {
+      require(handshakes[noshakes[i]] != 0);
+      require(shook[noshakes[i]] == 0);
+    }
   }
 }
 
