@@ -9,7 +9,8 @@ import "./objects/Log.sol";
 
 contract giteta {
   address gitargWallet;
-  gitarg Gitarg;
+  gitarg public Gitarg;
+  address public arg;
 
   struct Time {
     address commit;
@@ -22,6 +23,7 @@ contract giteta {
   mapping(address => uint) values;
   
   constructor(address _gitarg) {
+    arg = _gitarg;
     Gitarg = gitarg(_gitarg);
     gitargWallet = msg.sender;
   }
@@ -57,7 +59,7 @@ contract giteta {
     Repo repo = Repo(_repo);
     // TODO - gitorg library to use handshakes
     // REVIEW - should this be the commit owner?
-    require(msg.sender == repo.getOwner());
+    require(msg.sender == repo.owner());
     require(values[_commit] >= bounty && Gitarg.balanceOf(_commit) >= bounty);
     Gitarg.transferFrom(_commit, _repo, bounty);
     // REVIEW - bounty needed
