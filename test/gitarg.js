@@ -1,12 +1,5 @@
 const gitarg = artifacts.require('gitarg')
-
-const wait = async ms => {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve() 
-    }, ms)
-  })
-}
+const { wait } = require('./utils')
 
 contract('gitarg', accounts => {
   it('allows name retreival', async () => {
