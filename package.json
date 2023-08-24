@@ -1,0 +1,29 @@
+{
+  "name": "gitarg_eth_ico",
+  "version": "1.0.0",
+  "description": "solidity files related to gitarg/giteta/gitarray",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "node runner"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Epict33tus/solidity_ico.git"
+  },
+  "keywords": [
+    "solidity",
+    "gitarg",
+    "giteta",
+    "gitarray",
+    "truffle"
+  ],
+  "author": "David J Kamer",
+  "license": "SEE LICENSE IN LICENSE.md",
+  "bugs": {
+    "url": "https://github.com/Epict33tus/solidity_ico/issues"
+  },
+  "homepage": "https://github.com/Epict33tus/solidity_ico#readme"
+}
