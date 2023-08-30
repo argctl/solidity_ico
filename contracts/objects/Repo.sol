@@ -1,8 +1,12 @@
 // SPDX-License-Identifier: UNLICENSED
 // REVIEW - change to unlicense (unlinsenced?) 
+// Public Information Transaction System(s)
+// Content/Media Distribution Placement/Network
 pragma solidity >= "0.8.18";
 
 import "./Commit.sol";
+import "../libraries/gitorg.sol";
+import "truffle/console.sol";
 
 contract Repo {
 
@@ -10,10 +14,10 @@ contract Repo {
   string public url;
   address public owner;
   bytes32[] private hash;
-  address array;
-  address arg;
-  mapping(address => uint) public buyerContributions;
-  address[] buyers;
+  address private array;
+  address private arg;
+  mapping(address => uint) private buyerContributions;
+  address[] private buyers;
   uint public value;
   Commit[] commits;
   mapping (address => Commit) contributorCommits;
@@ -25,16 +29,24 @@ contract Repo {
   // workers rights
   mapping(address => uint) private revoked;
 
+  event Stamp(bytes32 hash);
+  event Timestamp(uint timestamp);
+
   modifier seller (address payable _seller) {
     require(msg.sender == owner && _seller == owner, "owner-seller auth failure");
     _;
   }
   modifier owned () {
-    require(msg.sender == owner);
+    require(msg.sender == owner, "owner auth failure");
     _;
   }
   modifier created () {
-    require(msg.sender == creator);
+    require(msg.sender == creator, "creator auth failure");
+    _;
+  }
+  modifier auth () {
+    // 🤯
+    require(allowed[msg.sender] > revoked[msg.sender], "the sender's timestamp was revoked more recently");
     _;
   }
   function allow (address _allow) public owned  {
@@ -54,23 +66,39 @@ contract Repo {
     arg = _gitarg;
     value = msg.value;
     // TODO - gitarray compare for url
+    allowed[msg.sender] = block.timestamp;
+    allowed[_owner] = block.timestamp;
+    allowed[creator] = block.timestamp;
     hash.push(keccak256(abi.encodePacked(url, block.timestamp, msg.sender)));
   }
   // REVIEW - should the stamp check for gitarray
-  function stamp(string memory _hash) public {
-    hash.push(keccak256(abi.encodePacked(_hash, block.timestamp, msg.sender)));
+  function stamp(string memory _hash) public auth returns (uint) {
+    hash.push(gitorg.stamp(_hash, block.timestamp, msg.sender));
+    emit Timestamp(block.timestamp);
+    return block.timestamp;
+  }
+  function _stamp(string memory _hash, uint timestamp) public auth returns (bytes32) {
+    bytes32 hash_ = keccak256(abi.encodePacked(_hash, timestamp, msg.sender));
+    emit Stamp(hash_);
+    return hash_;
   }
   // defaults to 0
-  function verification(uint iteration) public view created returns (bytes32) {
+  function verification(uint iteration) public auth returns (bytes32) {
     // REVIEW - can call gitarg directly?
-    return hash[iteration];
+    bytes32 hash_ = hash[iteration];
+    emit Stamp(hash_);
+    return hash_;
   }
   // verify with gitarray address also verified
-  function verification(address payable _gitarray, uint iteration) public view returns (bytes32) {
+  function verification(address payable _gitarray, uint iteration) public auth returns (bytes32) {
     require(_gitarray == creator, "verification address is not creator");
     // REVIEW - can call gitarg directly?
-    return hash[iteration];
-
+    bytes32 hash_ = hash[iteration];
+    emit Stamp(hash_);
+    return hash_;
+  }
+  function verify() public view returns (bool) {
+    return false;
   }
   function commit(Commit _commit, address sender) public returns(uint) {
     commits.push(_commit);//i
@@ -148,5 +176,8 @@ contract Repo {
     }
     // we don't care about the bid, just the highest value
     _sell(_owner, _seller, _amount);
+  }
+  function _buyerContributions(address buyer) public auth returns (uint) {
+    return buyerContributions[buyer];
   }
 }
