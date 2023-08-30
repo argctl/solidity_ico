@@ -1,5 +1,6 @@
 const Repo = artifacts.require('Repo')
 const gitorg = artifacts.require('../contracts/libraries/gitorg.sol')
+const { wait } = require('./utils')
 
 contract('Repo', async accounts => {
   it('has repo name from deployed Repo object', async () => {
@@ -17,13 +18,13 @@ contract('Repo', async accounts => {
     const repo = await Repo.deployed()
     //function add() payable public {
     await repo.add({ from: accounts[2], value })
-    const contribution = await repo.buyerContributions(accounts[2])
+    const contribution = await repo._buyerContributions.call(accounts[2])
     assert.equal(value, contribution * 1, 'contribution is equal to value input')
     await repo.add({ from: accounts[2], value })
-    const contribution_ = await repo.buyerContributions(accounts[2])
+    const contribution_ = await repo._buyerContributions.call(accounts[2])
     assert.equal(value * 2, contribution_ * 1, 'contribution adds on buyerContribution')
   })
-  it('repo sale for less than value store move owner account', async () => {
+  it('sell for less than value store move owner account', async () => {
     //function sell(address _owner, address payable _seller, uint _value) public seller(_seller) {
     const repo = await Repo.deployed()
     await repo.sell(accounts[2], accounts[1], 9999, { from: accounts[1] })
