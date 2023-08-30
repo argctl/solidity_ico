@@ -1,9 +1,9 @@
 const Repo = artifacts.require('Repo')
+const gitorg = artifacts.require('../contracts/libraries/gitorg.sol')
 
 contract('Repo', async accounts => {
   it('has repo name from deployed Repo object', async () => {
     const repo = await Repo.deployed()
-    console.log({ assert })
     const name = await repo.name()
     assert.equal(name, 'TestRepo', 'name from migration sticks') 
   })
