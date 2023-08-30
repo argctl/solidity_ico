@@ -8,7 +8,8 @@ import "./objects/Log.sol";
 // TimeLog handshake string/bytes for blockchain interface
 
 contract giteta {
-  address gitargWallet;
+  // REVIEW - wallet changeable with handshakes in gitarray
+  address public gitargWallet;
   gitarg public Gitarg;
   address public arg;
 
