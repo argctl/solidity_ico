@@ -9,7 +9,7 @@ library gitorg {
   // TODO - library interface exteranal to gitarg
   // uses contract addresses to pool/poll versioning data 
   // "directs traffic"
-  function stamp (string memory _hash, uint timestamp, address _msgSender) public returns (bytes32) {
+  function stamp (string memory _hash, uint timestamp, address _msgSender) public pure returns (bytes32) {
     return keccak256(abi.encodePacked(_hash, timestamp, _msgSender));
   }
   function donate(address _giteta, address _gitarg) public view returns (uint) {
