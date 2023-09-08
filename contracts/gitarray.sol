@@ -43,6 +43,7 @@ contract gitarray {
   }
   // TODO - commit with one or more handshakes
 
+/*
   function commit(address signer, string memory _message, string memory _author, string memory _date) public returns(uint) {
     Handshakes handshakes = signers[signer];
     Repo _repo = repos[signer];
@@ -53,6 +54,7 @@ contract gitarray {
     return block.timestamp;
   }
 
+*/
   // REVIEW - commit call total?
   //function commit()
   // REVIEW - in handshakes object
