@@ -6,7 +6,6 @@ pragma solidity >= "0.8.18";
 
 import "./Commit.sol";
 import "../libraries/gitorg.sol";
-import "truffle/console.sol";
 
 contract Repo {
 
@@ -177,7 +176,7 @@ contract Repo {
     // we don't care about the bid, just the highest value
     _sell(_owner, _seller, _amount);
   }
-  function _buyerContributions(address buyer) public auth returns (uint) {
+  function _buyerContributions(address buyer) public view auth returns (uint) {
     return buyerContributions[buyer];
   }
 }
