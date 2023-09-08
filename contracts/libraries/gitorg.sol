@@ -46,16 +46,16 @@ library gitorg {
     }
     return success;
   }
-  function stats() public returns (uint) {
+  function stats() public pure returns (uint) {
     return 0;
   }
-  function pool() public returns (uint) {
+  function pool() public pure returns (uint) {
     return 0;
   }
-  function poll() public returns (uint) {
+  function poll() public pure returns (uint) {
     return 0;
   }
-  function search() public returns (address) {
+  function search() public view returns (address) {
     return msg.sender;
   }
 }
