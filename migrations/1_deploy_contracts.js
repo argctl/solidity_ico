@@ -2,6 +2,7 @@
 const gitarg = artifacts.require('gitarg')
 const giteta = artifacts.require('giteta')
 const Repo = artifacts.require('Repo')
+const Commit = artifacts.require('Commit')
 const Handshakes = artifacts.require('Handshakes')
 const gitarray = artifacts.require('gitarray')
 const gitorg = artifacts.require('gitorg')
@@ -15,9 +16,8 @@ module.exports = async function (deployer, network, accounts){
   await deployer.deploy(gitorg)
   await deployer.deploy(gitarg)
   await wait(4000)
-  const arg = await gitarg.deployed()//.then(async arg => {
+  const arg = await gitarg.deployed()
   await deployer.deploy(giteta, accounts[0])
-    //arg.name().then(console.log) 
   //constructor(address[] memory _handshakes, address _owner, uint _threshold, bool _corp) {
   await deployer.deploy(Handshakes, accounts.slice(1), accounts[0], 3, true)
   //constructor(address[] memory _handshakes, address _owner, address _gitarg) {
@@ -27,8 +27,8 @@ module.exports = async function (deployer, network, accounts){
   //constructor(string memory _name, string memory _url, address _owner, address _gitarg, address _gitarray) payable {
   await deployer.link(gitorg, Repo)
   await deployer.deploy(Repo, 'TestRepo', 'https://gitlab.com/me2211/testrepo', accounts[1], arg.address, array.address)
-
-  //})
-  //const arg = await gitarg.deployed()
+  const repo = await Repo.deployed()
+  //constructor(address _wallet, address _repo, string memory _message, string memory _author, string memory _date) {
+  await deployer.deploy(Commit, accounts[0], repo.address, 'test message', 'David J Kamer', '20230830')
 } 
 
