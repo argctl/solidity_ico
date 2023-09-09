@@ -67,6 +67,7 @@ contract('giteta', async accounts => {
     //const c = await Commit.at(com__)
     console.log({ balance })
     await wait(10000)
+    //const receipt = await eta.up(com__, true, { from: accounts[1] })
     const receipt = await eta.up(com__, true, { from: accounts[1] })
     console.log({ value: receipt.logs[0].args.value * 1 })
     console.log({ value: receipt.logs[1].args.value * 1 })

@@ -52,25 +52,55 @@ contract giteta {
     emit Com(address(c));
     return Gitarg.balanceOf(address(c));
   }
+  function aiRape(address payable _commit, bool _balance) public payable returns (uint) {
+    Commit commit = Commit(_commit);
+    Time memory time = valuing[_commit];
+    if (_balance) {
+      uint balance = Gitarg.balanceOf(_commit);
+      require(block.timestamp >= time.timestamp, "cache");
+      require(block.timestamp > time.timestamp - 0, "_cache");
+    }
+  }
   // raise value of commits - called when used successfully by chain
   function up(address payable _commit, bool _balance) public payable returns (uint) { //re-up?
     // subtract timestamps 
     // TODO - repo owner or gitarray tie in?
     Commit commit = Commit(_commit);
-    emit Debug(404);
 
     Time memory time = valuing[_commit];
-    uint _value = block.timestamp - time.timestamp;
+    uint v = block.timestamp - time.timestamp;
+    
     if (_balance) {
       uint balance = Gitarg.balanceOf(_commit);
-      emit Debug(_value);
-      //emit Debug(balance);
+      //emit Debug(v);
+
+      emit Debug(block.timestamp);
+      //emit Debug(time.timestamp - 10);
+      require(block.timestamp != 0, "timestamp");
+      require(time.timestamp != 0, "cache");
+      //uint timestamp = time.timestamp;
+      //uint ts = timestamp;
+      //require(block.timestamp > ts, "cache"); 
+      if (block.timestamp > time.timestamp) emit Debug(101);
+      //require(block.timestamp != time.timestamp - 1, "_cache"); //works
+      //require(block.timestamp != time.timestamp + 1, "_cache"); //works
+      //require(block.timestamp != time.timestamp); // doesn't
+
+      //require(block.timestamp != time.timestamp + 0); // doesn't
+      
+      //require(block.timestamp != time.timestamp - 1 + 1); // doesn't
+      //require(block.timestamp != time.timestamp * 1); //doesn't
+      uint vx = time.timestamp + 1;
+      vx = vx - 1;
+      //require(block.timestamp == vx); // doesn't
+      //require(block.timestamp != vx); // doesn't
+      //uint vx = block.timestamp - time.timestamp;
+      //emit Debug(vx);
+
       //uint v = _value;
 
-      uint v_ = 10 - balance;
+      //uint v_ = 10 - balance;
       // first line works, second line errors on my system
-      if (_value != 10) require(false, "removing code because of a deepfake is how code goes way of simulation and people by product");
-      //require(_value == 10, "_ removing code because of a deepfake is how code goes way of simulation and people by product");
       //uint v = _value - 4;
       // shouldn't have to do this except for vulnerability manufacture by third party
       //if (_value > balance) _value = uint(int(_value) - int(balance));
