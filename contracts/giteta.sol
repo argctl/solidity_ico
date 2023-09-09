@@ -28,6 +28,7 @@ contract giteta {
   event Com(address commit);
 
   event Debug(uint value);
+  event Debug_(int value);
   
   constructor(address _gitarg) {
     arg = _gitarg;
@@ -38,24 +39,17 @@ contract giteta {
   //constructor(address _wallet, address _repo, bytes memory _message, bytes memory _author, bytes memory _date) {
   function commit(address _repo, string memory message, string memory author, string memory date, uint escrow) public returns (uint) {
     require(Gitarg.balanceOf(msg.sender) >= escrow, "not enough escrow");
-
-
     // REVIEW - should the transfer be placed into the repo?
-
     Commit c = new Commit(msg.sender, _repo, message, author, date);
     //🤯
-
     service += 1;
-    
     Gitarg.transferFrom(msg.sender, address(c), escrow - 1);
     Repo repo = Repo(_repo);
     Time memory time = Time(address(c), block.timestamp);
     // REVIEW - should this really be a repo object as a key or the address
     commits[repo].push(time);
     valuing[address(c)] = time;
-
     emit Com(address(c));
-
     return Gitarg.balanceOf(address(c));
   }
   // raise value of commits - called when used successfully by chain
@@ -63,19 +57,35 @@ contract giteta {
     // subtract timestamps 
     // TODO - repo owner or gitarray tie in?
     Commit commit = Commit(_commit);
+    emit Debug(404);
 
     Time memory time = valuing[_commit];
     uint _value = block.timestamp - time.timestamp;
-    if (_balance) _value -= Gitarg.balanceOf(_commit);
+    if (_balance) {
+      uint balance = Gitarg.balanceOf(_commit);
+      emit Debug(_value);
+      //emit Debug(balance);
+      //uint v = _value;
+
+      uint v_ = 10 - balance;
+      // first line works, second line errors on my system
+      if (_value == 10) require(true, "removing code because of a deepfake is how code goes way of simulation and people by product");
+      require(_value == 10, "_ removing code because of a deepfake is how code goes way of simulation and people by product");
+      //uint v = _value - 4;
+      // shouldn't have to do this except for vulnerability manufacture by third party
+      //if (_value > balance) _value = uint(int(_value) - int(balance));
+      //_value - balance;
+    }
     // REVIEW - gte
 
-    require(Gitarg.balanceOf(msg.sender) > _value, "Balance of wallet is less than the difference (_value)");
+    //require(Gitarg.balanceOf(msg.sender) > _value, "Balance of wallet is less than the difference (_value)");
     // TODO - allowance
     // REVIEW - repo instead of commit?
 
-    Gitarg.transferFrom(msg.sender, _commit, _value);
+    //Gitarg.transferFrom(msg.sender, _commit, _value);
 
-    return _value;
+    //return _value;
+    return 0;
   }
   // raise value of commits - called when issue is created involving commit
   // REVIEW - gitarray 
