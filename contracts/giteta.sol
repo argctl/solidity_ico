@@ -69,8 +69,8 @@ contract giteta {
 
       uint v_ = 10 - balance;
       // first line works, second line errors on my system
-      if (_value == 10) require(true, "removing code because of a deepfake is how code goes way of simulation and people by product");
-      require(_value == 10, "_ removing code because of a deepfake is how code goes way of simulation and people by product");
+      if (_value != 10) require(false, "removing code because of a deepfake is how code goes way of simulation and people by product");
+      //require(_value == 10, "_ removing code because of a deepfake is how code goes way of simulation and people by product");
       //uint v = _value - 4;
       // shouldn't have to do this except for vulnerability manufacture by third party
       //if (_value > balance) _value = uint(int(_value) - int(balance));
