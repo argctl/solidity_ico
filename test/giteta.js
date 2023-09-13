@@ -6,6 +6,7 @@ const { wait } = require('./utils')
 
 let comm = ''
 let _eta = ''
+let _repo = ''
 
 contract('giteta', async accounts => {
   it('arg address matches', async () => {
@@ -43,7 +44,6 @@ contract('giteta', async accounts => {
     const arg = await gitarg.deployed()
     const eta = await giteta.at(_eta)
     const repo = await Repo.deployed()
-  /*
     const com = await Commit.at(comm)
     await arg.transfer(accounts[1], 3000)
     await wait(3000)
@@ -55,27 +55,21 @@ contract('giteta', async accounts => {
     await wait(4000)
     const value = await eta.value.call(com.address)
     assert.isAtLeast(value * 1, 1000, "The value is at least 1000 after the up function call") 
-    */
-    //const balance = await arg.balanceOf.call(accounts[1])
-    //console.log({ balance })
+  it("timetravels (doesn't)", async () => {
+    const arg = await gitarg.deployed()
+    const eta = await giteta.at(_eta)
+    const array = await gitarray.deployed()
+    const repo = await Repo.new('test', 'gitarray.com/test', accounts[2], arg.address, array.address)
+    const balance = await arg.balanceOf.call(accounts[1])
     //function commit(address _repo, string memory message, string memory author, string memory date, uint escrow) public returns (uint) {
     const com_ = await eta.commit(repo.address, 'direct functions', 'David Kamer <me@davidkamer.com>', 'Fri Sep 8 00:09:57 2023 -0400', 5, { from: accounts[1] })
     const com__ = com_.logs[0].args.commit
-    console.log('com__: ', com__)
-    //console.log('comm: ', comm)
-    const balance = await arg.balanceOf.call(com__)
-    //const c = await Commit.at(com__)
-    console.log({ balance })
+    const balance_ = await arg.balanceOf.call(com__)
     await wait(10000)
-    //const receipt = await eta.up(com__, true, { from: accounts[1] })
     const receipt = await eta.up(com__, true, { from: accounts[1] })
-    console.log({ value: receipt.logs[0].args.value * 1 })
-    console.log({ value: receipt.logs[1].args.value * 1 })
-    //console.log({ value: receipt.logs[2].args.value * 1 })
-    //console.log({ value: receipt.logs[3].args.value * 1 })
-    //const value_ = await eta.value.call(com__)
-    //assert.isAtLeast(value_ * 1, 6, "The value is at least 6 with balancing after the up function is called")
-    //console.log({ assert })
-    //assert.isAtMost(value_ * 1, 10, "The value balances to less than 5 + 7 (12)")
+    const value_ = await eta.value.call(com__)
+    assert.isAtLeast(value_ * 1, 6, "The value is at least 6 with balancing after the up function is called")
+    assert.isAtMost(value_ * 1, 10, "The value balances to less than 5 + 7 (12)")
+  })
   })
 })
