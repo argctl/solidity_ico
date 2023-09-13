@@ -87,21 +87,27 @@ contract giteta {
     return Gitarg.balanceOf(address(Commit(_commit)));
   }
   // query commits by range, repo or value
-  function query(address _repo, uint start, uint end) public view returns (Time[] memory) {
-    Time[] memory _commits;
+  function query(address _repo, uint start, uint end) public returns (Time[] memory) {
     Time[] memory repo = commits[Repo(_repo)];
+    Time[] memory _commits = new Time[](repo.length);
+    uint j = 0;
     for (uint i = 0; i < repo.length; i++) {
       Time memory time = repo[i];
-      if (time.timestamp >= start && time.timestamp <= end) _commits[i] = time;
+      if (time.timestamp >= start && time.timestamp <= end) {
+        // _commits.length is 0 when index is 0 for length of 0, 1 when index is 1 for unwritten space
+        _commits[++j] = time;
+        emit Value(time.timestamp);
+        emit Com(time.commit);
+      }
     }
     return _commits; 
   }
   function query(address repo) public view returns (Time[] memory) {
     return commits[Repo(repo)];
   }
-  function query(address _repo, uint _value) public view returns (Time[] memory) {
-    Time[] memory _commits;
+  function query(uint _value, address _repo) public view returns (Time[] memory) {
     Time[] memory repo = commits[Repo(_repo)];
+    Time[] memory _commits = new Time[](repo.length);
     for (uint i = 0; i < repo.length; i++) {
       if (Gitarg.balanceOf(repo[i].commit) == _value) {
         _commits[i] = repo[i];
