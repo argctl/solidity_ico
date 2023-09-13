@@ -26,9 +26,8 @@ contract giteta {
   mapping(address => uint) private bounties;
 
   event Com(address commit);
-
-  event Debug(uint value);
-  event Debug_(int value);
+  event Comm(Time[] commits);
+  event Value(uint value);
   
   constructor(address _gitarg) {
     arg = _gitarg;
