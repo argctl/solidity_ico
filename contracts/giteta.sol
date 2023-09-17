@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: BUSL-1.1
 pragma solidity >= "0.8.20";
+import "./gitarray.sol";
 import "./gitarg.sol";
 import "./objects/Repo.sol";
 import "./objects/Commit.sol";
