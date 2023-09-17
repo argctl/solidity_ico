@@ -48,7 +48,11 @@ contract gitarray {
     Handshakes handshakes = signers[signer];
     Repo _repo = repos[signer];
     require(handshakes.isHandshake(msg.sender));
+    uint extTimestamp = gitorg.timestamp();
+    //function stamp (string memory _hash, uint timestamp, address _msgSender) public pure returns (bytes32) {
+    bytes32 hash = gitorg.stamp(_message, extTimestamp, msg.sender);
     //constructor(address _wallet, address _repo, string memory _message, string memory _author, string memory _date) {
+
     return block.timestamp;
   }
   // HERE - function approve
