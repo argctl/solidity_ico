@@ -4,6 +4,9 @@
 // Content/Media Distribution Placement/Network
 pragma solidity >= "0.8.18";
 
+import "../gitarray.sol";
+import "../gitarg.sol";
+
 import "./Commit.sol";
 import "../libraries/gitorg.sol";
 
@@ -21,7 +24,7 @@ contract Repo {
   Commit[] commits;
   mapping (address => Commit) contributorCommits;
 
-  // v
+  // ☄️
   address private creator; 
   bool private flag;
   mapping(address => uint) public allowed;
@@ -56,6 +59,7 @@ contract Repo {
     revoked[_disallow] = block.timestamp;
   }
   constructor(string memory _name, string memory _url, address _owner, address _gitarg, address _gitarray) payable {
+    gitarray(_gitarray);
     if(_gitarray != msg.sender) flag = true;
     creator = msg.sender;
     name = _name;
