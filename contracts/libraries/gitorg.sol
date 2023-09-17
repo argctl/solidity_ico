@@ -65,4 +65,8 @@ library gitorg {
   function timestamp() public view returns (uint) {
     return block.timestamp;
   }
+  function approve(address _gitarg, address payable _wallet, uint value) public {
+    gitarg Gitarg = gitarg(_gitarg);
+    Gitarg.approve(_wallet, value);
+  }
 }
