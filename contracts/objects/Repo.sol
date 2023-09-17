@@ -183,4 +183,13 @@ contract Repo {
   function _buyerContributions(address buyer) public view auth returns (uint) {
     return buyerContributions[buyer];
   }
+  //function approve(address _gitarg, address payable _wallet) public auth {
+  function approve(address _gitarg, address payable _wallet, uint value) public auth {
+    //gitorg.approve(_gitarg, _wallet, value);
+    gitarg Gitarg = gitarg(_gitarg);
+    Gitarg.approve(_wallet, value);
+
+  }
+  // TODO - move the buying/selling repo to gitarray
+  // TODO - add approve syntax for worker/coder/repo cycle
 }
