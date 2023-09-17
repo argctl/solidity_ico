@@ -77,6 +77,9 @@ contract giteta {
     // REVIEW - should this be the commit owner?
     require(msg.sender == repo.owner(), "repo owner doesn't match msg.sender");
     require(Gitarg.balanceOf(address(commit)) >= bounty);
+    //Gitarg.approve(address(this), )
+    //function approve(address _gitarg, address payable _wallet) public auth {
+    commit.approve(gitargWallet, payable(address(repo)));
     Gitarg.transferFrom(_commit, _repo, bounty);
     // REVIEW - bounty needed
     bounties[_commit] += bounty;
