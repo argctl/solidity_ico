@@ -16,6 +16,10 @@ library gitorg {
   function stamp (string memory _hash, uint timestamp, address _msgSender) public pure returns (bytes32) {
     return keccak256(abi.encodePacked(_hash, timestamp, _msgSender));
   }
+  function key (string memory _hash) public pure returns (bytes32) {
+    // REVIEW - keccak is a rainbow table or one way hash?
+    return keccak256(abi.encodePacked(_hash));
+  }
   function donate(address _giteta, address payable _gitarg) public returns (bool) {
     // REVIEW - should msg.sender to commit instead of eta or value split
     //giteta eta = giteta(_giteta);
@@ -57,5 +61,8 @@ library gitorg {
   }
   function search() public view returns (address) {
     return msg.sender;
+  }
+  function timestamp() public view returns (uint) {
+    return block.timestamp;
   }
 }
