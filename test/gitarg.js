@@ -47,7 +47,7 @@ contract('gitarg', accounts => {
     assert.equal(allowance, tokens, 'allowance equals amount of approval')
     await ico.transferFrom(accounts[0], accounts[2], tokens, { from: accounts[2] })
     const balance = await ico.balanceOf.call(accounts[2])
-    assert.equal(allowance * 1, balance * 1, 'transfer from works from address with allowance')
+    assert.deepEqual(allowance, balance, 'transfer from works from address with allowance')
     assert.equal(tokens, balance * 1, 'transfer from works from address with allowance')
   })
   it('locks address', async () => {
