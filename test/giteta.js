@@ -151,4 +151,24 @@ contract('giteta', async accounts => {
     const commits = _commits.filter(commit => commit.timestamp !== '0')
     assert.equal(commits.length, 2, "returns based on value")
   })
+  it("Down function transfers to the repo", async () => {
+    //function down(address payable _repo, address payable _commit, uint bounty) public payable returns (uint) {
+    const arg = await gitarg.deployed()
+    const eta = await giteta.at(_eta)
+    //const _arg = await eta.gitargWallet()
+    const repo = await Repo.at(_repo)
+    const commits = await eta.query.call(99, _repo)
+    //const _commit = commits.pop()
+    const _commit = commits[commits.length - 1]
+    console.log({ commits })
+    console.log({ _commit })
+    //function down(address payable _repo, address payable _commit, uint bounty) public payable returns (uint) {
+    //await eta.down(_repo, _commit.commit, 49)
+    const balance = await arg.balanceOf(_commit.commit)
+    console.log({ balance })
+    //assert.equal(balance, 50, "That the transfer of token out of commit")
+    //const balance_ = await arg.balanceOf(_repo)
+    //assert.equal(balance, 49, "That the transfer of token into the repo is accurate (no gas for inner token)")
+    //const commits_ = await eta.query.call(50, _repo)
+  })
 })
