@@ -6,6 +6,9 @@ const Commit = artifacts.require('Commit')
 const Handshakes = artifacts.require('Handshakes')
 const gitarray = artifacts.require('gitarray')
 const gitorg = artifacts.require('gitorg')
+const _uint = artifacts.require('_uint')
+const _int = artifacts.require('_int')
+const _string = artifacts.require('_string')
 
 const { wait } = require('../test/utils')
 
@@ -30,5 +33,8 @@ module.exports = async function (deployer, network, accounts){
   const repo = await Repo.deployed()
   //constructor(address _wallet, address _repo, string memory _message, string memory _author, string memory _date) {
   await deployer.deploy(Commit, accounts[0], repo.address, 'test message', 'David J Kamer', '20230830')
+  await deployer.deploy(_uint, 100)
+  await deployer.deploy(_int, -100)
+  await deployer.deploy(_string, "duck")
 } 
 
