@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: UNLICENSED
-pragma solidity >= "0.8.18";
+pragma solidity >= "0.8.20";
 import "../giteta.sol";
-import "../gitarg.sol";
-import "../objects/Repo.sol";
+//import "../gitarg.sol";
+//import "../objects/Repo.sol";
 
 //library so that there is a single point and interface to externals reference
 

@@ -69,22 +69,22 @@ contract giteta {
   }
   // raise value of commits - called when issue is created involving commit
   // REVIEW - gitarray 
-  function down(address payable _repo, address payable _commit, uint bounty) public payable returns (uint) {
+  // TODO - PROPOSAL for unsafe down function for old code maintenance or handshake member
+  function down(address _repo, address _commit, uint bounty) public payable returns (uint) {
     // TODO - check gitarg token stash of wallet
     Repo repo = Repo(_repo);
     Commit commit = Commit(_commit);
     // TODO - gitorg library to use handshakes
-    // REVIEW - should this be the commit owner?
+    // REVIEW - should this be the commit owner? - handshakes
     require(msg.sender == repo.owner(), "repo owner doesn't match msg.sender");
-    require(Gitarg.balanceOf(address(commit)) >= bounty);
-    //Gitarg.approve(address(this), )
-    //function approve(address _gitarg, address payable _wallet) public auth {
-    commit.approve(gitargWallet, payable(address(repo)));
+    require(Gitarg.balanceOf(address(commit)) >= bounty, "bounty not less than balance");
+    commit.approve(address(Gitarg), address(this));
     Gitarg.transferFrom(_commit, _repo, bounty);
     // REVIEW - bounty needed
     bounties[_commit] += bounty;
     // REVIEW - values based on the git token backed?
-    return 0;
+    return Gitarg.balanceOf(_commit);
+  }
   }
   // query value of commit
   function value(address _commit) public view returns (uint) {
