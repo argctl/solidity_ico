@@ -2,8 +2,9 @@
 pragma solidity >= "0.8.18";
 import "./giteta.sol";
 import "./gitarg.sol";
+import "./argctl.sol";
 import "./objects/Repo.sol";
-import "./objects/Proposal.sol";
+//import "./objects/Proposal.sol";
 import "./objects/Handshakes.sol";
 import "./libraries/gitorg.sol";
 
@@ -13,9 +14,10 @@ contract gitarray {
   address owner;
   uint threshold;
   mapping(address => Handshakes) signers;
+  Handshakes handshakes;
   mapping(address => Repo) repos;
   mapping(bytes32 => uint) unique;
-  address public arg;
+  address private arg;
   // !IMPORTANT
   // !!!
   // REVIEW - threshold divider 
