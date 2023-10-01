@@ -1,20 +1,44 @@
 // SPDX-License-Identifier: BUSL-1.1
-pragma solidity >= "0.8.18";
+pragma solidity >= "0.8.20";
 
 contract Handshakes {
-  address creator;
-  address owner;
-  mapping(address => uint) handshakes;
+  address private creator;
+  address private owner;
+  mapping(address => uint) private handshakes;
+  mapping(address => uint) private removed;
   mapping(address => uint) private shook;
-  uint threshold;
+  mapping(address => uint) private stopper;
 
-  address proposal;
-  uint proposalTime;
+  uint private threshold;
 
-  bool corp;
+  address private proposal;
+  uint private proposalTime;
 
-  modifier owned () {
-    if (corp) require(msg.sender == owner);
+  //uint private epoch;
+  uint private placement;
+  uint private stopperEpoch = block.number;
+
+  address[] private shakeList;
+
+  bool public corp;
+
+  // timing linearly related to the length of a list
+  modifier rhyme () {
+    // x - f(x) or f(y) = f(x) - x or f(y) = -x ~RE~VIEW~
+    require(block.number - stopperEpoch > shakeList.length);
+    _;
+  }
+
+  modifier own () {
+    if (corp) {
+      require(msg.sender == owner, "corp owner");
+    } else {
+      require(msg.sender == owner || handshakes[msg.sender] != 0, "owner");
+    }
+    _;
+  }
+  modifier stop () {
+    require(stopper[msg.sender] == 0, "stopper");
     _;
   }
 
@@ -31,8 +55,9 @@ contract Handshakes {
     for (uint i = 0; i < _handshakes.length; i++) {
       handshakes[_handshakes[i]] = block.timestamp;
     }
+    shakeList = _handshakes;
   }
-  function setProposal(address _proposal) public returns(uint) {
+  function setProposal(address _proposal) public own returns(uint) {
     proposal = _proposal;
     proposalTime = block.timestamp;
     return block.timestamp;
@@ -49,7 +74,7 @@ contract Handshakes {
     shook[msg.sender] = block.timestamp;
   }
   // TODO - expiry on handshake check with greaterthan
-  function check(address[] memory shakes, address[] memory noshakes) public view owned {
+  function check(address[] memory shakes, address[] memory noshakes) public view own {
     for (uint i = 0; i < shakes.length; i++) {
       require(handshakes[shakes[i]] != 0);
       require(shook[shakes[i]] != 0);
@@ -58,5 +83,40 @@ contract Handshakes {
       require(handshakes[noshakes[i]] != 0);
       require(shook[noshakes[i]] == 0);
     }
+  }
+  // handshake add resembles a chain of addresses (linked list)
+  function add(address handshake) public own stop returns (uint) {
+    handshakes[handshake] = block.timestamp;
+    shakeList.push(handshake);
+    stopper[msg.sender] = block.timestamp;
+    stopper[handshake] = 1;
+    return block.timestamp;
+  }
+  // removing a handshake leaves a trace of the handshake
+  function remove() public returns (uint) {
+    // TODO - remove from shakeList?
+    require(handshakes[msg.sender] != 0);
+    handshakes[msg.sender] = 0;
+    removed[msg.sender] = block.timestamp;
+    return block.timestamp;
+  }
+  // REVIEW - restrict to owner (own review) for handshake address-is own handshake check too?
+  function remove(address handshake) public own stop returns (uint) {
+    // TODO - remove from shakeList? - shakeList only used for length
+    require(handshakes[handshake] != 0);
+    handshakes[handshake] = 0;
+    removed[handshake] = block.timestamp;
+    return block.timestamp;
+  }
+  function unstopper(address handshake, bool _epoch) public own rhyme returns (uint) {
+    // REVIEW - should stopperEpoch have a different adder
+    // TODO - multiply by thresholdDivider or another multiplier?
+    require(stopper[handshake] == 1);
+    stopper[handshake] = 0;
+    if (_epoch && msg.sender == owner) epoch();
+    return block.timestamp;
+  }
+  function epoch () public own {
+    stopperEpoch = block.number;
   }
 }

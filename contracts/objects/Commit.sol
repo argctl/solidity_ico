@@ -40,8 +40,10 @@ contract Commit {
   function getData() public view auth returns (Data memory) {
     return data;
   }
-  function approve(address _gitarg, address payable _wallet) public auth {
+  // REVIEW - change parameter list to include value instead of approving full balance
+  function approve(address _gitarg, address _wallet) public auth {
     gitarg Gitarg = gitarg(_gitarg);
+    //function approve(address _spender, uint256 _value) public returns (bool success)
     Gitarg.approve(_wallet, Gitarg.balanceOf(address(this)));
   }
 }
