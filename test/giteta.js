@@ -152,7 +152,7 @@ contract('giteta', async accounts => {
     assert.equal(commits.length, 2, "returns based on value")
   })
   it("Down function transfers to the repo", async () => {
-    //function down(address payable _repo, address payable _commit, uint bounty) public payable returns (uint) {
+    //function down(address payable _repo, address payable _commit, uint bounty) public payable returns (uint)
     const arg = await gitarg.deployed()
     const eta = await giteta.at(_eta)
     //const _arg = await eta.gitargWallet()
@@ -160,15 +160,35 @@ contract('giteta', async accounts => {
     const commits = await eta.query.call(99, _repo)
     //const _commit = commits.pop()
     const _commit = commits[commits.length - 1]
-    console.log({ commits })
-    console.log({ _commit })
+    const owner = await repo.owner()
     //function down(address payable _repo, address payable _commit, uint bounty) public payable returns (uint) {
-    //await eta.down(_repo, _commit.commit, 49)
+    await eta.down(_repo, _commit.commit, 49, { from: owner })
     const balance = await arg.balanceOf(_commit.commit)
-    console.log({ balance })
-    //assert.equal(balance, 50, "That the transfer of token out of commit")
-    //const balance_ = await arg.balanceOf(_repo)
-    //assert.equal(balance, 49, "That the transfer of token into the repo is accurate (no gas for inner token)")
-    //const commits_ = await eta.query.call(50, _repo)
+    assert.equal(balance, 50, "That the transfer of token out of commit")
+    const balance_ = await arg.balanceOf(_repo)
+    assert.equal(balance_, 49, "That the transfer of token into the repo is accurate (no gas for inner token)")
+  })
+  it("drain commit from approved down call", async () => {
+    const arg = await gitarg.deployed()
+    const eta = await giteta.at(_eta)
+    const repo = await Repo.at(_repo)
+    const commit = (await eta.query.call(50, _repo)).filter(({ timestamp }) => timestamp !== '0')[0]
+    const balance_ = await arg.balanceOf.call(commit.commit)
+    assert.equal(balance_, 50, "balance is 50 on commit")
+    await eta.drain(commit.commit)
+    const balance = await arg.balanceOf.call(_eta)
+    assert.equal(balance, 50, "balance of the eta contract is equal to the amount in the commit")
+  })
+  it("drain commit set from start and end timestamp", async () => {
+    const arg = await gitarg.deployed()
+    const eta = await giteta.at(_eta)
+    const org = await gitorg.deployed()
+    const repo = await Repo.at(_repo)
+    const timestamp = await org.timestamp.call()
+    console.log({ timestamp })
+    //function drain(uint start, uint end, address _repo) public payable returns (uint) {
+    //const timestamp = await gitorg.timestamp()
+    //const commits = (await eta.query.call(_repo, timestamp - 10, timestamp).filter(({ timestamp }) => timestamp !== '0')[0]
+    //console.log({ commits })
   })
 })

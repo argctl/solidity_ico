@@ -1,5 +1,6 @@
 const Commit = artifacts.require('Commit')
 const Repo = artifacts.require('Repo')
+const gitarg = artifacts.require('gitarg')
 
 contract('Commit', accounts => {
   it('can create a commit independent of repo', async () => {
@@ -77,5 +78,27 @@ contract('Commit', accounts => {
     } catch(e) {
       assert.equal(e.toString().split('\n')[0], 'TypeError: commit.data is not a function', 'data var is private')
     }
+  })
+  it('approves balance for account 0 for commit', async () => {
+    const _allowance = 200
+    const commit = await Commit.deployed()  
+    const arg = await gitarg.deployed()
+    await arg.transfer(commit.address, _allowance)//99
+    const balance = await arg.balanceOf.call(commit.address)
+    console.log({ balance })
+    //function approve(address _spender, uint256 _value) public returns (bool success)
+    //function approve(address _gitarg, address _wallet) public auth
+    await commit.approve(arg.address, commit.address)
+    const allowance = await arg.allowance.call(commit.address, commit.address)
+    console.log({ allowance: allowance * 1 })
+    assert.equal(allowance, _allowance, "the allowance set through the commit matches the balance")
+    await commit.approve(arg.address, accounts[0])
+    const allowance_ = await arg.allowance.call(commit.address, accounts[0])
+    assert.equal(allowance_, _allowance, "the allowance for accounts 0 is the value of the commit")
+    const allowance__ = await arg.allowance.call(commit.address, accounts[1])
+    assert.equal(allowance__, 0, "the allowance for accounts 1 is 0 absent approval")
+    await commit.approve(arg.address, accounts[1])
+    const allowance___ = await arg.allowance.call(commit.address, accounts[1])
+    assert.equal(allowance___, _allowance, "the allowance is updated for account 1 in addition")
   })
 })
