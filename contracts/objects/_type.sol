@@ -5,14 +5,13 @@ contract _type {
   address public O;
   event dens(bytes T);
   modifier OUR {
-    require(O == msg.sender);
+    require(O == msg.sender, "sour");
     _;
   }
   constructor () {
     O = msg.sender;  
   }
   function send(address U) public OUR {
-    require(O == msg.sender);
     O = U;
   }
 }

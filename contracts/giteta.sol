@@ -85,6 +85,22 @@ contract giteta {
     // REVIEW - values based on the git token backed?
     return Gitarg.balanceOf(_commit);
   }
+  // drain commits per commit, access after down function is called
+  function drain(address _commit) public payable returns (uint) {
+    // TODO - rate gather & msg.value travels?
+    Commit(_commit);
+    uint balance = Gitarg.balanceOf(_commit);
+    Gitarg.transferFrom(_commit, address(this), balance);
+    return balance;
+  }
+  // drain commits in a repo after down allow is called 
+  function drain(uint start, uint end, address _repo) public payable returns (uint) {
+    //function query(address _repo, uint start, uint end) public returns (Time[] memory)
+    Time[] memory times = query(_repo, start, end);
+    for (uint i = 0; i < times.length; i++) {
+      drain(times[i].commit);
+    }
+    return block.timestamp;
   }
   // query value of commit
   function value(address _commit) public view returns (uint) {

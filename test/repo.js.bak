@@ -1,0 +1,157 @@
+const Repo = artifacts.require('Repo')
+const gitorg = artifacts.require('../contracts/libraries/gitorg.sol')
+const gitarray = artifacts.require('../contracts/gitarray.sol')
+const { wait } = require('./utils')
+
+contract('Repo', async accounts => {
+  it('has repo name from deployed Repo object', async () => {
+    const repo = await Repo.deployed()
+    const name = await repo.name()
+    assert.equal(name, 'TestRepo', 'name from migration sticks') 
+  })
+  it('has repo url from deployed Repo object', async () => {
+    const repo = await Repo.deployed()
+    const url = await repo.url()
+    assert.equal(url, 'https://gitlab.com/me2211/testrepo', 'test repo has accurate url')
+  })
+  it('adds value to repo', async () => {
+    const value = 10000
+    const repo = await Repo.deployed()
+    //function add() payable public {
+    await repo.add({ from: accounts[2], value })
+    const contribution = await repo._buyerContributions.call(accounts[2])
+    assert.equal(value, contribution * 1, 'contribution is equal to value input')
+    await repo.add({ from: accounts[2], value })
+    const contribution_ = await repo._buyerContributions.call(accounts[2])
+    assert.equal(value * 2, contribution_ * 1, 'contribution adds on buyerContribution')
+  })
+  it('sell for less than value store move owner account', async () => {
+    //function sell(address _owner, address payable _seller, uint _value) public seller(_seller) {
+    const repo = await Repo.deployed()
+    await repo.sell(accounts[2], accounts[1], 9999, { from: accounts[1] })
+    const owner = await repo.owner()
+    const value = await repo.value()
+    assert.equal(owner, accounts[2], 'account change for repo sale')
+    assert.equal(value * 1, 10001, 'value retention on repo sale')
+  })
+  it('safeSell(s) at the price the buyer proposed', async () => {
+    const value = 1000000
+    const repo = await Repo.deployed();
+    await repo.add({ from: accounts[3], value })
+  // function safeSell(address _owner, address payable _seller, uint _value) public seller(_seller) {
+    await wait(2000)
+    await wait(10000)
+    await repo.safeSell(accounts[3], accounts[2], value, { from: accounts[2] })
+    const owner_ = await repo.owner()
+    assert.equal(owner_, accounts[3], 'owner change based on safeSell')
+  })
+  it('_sell does not work', async () => {
+    const value = 1000000
+    const repo = await Repo.deployed()
+    try {
+      await repo._sell(accounts[4], accounts[3], { from: accounts[3] })
+    } catch (e) {
+      assert.equal(e.toString().split('\n')[0], 'TypeError: repo._sell is not a function', 'accessing internal function throws an error')
+    }
+  })
+  it('highSell(s) at the highest offer price', async () => {
+    const values = [10000, 1000, 100, 10, 1]
+    const repo = await Repo.deployed()
+    //await repo.add({ from: accounts[5], values[4] })
+    //await repo.add({ from: accounts[6], values[3] })
+    //await repo.add({ from: accounts[7], values[2] })
+    for (let i = values.length - 1; i >= 0; i--) {
+      await repo.add({ from: accounts[9 - i], value: values[i] })
+    }
+    //function highSell(address payable _seller) public seller(_seller) {
+    await wait(4000)
+    await repo.highSell(accounts[3], { from: accounts[3] })
+    await wait(4000)
+    const buyer = accounts[accounts.length - 1]
+    const owner = await repo.owner()
+    assert.equal(buyer, owner, 'buyer and owner match')
+  })
+  it('stamp(s), hashes functions', async () => {
+    const repo = await Repo.deployed()
+    //function stamp(string memory _hash) public {
+    const _hash = '1f8fb8d143a0873188c4ed36e843b911bf433e2c'
+    //const org = await gitorg.deployed()
+    const receipt = await repo.stamp(_hash)
+    const timestamp = receipt.logs[0].args['timestamp'] * 1
+    await wait(2000)
+    //function verification(uint iteration) public view created returns (bytes32) {
+    const receipt_ = await repo.verification(1)
+    const hash_ = await receipt_.logs[0].args['hash']
+    const receipt__ = await repo._stamp(_hash, timestamp)
+    const hash__ = receipt__.logs[0].args['hash']
+    // issue with call and computation in non-solidity call
+    assert.equal(hash_, hash__, 'hashes match')
+  })
+  it('allow adds user to allow list', async () => {
+    const repo = await Repo.deployed()
+    await repo.allow(accounts[4], { from: await repo.owner() })
+    const allowed = (await repo.allowed(accounts[4])) * 1
+    assert.isAbove(allowed, 1, 'allowed timestamp is above 1')
+  })
+  it('disallow adds user to disallow list', async () => {
+    const repo = await Repo.deployed()
+    await repo.revoke(accounts[4], false, { from: await repo.owner() })
+    try {
+      console.log('method: ', repo.methods['verification(uint256)'])//(1, { from: await repo.owner() })
+      const res = await repo.methods['verification(uint256)'](1, { from: accounts[4] })
+    } catch (e) {
+      assert.equal(e.toString().split('\n')[0], "Error: VM Exception while processing transaction: revert the sender's timestamp was revoked more recently -- Reason given: the sender's timestamp was revoked more recently.")
+    }
+  })
+  it('allows verification with the gitarray address', async () => {
+    //function verification(address payable _gitarray, uint iteration) public auth returns (bytes32) {
+    const repo = await Repo.deployed()
+    //gitarray address is not creator from deployer because of migration arch
+    //const array = await gitarray.deployed()
+    const receipt = await repo.verification(accounts[0], 1)
+    const receipt_ = await repo.verification(1)
+    const hash_ = receipt.logs[0].args.hash
+    const hash__ = receipt.logs[0].args.hash
+    assert.equal(hash_, hash__, 'hashes match from creator address verify')
+    try {
+      await repo.verification(accounts[1], 1) 
+    } catch (e) {
+      assert.equal(e.reason, 'verification address is not creator', 'Error given when verification is on wrong creator address')
+    }
+  })
+  it('restricts private access vars', async () => {
+    const repo = await Repo.deployed()
+    //bytes32[] private hash;
+    //address private array;
+    //address private arg;
+    //mapping(address => uint) private buyerContributions;
+    //address[] private buyers;
+
+    try {
+      await repo.hash(0)
+    } catch (e) {
+      assert.equal(e.toString().split('\n')[0], 'TypeError: repo.hash is not a function', 'var hash is private')
+    }
+    try {
+      await repo.array()
+    } catch (e) {
+      assert.equal(e.toString().split('\n')[0], 'TypeError: repo.array is not a function', 'var array is private')
+    }
+    try {
+      await repo.arg()
+    } catch (e) {
+      assert.equal(e.toString().split('\n')[0], 'TypeError: repo.arg is not a function', 'var arg is private')
+    }
+    try {
+      await repo.buyerContributions(accounts[2])
+    } catch (e) {
+      assert.equal(e.toString().split('\n')[0], 'TypeError: repo.buyerContributions is not a function', 'var buyerContributions is private')
+    }
+    try {
+      await repo.buyers(0)
+    } catch (e) {
+      assert.equal(e.toString().split('\n')[0], 'TypeError: repo.buyers is not a function', 'var buyers is private')
+    }
+  })
+})
+

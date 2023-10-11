@@ -3,7 +3,7 @@ pragma solidity >= "0.8.20";
 import "./_type.sol";
 
 contract _int is _type {
-  int o;
+  int private o;
   constructor (int m) {
     o = m; 
   }

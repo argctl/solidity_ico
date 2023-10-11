@@ -25,6 +25,7 @@ contract('Repo', async accounts => {
     const contribution_ = await repo._buyerContributions.call(accounts[2])
     assert.equal(value * 2, contribution_ * 1, 'contribution adds on buyerContribution')
   })
+  /*
   it('sell for less than value store move owner account', async () => {
     //function sell(address _owner, address payable _seller, uint _value) public seller(_seller) {
     const repo = await Repo.deployed()
@@ -71,6 +72,7 @@ contract('Repo', async accounts => {
     const owner = await repo.owner()
     assert.equal(buyer, owner, 'buyer and owner match')
   })
+  */
   it('stamp(s), hashes functions', async () => {
     const repo = await Repo.deployed()
     //function stamp(string memory _hash) public {

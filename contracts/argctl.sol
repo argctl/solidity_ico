@@ -1,16 +1,22 @@
 // SPDX-License-Identifier: BUSL-1.1
-//import "./gitorg.sol";
+import "./gitorg.sol";
 import "./libraries/gitorg.sol";
 import "./gitarg.sol";
 import "./objects/Proposal.sol";
 import "./objects/Handshakes.sol";
+import "./gitarray.sol";
+
 pragma solidity >= "0.8.20";
 
+//spawner
 contract argctl {
-  address private _gitorg;
+  address private _gitorg_;
+  _gitorg  private Gitorg;
   address public _gitarg;
   address private _handshakes;
   Handshakes handshakes;
+  gitarray Gitarray;
+  gitarg Gitarg;
   struct Sign {
     address repo;
     address gitarray;
@@ -18,15 +24,21 @@ contract argctl {
   }
   mapping(address => Sign) private repos;
   // interface
-  constructor (address handshakes_, address gitorg_, address gitarg_) {
+  /// trope
+  constructor (address handshakes_, address gitorg_, address gitarg_, address _gitarray) {
     _gitarg = gitarg_;
-    _gitorg = gitorg_;
+    _gitorg_ = gitorg_;
+    Gitorg = _gitorg(gitorg_);
     _handshakes = handshakes_;
     handshakes = Handshakes(handshakes_);
+    Gitarray = gitarray(_gitarray);
+    Gitarray.ctl();
   }
+  
+
   function proof () public view returns (address) {
     require(handshakes.isHandshake(msg.sender), "defer");
-    return _gitorg;
+    return _gitorg_;
   }
   function checkin (address repo, address handshakes) public {
     repos[repo] = Sign(repo, msg.sender, handshakes);
@@ -34,11 +46,15 @@ contract argctl {
   function commit(address _repo, string memory _message, string memory _author, string memory _date) public returns(uint) {
     Handshakes handshakes = Handshakes(repos[_repo].handshakes);
     Repo _repo = Repo(_repo);
-    require(handshakes.isHandshake(msg.sender));
-    uint extTimestamp = gitorg.timestamp();
+    bool shook = handshakes.isHandshake(msg.sender);
+    require(shook, "msg.sender is not a handshake");
+    //uint extTimestamp = gitorg.timestamp();
     //function stamp (string memory _hash, uint timestamp, address _msgSender) public pure returns (bytes32)
-    bytes32 hash = gitorg.stamp(_message, extTimestamp, msg.sender);
-    return block.timestamp;
+    //bytes32 hash = gitorg.stamp(_message, extTimestamp, msg.sender);
+    //return block.timestamp;
+  }
+  function tar (uint amount) public returns (uint price) {
+    return 1; 
   }
 }
 

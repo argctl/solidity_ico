@@ -37,11 +37,17 @@ contract Handshakes {
     }
     _;
   }
+
   modifier stop () {
     require(stopper[msg.sender] == 0, "stopper");
     _;
   }
 
+  modifier member () {
+    require(handshakes[msg.sender] != 0);
+    _; 
+    // TODO - explore - we can execute post-middlewear -  require(handshakes[msg.sender] != 0);
+  }
   constructor(address[] memory _handshakes, address _owner, uint _threshold, bool _corp) {
     creator = msg.sender;
     owner = _owner;
@@ -62,15 +68,15 @@ contract Handshakes {
     proposalTime = block.timestamp;
     return block.timestamp;
   }
-  function isHandshake(address sender) public view returns(bool) {
+  function isHandshake(address sender) public view member returns(bool) {
     // review - owner and creator or just owner
-    require(creator == msg.sender || owner == msg.sender);
+    //require(creator == msg.sender || owner == msg.sender);
     return handshakes[sender] != 0;
   }
   function isHandshake() public view returns(bool) {
     return handshakes[msg.sender] != 0;
   }
-  function shake() public {
+  function shake() public member {
     shook[msg.sender] = block.timestamp;
   }
   // TODO - expiry on handshake check with greaterthan

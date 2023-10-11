@@ -1,0 +1,32 @@
+const _type = artifacts.require('_type')
+const _string = artifacts.require('_string')
+const { wait } = require('./utils')
+//const _string = artifacts.require('_string') 
+
+// TODO - private type?
+contract('_type', accounts => {
+  it('public owner', async () => {
+    const type_ = await _type.deployed()
+    assert.equal(await type_.O(), accounts[0], 'owner is the default owner and accessable')
+    //console.log('owner: ', await type_.O(), accounts[0])
+  })
+  it('send changes owner', async () => {
+    const type_ = await _type.deployed() 
+    await type_.send(accounts[1])
+    assert.equal(await type_.O(), accounts[1], 'the owner changes when the type is sent')
+  })
+  it('string send', async () => {
+    const string_ = await _string.deployed()
+    await string_.send(accounts[1])
+    assert.equal(await string_.O(), accounts[1], 'the owner changes when the string is sent')
+  })
+  it('string', async () => {
+    const string_ = await _string.deployed()
+    const receipt = await string_.time({ from: accounts[1] })
+    console.log({ receipt })
+    console.log('log: ', receipt.logs[0].args[0])
+    const bytes = receipt.logs[0].args[0]
+    const decodedData = web3.eth.abi.decodeParameters(['bytes'], bytes)
+    console.log({ decodedData })
+  })
+})

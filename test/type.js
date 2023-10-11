@@ -54,5 +54,16 @@ contract('_type', accounts => {
     await int_.send(accounts[1])
     assert.equal(await int_.O(), accounts[1], 'the owner changes when the int is sent')
   })
-  
+  it('int', async () => {
+    const int_ = await _int.deployed()
+    const receipt = await int_.time({ from: accounts[1] })
+    const bytes = receipt.logs[0].args[0]
+    console.log({ bytes })
+    //const decodedInt = parseInt(bytes, 16)
+    const decodedInt = web3.utils.toBN(bytes) * 1
+    console.log('decodedInt: ', decodedInt.toString())
+    // 115,792,089,237,316,200,000,000,000,000,000,000,000,000,000
+    //const decodedInt = parseInt(bytes, 16)
+    assert.equal(decodedInt, 100, 'int matches deploy')
+  })
 })

@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity >= "0.8.20";
 import "../giteta.sol";
-//import "../gitarg.sol";
+import "../gitarg.sol";
 //import "../objects/Repo.sol";
 
 //library so that there is a single point and interface to externals reference
@@ -65,8 +65,11 @@ library gitorg {
   function timestamp() public view returns (uint) {
     return block.timestamp;
   }
+  // TODO - place the argctl command
+  //function argctl()
   function approve(address _gitarg, address payable _wallet, uint value) public {
     gitarg Gitarg = gitarg(_gitarg);
     Gitarg.approve(_wallet, value);
   }
+  //function 
 }

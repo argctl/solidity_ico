@@ -1,2 +1,20 @@
 This is not an ARG!
 https://youtu.be/asRcbYYKptM
+
+* GITARRAY PRESENTATION *
+
+1) Developer interactivity
+Developers need an interface to work with decentralized systems. Decentralized systems require unique CLI tooling. Unique CLI tooling can exist server side and on the client device, resembling a Web 2.0 DevOps pattern.
+2) Developer safety
+Each commit is vulnerable to manipulation and a target for transaction based systems, additionally developer sanity checks and traceability of value additions, ordering and ownership lead to responsible projects without power dynamics.
+3) DevOps Tracing
+DevOps suffer from power dynamics of understanding and tool restrictiveness. Tool piecing is the answer, leading to collectives or commitee style production teams that hold systems in their minds over traceable solutions that stick.
+
+1) Git hooks - product development
+Git hooks and the git cli are familar to every developer on the planet. The connection of this tooling allows for easier use of standard tooling with decentralized ledger systems.
+2) IDS
+Intrusion detection of code changes by a ternary system or system that can't be changed without loss proportional to the risk and value as incentive, or loss of reward potential for the attacker through valued computation down to cycle.
+3) DevOps with accuracy
+DevOps with hashing of code for virtualization forms the top layer of computational organization with the highest potential risk of casual communication failure. The process of improving the accuracy requires a foundation of code tracking or traceability.  
+
+

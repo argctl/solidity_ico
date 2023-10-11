@@ -108,7 +108,7 @@ contract Repo {
     contributorCommits[sender] = _commit;
     return block.timestamp;
   }
-  
+  /*
   function _sell(address _owner, address payable _seller, uint _value) internal {
     require(_value <= value, "value transfer is less than amount in contract");
     // REVIEW - ledger should be enough - gitarg integration may change this in layer 4-5
@@ -124,12 +124,14 @@ contract Repo {
   function sell(address _owner, address payable _seller, uint _value) public seller(_seller) {
     _sell(_owner, _seller, _value);
   }
+  */
   // if it is a bid change from += to = for [msg.sender]
   function add() payable public {
     if(buyerContributions[msg.sender] == 0) buyers.push(msg.sender);
     buyerContributions[msg.sender] += msg.value; 
     value += msg.value;
   }
+  /*
   // sell by value of buyer (_owner)
   function safeSell(address _owner, address payable _seller, uint _value) public seller(_seller) {
     for(uint i = 0; i < buyers.length; i++) {
@@ -180,6 +182,7 @@ contract Repo {
     // we don't care about the bid, just the highest value
     _sell(_owner, _seller, _amount);
   }
+  */
   function _buyerContributions(address buyer) public view auth returns (uint) {
     return buyerContributions[buyer];
   }
@@ -188,7 +191,6 @@ contract Repo {
     //gitorg.approve(_gitarg, _wallet, value);
     gitarg Gitarg = gitarg(_gitarg);
     Gitarg.approve(_wallet, value);
-
   }
   // TODO - move the buying/selling repo to gitarray
   // TODO - add approve syntax for worker/coder/repo cycle
