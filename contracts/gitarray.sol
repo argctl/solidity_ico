@@ -68,23 +68,10 @@ contract gitarray {
     unique[gitorg.key(_url)] = block.timestamp;
     return block.timestamp;
   }
-  function ctl () public returns (bool) {
-    //ctls[msg.sender] = argctl(msg.sender);
-    //new ar
-    //new argctl(address(signers[msg.sender]), address(orgs[msg.sender]), arg, address(this));
+  function ctl (address handshake) public returns (bool) {
+    ctls[handshake] = argctl(msg.sender);
     return true;
   }
-  function ctl (address _org) public own { //returns (argctl) {
-    //constructor (address handshakes_, address gitorg_, address gitarg_, address _gitarray) {
-    // TODO - org fee?
-    ARGCTL = new argctl(address(signers[msg.sender]), address(orgs[_org]), arg, address(this));
-    //return ARGCTL;
-  }
-  /*function l1 () public own {
-    //new argctl(address(signers[msg.sender]), address(orgs[msg.sender]), arg, address(this));
-    new ltcgra(address(signers[msg.sender]), address(orgs[msg.sender]), arg);
-  }
-  */
   function org () public returns (bool) {
     orgs[msg.sender] = _gitorg(msg.sender);
     return true;

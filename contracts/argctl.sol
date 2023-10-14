@@ -32,9 +32,8 @@ contract argctl {
     _handshakes = handshakes_;
     handshakes = Handshakes(handshakes_);
     Gitarray = gitarray(_gitarray);
-    Gitarray.ctl();
+    Gitarray.ctl(msg.sender);
   }
-  
 
   function proof () public view returns (address) {
     require(handshakes.isHandshake(msg.sender), "defer");
@@ -47,7 +46,7 @@ contract argctl {
     Handshakes handshakes = Handshakes(repos[_repo].handshakes);
     Repo _repo = Repo(_repo);
     bool shook = handshakes.isHandshake(msg.sender);
-    require(shook, "msg.sender is not a handshake");
+    //require(shook, "msg.sender is not a handshake");
     //uint extTimestamp = gitorg.timestamp();
     //function stamp (string memory _hash, uint timestamp, address _msgSender) public pure returns (bytes32)
     //bytes32 hash = gitorg.stamp(_message, extTimestamp, msg.sender);
