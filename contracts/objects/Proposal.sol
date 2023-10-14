@@ -11,16 +11,17 @@ contract Proposal {
     _;
   }
 
+  // TODO - review if we should have a (public) name attached
   constructor(address _object) {
     creator = msg.sender;  
     object = _object;
   }
-  function disableSafeMode() public safe() returns(uint)  {
+  function disableSafeMode() public safe returns(uint)  {
     require(msg.sender == creator);
     safeMode = false;
     return block.timestamp;
   }
-  function getObject() public view safe() returns(address) {
+  function getObject() public view safe returns(address) {
     if (safeMode) require(msg.sender == creator);
     return object;
   }
