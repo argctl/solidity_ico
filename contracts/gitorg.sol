@@ -25,10 +25,16 @@ contract _gitorg {
       _rate = address(Proposal(address(this)));
     }
   }
-  function listing (address _repo, uint price) public {
+  //function listing (address _repo, uint price) public {
+  function listing () public {
   }
-  function list (address _repo) public {
+  //function list (address _repo) public {
+
+  function list (address _proposal) public {
     // TODO - call?
+  }
+  function open (address _proposal) public {
+    // TODO - send _type from proposal
   }
   //function _gitarray_
 }
