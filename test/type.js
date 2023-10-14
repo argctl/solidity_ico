@@ -2,6 +2,7 @@ const _type = artifacts.require('_type')
 const _string = artifacts.require('_string')
 const _uint = artifacts.require('_uint')
 const _int = artifacts.require('_int')
+const _address = artifacts.require('_address')
 const { wait } = require('./utils')
 //const _string = artifacts.require('_string') 
 
@@ -65,5 +66,17 @@ contract('_type', accounts => {
     // 115,792,089,237,316,200,000,000,000,000,000,000,000,000,000
     //const decodedInt = parseInt(bytes, 16)
     assert.equal(decodedInt, 100, 'int matches deploy')
+  })
+  it('address', async () => {
+    const address_ = await _address.deployed()
+    const receipt = await address_.time({ from: accounts[0] })
+    //const bytes = web3.utils.hexToBytes(receipt.logs[0].args[0])
+    const bytes = receipt.logs[0].args[0]
+    //const address = receipt.logs[0].args[0]
+    //const buff = Buffer.from(bytes.split('x')[1], 'hex')
+    //const decodedString = buff.toString('utf-8')
+    //const address = web3.utils.bytesToHex(bytes)
+    //assert.equal(address, accounts[0], 'the address deployed matches the address from the accounts in deployement')
+    assert.equal(bytes.toLowerCase(), accounts[0].toLowerCase(), 'the address deployed matches the address from the accounts in deployement')
   })
 })
