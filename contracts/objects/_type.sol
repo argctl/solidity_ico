@@ -14,4 +14,9 @@ contract _type {
   function send(address U) public OUR {
     O = U;
   }
+  function time () public virtual {}
+  function int_() public virtual returns (int) {}
+  function uint_() public virtual returns (uint) {}
+  function string_() public virtual returns (string memory) {}
+  function address_() public virtual returns (address) {}
 }
