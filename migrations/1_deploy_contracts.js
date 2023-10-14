@@ -10,6 +10,7 @@ const _type = artifacts.require('_type')
 const _uint = artifacts.require('_uint')
 const _int = artifacts.require('_int')
 const _string = artifacts.require('_string')
+const _address = artifacts.require('_address')
 const argctl = artifacts.require('argctl')
 
 const { wait } = require('../test/utils')
@@ -39,6 +40,7 @@ module.exports = async function (deployer, network, accounts){
   await deployer.deploy(_uint, 100)
   await deployer.deploy(_int, 100)
   await deployer.deploy(_string, "duck")
+  await deployer.deploy(_address, accounts[0])
   //constructor (address handshakes_, address gitorg_, address gitarg_) {
   const org = await gitorg.deployed()
   const handshakes = await Handshakes.deployed()
