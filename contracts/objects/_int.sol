@@ -7,7 +7,10 @@ contract _int is _type {
   constructor (int m) {
     o = m; 
   }
-  function time () public OUR {
+  function time () public override OUR {
     emit dens(abi.encodePacked(o));
+  }
+  function int_ () public override OUR returns (int) {
+    return o;
   }
 }

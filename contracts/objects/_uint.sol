@@ -7,7 +7,10 @@ contract _uint is _type {
   constructor(uint R) {
     xy = R;
   }
-  function time () public OUR {
+  function time () public override OUR {
     emit dens(abi.encodePacked(xy)); 
+  }
+  function uint_ () public override OUR returns (uint) {
+    return xy;
   }
 }

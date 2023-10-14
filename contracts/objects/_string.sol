@@ -7,7 +7,10 @@ contract _string is _type {
   constructor (string memory N) {
     S = N;
   }
-  function time () public OUR {
+  function time () public override OUR {
     emit dens(abi.encodePacked(S)); 
   } 
+  function string_ () public override OUR returns (string memory) {
+    return S;
+  }
 }
