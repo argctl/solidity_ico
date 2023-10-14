@@ -44,7 +44,7 @@ contract Handshakes {
   }
 
   modifier member () {
-    require(handshakes[msg.sender] != 0);
+    require(handshakes[msg.sender] != 0, "member");
     _; 
     // TODO - explore - we can execute post-middlewear -  require(handshakes[msg.sender] != 0);
   }
@@ -68,14 +68,15 @@ contract Handshakes {
     proposalTime = block.timestamp;
     return block.timestamp;
   }
-  function isHandshake(address sender) public view member returns(bool) {
-    // review - owner and creator or just owner
-    //require(creator == msg.sender || owner == msg.sender);
-    return handshakes[sender] != 0;
-  }
   function isHandshake() public view returns(bool) {
     return handshakes[msg.sender] != 0;
   }
+  function isHandshake(address handshake) public view member returns(bool) {
+    // review - owner and creator or just owner
+    //require(creator == msg.sender || owner == msg.sender);
+    return handshakes[handshake] != 0;
+  }
+  
   function shake() public member {
     shook[msg.sender] = block.timestamp;
   }
