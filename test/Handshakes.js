@@ -1,43 +1,52 @@
 const Handshakes = artifacts.require('Handshakes')
+const Proposal = artifacts.require('Proposal')
+const _uint = artifacts.require('_uint')
 
 contract('Handshakes', (accounts) => {
   //function isHandshake(address sender) public view member returns(bool) {
   it('isHandshake sender retreives the handshake when the sender is a member', async () => {
     const handshakes = await Handshakes.deployed()
-    //const handshakey = await handshakes.isHandshake(accounts[0])
-    //assert.equal(handshakey, true, "handshake is true")
+    const handshakey = await handshakes.isHandshake(accounts[1], { from: accounts[1] })
+    console.log({ handshakey })
+    assert.equal(handshakey, true, "accounts[1] is a handshake")
   })
   //function isHandshake() public view returns(bool) {
-  it('', () => {
-
+  it('tracks handshakes mutually', async () => {
+    const handshakes = await Handshakes.deployed()
+    const handshakey = await handshakes.isHandshake({ from: accounts[1] })
+    console.log({ handshakey })
+    assert.equal(handshakey, true, 'accounts[1] is a handshake')
   })
   //function setProposal(address _proposal) public own returns(uint) {
-  it('', () => {
+  it('setProposal links an address of a proposal', async () => {
+    const uint = await _uint.new(100)
+    //constructor(address _object) {
+    const proposal = await Proposal.new(uint.address)
 
   })
   //function shake() public member {
-  it('', () => {
+  it('', async () => {
 
   })
   //function check(address[] memory shakes, address[] memory noshakes) public view own {
-  it('', () => {
+  it('', async () => {
 
   })
   //function add(address handshake) public own stop returns (uint) {
-  it('', () => {
+  it('', async () => {
 
   })
   //function remove() public returns (uint) {
-  it('', () => {
+  it('', async () => {
 
   })
   //function remove(address handshake) public own stop returns (uint) {
-  it('', () => {
+  it('', async () => {
 
   })
   //function unstopper(address handshake, bool _epoch) public own rhyme returns (uint) {
   //function epoch () public own {
-  it('', () => {
+  it('', async () => {
 
   })
 })
