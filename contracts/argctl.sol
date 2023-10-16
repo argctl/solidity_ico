@@ -5,6 +5,7 @@ import "./gitarg.sol";
 import "./objects/Proposal.sol";
 import "./objects/Handshakes.sol";
 import "./gitarray.sol";
+import "./ltcgra.sol";
 
 pragma solidity >= "0.8.20";
 
@@ -39,6 +40,13 @@ contract argctl {
     require(handshakes.isHandshake(msg.sender), "defer");
     return _gitorg_;
   }
+  function repo(address[] memory _handshakes, string memory _name, string memory _url, address _owner, address _argctl) public returns(uint) {
+    for (uint i = 0; i < _handshakes.length; i++) {
+      require(handshakes.isHandshake(_handshakes[i]), "backhanded");
+    }
+    Gitarray.repo(_handshakes, _name, _url, _owner, _argctl);
+  }
+  // NOT A SHORT SELL INTERFACE
   function checkin (address repo, address handshakes) public {
     repos[repo] = Sign(repo, msg.sender, handshakes);
   }
@@ -50,7 +58,7 @@ contract argctl {
     //uint extTimestamp = gitorg.timestamp();
     //function stamp (string memory _hash, uint timestamp, address _msgSender) public pure returns (bytes32)
     //bytes32 hash = gitorg.stamp(_message, extTimestamp, msg.sender);
-    //return block.timestamp;
+    return block.timestamp;
   }
   function tar (uint amount) public returns (uint price) {
     return 1; 
