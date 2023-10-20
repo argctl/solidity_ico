@@ -20,9 +20,9 @@ module.exports = async function (deployer, network, accounts){
   //deployer.deploy(Linkerfinder, accounts, 10000, 3)
   //console.log({ deployer })
   await deployer.deploy(gitorg)
-  await deployer.deploy(gitarg)
-  await wait(4000)
-  const arg = await gitarg.deployed()
+  const arg = await deployer.deploy(gitarg)
+  //await wait(4000)
+  //const arg = await gitarg.deployed()
   const eta = await deployer.deploy(giteta, accounts[0])
   //constructor(address[] memory _handshakes, address _owner, uint _threshold, bool _corp) {
   await deployer.deploy(Handshakes, accounts.slice(1), accounts[0], 3, true)
@@ -46,7 +46,9 @@ module.exports = async function (deployer, network, accounts){
   const handshakes = await Handshakes.deployed()
   await deployer.link(gitorg, argctl)
   //constructor (address handshakes_, address gitorg_, address gitarg_, address gitarray) {
-  const ctl = await deployer.deploy(argctl, handshakes.address, org.address, arg.address, array.address)
+  //constructor (address handshakes_, address gitorg_, address gitarg_, address _gitarray, address _giteta) {
+  const ctl = await deployer.deploy(argctl, handshakes.address, org.address, arg.address, array.address, eta.address)
+  //const ctl = await deployer.deploy(argctl, handshakes.address, org.address, arg.address, array.address)
   //function add(address handshake) public own stop returns (uint) {
   await handshakes.add(ctl.address)
 } 
