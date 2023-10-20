@@ -23,7 +23,7 @@ contract('gitarg', accounts => {
     const ico = await gitarg.deployed()
     const tokens = 100000
     await ico.transfer(accounts[1], tokens)
-    await wait(1000)
+    //await wait(1000)
     const tokens_ = await ico.balanceOf.call(accounts[1])
     assert.equal(tokens, tokens_, 'the tokens transferred equal the tokens in the account')
   })
@@ -41,9 +41,9 @@ contract('gitarg', accounts => {
     const tokens = 100000
     const ico = await gitarg.deployed()
     await ico.approve(accounts[2], tokens, { from: accounts[0] }) 
-    await wait(2000)
+    //await wait(2000)
     const allowance = await ico.allowance.call(accounts[0], accounts[2] )
-    await wait(2000)
+    //await wait(2000)
     assert.equal(allowance, tokens, 'allowance equals amount of approval')
     await ico.transferFrom(accounts[0], accounts[2], tokens, { from: accounts[2] })
     const balance = await ico.balanceOf.call(accounts[2])

@@ -25,12 +25,14 @@ contract('Handshakes', (accounts) => {
 
   })
   //function shake() public member {
-  it('', async () => {
-
+  it('shake registers handshake address as approved list of shakes', async () => {
+    const handshakes = await Handshakes.deployed()
+    await handshakes.shake({ from: accounts[1]  })
   })
   //function check(address[] memory shakes, address[] memory noshakes) public view own {
-  it('', async () => {
-
+  it('check shakes vs no shakes all noshakes except account[1]', async () => {
+    //const handshakes = await Handshakes.deployed()
+    //await handshakes.check(accounts.slice(2), accounts[1])
   })
   //function add(address handshake) public own stop returns (uint) {
   it('', async () => {
