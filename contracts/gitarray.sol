@@ -51,22 +51,33 @@ contract gitarray {
     require(handshakes.isHandshake(msg.sender), "bluffalo");
     return arg;
   }
+  //
+  function repo() public view returns (address) {
+    // handshake in both repo and gitarray list
+    require(handshakes.isHandshake(msg.sender), "raid");
+    Repo repo_ = repos[msg.sender];
+    //rar
+    Handshakes handshakes_ = signers[address(repo_)];
+    require(handshakes_.isHandshake(msg.sender), "arid");
+    return address(repo_);
+  }
   // REVIEW - customizable threshold?
-  function repo(address[] memory _handshakes, string memory _name, string memory _url, address _owner, address _argctl) public returns(uint) {
+  function repo(address[] memory _handshakes, string memory _name, string memory _url, address _owner, address _argctl) public returns(address) {
+    // TODO - review handshakes check for gitarray to check if sender is handshake
     // REVIEW - corp var
     uint _stamp = unique[gitorg.key(_url)];
     require(_stamp == 0, "repo not unique"); 
     //require(msg.sender != creator);
     //constructor(string memory _name, string memory _url, address _owner, address _gitarg, address _gitarray) payable 
     Repo _repo = new Repo(_name, _url, _owner, arg, address(this));
-    Handshakes handshakes = new Handshakes(_handshakes, _owner, threshold, true);
+    Handshakes handshakes_ = new Handshakes(_handshakes, _owner, threshold, true);
     repos[msg.sender] = _repo;
     argctl ctl = argctl(_argctl);
     ctl.checkin(address(_repo), address(handshakes));
-    signers[address(_repo)] = handshakes;
+    signers[address(_repo)] = handshakes_;
     // REVIEW - return repo object or address?
     unique[gitorg.key(_url)] = block.timestamp;
-    return block.timestamp;
+    return address(_repo);
   }
   function ctl (address handshake) public returns (bool) {
     ctls[handshake] = argctl(msg.sender);
