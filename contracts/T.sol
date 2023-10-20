@@ -6,7 +6,7 @@ contract T {
   address private _ltcgra;
   struct I {
     string ticker;
-    string rate;
+    uint rate;
   }
 
   I _i;
