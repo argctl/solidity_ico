@@ -19,7 +19,7 @@ library ARGARRAY {
     return 0x6B175474E89094C44Da98b954EedeAC495271d0F;
   }
   function usdc () public returns (address) {
-    return 0xA0b86991c6218b36c1d19D4a2e9Eb0cE360cfb3D;
+    return 0xa0B86991c6218b36c1d19d4a2e9eb0Ce360CFb3D;
   }
   function link () public returns (address) {
     return 0x514910771AF9Ca656af840dff83E8264EcF986CA;
