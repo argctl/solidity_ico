@@ -15,4 +15,34 @@ library ARGARRAY {
     //0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2
     return 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2;
   }
+  function dai () public returns (address) {
+    return gitarg();
+  }
+  function usdc () public returns (address) {
+    return gitarg();
+  }
+  function link () public returns (address) {
+    return gitarg();
+  }
+  function aave () public returns (address) {
+    return gitarg();
+  }
+  function snx () public returns (address) {
+    return gitarg();
+  }
+  function mkr () public returns (address) {
+    return gitarg();
+  }
+  function bat () public returns (address) {
+    return gitarg();
+  }
+  function comp () public returns (address) {
+    return gitarg();
+  }
+  function yfi () public returns (address) {
+    return gitarg();
+  }
+  function wbtc () public returns (address) {
+    return gitarg();
+  }
 }
