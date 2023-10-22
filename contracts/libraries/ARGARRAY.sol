@@ -16,33 +16,33 @@ library ARGARRAY {
     return 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2;
   }
   function dai () public returns (address) {
-    return gitarg();
+    return 0x6B175474E89094C44Da98b954EedeAC495271d0F;
   }
   function usdc () public returns (address) {
-    return gitarg();
+    return 0xA0b86991c6218b36c1d19D4a2e9Eb0cE360cfb3D;
   }
   function link () public returns (address) {
-    return gitarg();
+    return 0x514910771AF9Ca656af840dff83E8264EcF986CA;
   }
   function aave () public returns (address) {
-    return gitarg();
+    return 0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9;
   }
   function snx () public returns (address) {
-    return gitarg();
+    return 0xC011a73ee8576Fb46F5E1c5751cA3B9Fe0af2a6F;
   }
   function mkr () public returns (address) {
-    return gitarg();
+    return 0x9f8F72aA9304c8B593d555F12eF6589cC3A579A2;
   }
   function bat () public returns (address) {
-    return gitarg();
+    return 0x0D8775F648430679A709E98d2b0Cb6250d2887EF;
   }
   function comp () public returns (address) {
-    return gitarg();
+    return 0xc00e94Cb662C3520282E6f5717214004A7f26888;
   }
   function yfi () public returns (address) {
-    return gitarg();
+    return 0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e;
   }
   function wbtc () public returns (address) {
-    return gitarg();
+    return 0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599;
   }
 }
