@@ -5,6 +5,9 @@ library ARGARRAY {
   function gitarg () public returns (address) {
     return 0xb3Bdb3e25BB580CA98480a5fD7c98E6516750685;
   }
+  function gitarg_goerli () public returns (address) {
+    return 0xb85C685226095d20EA648C35B9CCE6C1556006A5;
+  }
   function uniswap () public returns (address) {
     return 0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984;
   }
