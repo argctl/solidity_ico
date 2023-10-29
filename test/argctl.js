@@ -25,8 +25,8 @@ contract('argctl', (accounts) => {
     //const isHandshake_ = await handshakes.isHandshake({ from: accounts[1] })
     //console.log({ isHandshake, isHandshake_ })
     //function commit(address _repo, string memory _message, string memory _author, string memory _date) public returns(uint) {
-    const commitReceipt = await ctl.commit(_repo.address, 'untyped proposal', 'David Kamer <me@davidkamer.com>', 'Sun Oct 1 03:40:44 2023 -0400', { from: accounts[1] })
-    console.log({ commitReceipt })
+    //const commitReceipt = await ctl.commit(_repo.address, 'untyped proposal', 'David Kamer <me@davidkamer.com>', 'Sun Oct 1 03:40:44 2023 -0400', { from: accounts[1] })
+    //console.log({ commitReceipt })
 
   })
   //function checkin (address repo, address handshakes) public {

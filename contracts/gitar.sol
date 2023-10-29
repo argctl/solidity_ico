@@ -26,7 +26,7 @@ contract gitar {
   }
   function g (uint tar) public payable returns (bool) {
     //require(locked == false, "Locke");
-    require(locked == true, "Locke"); 
+    require(locked == false, "Locke"); 
     if (Gitarg.balanceOf(owner) < threshold) {// || Gitarg.allowance(owner, address(this)) <= tar) {
       lock();
       return false;
