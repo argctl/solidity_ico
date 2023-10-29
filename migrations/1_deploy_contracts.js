@@ -12,6 +12,7 @@ const _int = artifacts.require('_int')
 const _string = artifacts.require('_string')
 const _address = artifacts.require('_address')
 const argctl = artifacts.require('argctl')
+const gitar = artifacts.require('gitar')
 
 const { wait } = require('../test/utils')
 
@@ -51,5 +52,7 @@ module.exports = async function (deployer, network, accounts){
   //const ctl = await deployer.deploy(argctl, handshakes.address, org.address, arg.address, array.address)
   //function add(address handshake) public own stop returns (uint) {
   await handshakes.add(ctl.address)
+  //constructor (address gitarg_, uint _price, uint threshold, uint ratio) {
+  await deployer.deploy(gitar, arg.address, 100000, 10000000000, 2, { from: accounts[0] })
 } 
 
