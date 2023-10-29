@@ -24,7 +24,7 @@ contract gitar {
     if (locked) lock();
     locked = true;
   }
-  function g (uint tar) public returns (bool) {
+  function g (uint tar) public payable returns (bool) {
     //require(locked == false, "Locke");
     require(locked == true, "Locke"); 
     if (Gitarg.balanceOf(owner) < threshold) {// || Gitarg.allowance(owner, address(this)) <= tar) {
@@ -36,7 +36,7 @@ contract gitar {
     require(Gitarg.allowance(owner, address(this)) >= tar, "allowance");
 
     Gitarg.transferFrom(owner, msg.sender, tar);
-    owner.transfer(msg.value);
+    payable(owner).transfer(msg.value);
     return true;
   }
 }

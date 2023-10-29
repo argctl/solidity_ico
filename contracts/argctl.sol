@@ -8,6 +8,7 @@ import "./objects/Proposal.sol";
 import "./objects/Handshakes.sol";
 import "./gitarray.sol";
 import "./ltcgra.sol";
+import "./objects/Repo.sol";
 
 
 //spawner

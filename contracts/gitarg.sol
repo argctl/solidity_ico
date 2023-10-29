@@ -72,7 +72,7 @@ contract gitarg {
   function transferFrom(address _from, address _to, uint256 _value) public returns (bool success) {
     require(!locked[msg.sender] && !locked[_from] && !locked[_to]);
     require(_value <= balances[_from]);
-    require(_value <= allowed[_from][msg.sender]); // ignore _to, msg.sender has allowance, from/spender ar the same
+    require(_value <= allowed[_from][msg.sender]);
     balances[_from] = balances[_from] - _value;
     allowed[_from][msg.sender] = allowed[_from][msg.sender] - _value;
     // _to should then be message sender

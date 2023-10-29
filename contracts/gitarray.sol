@@ -10,6 +10,7 @@ import "./objects/Handshakes.sol";
 import "./libraries/gitorg.sol";
 import "./gitorg.sol";
 
+// think identity
 contract gitarray {
 
   address creator;
@@ -30,6 +31,8 @@ contract gitarray {
   // !IMPORTANT
   // !!!
   // REVIEW - threshold divider 
+  uint down_;
+  uint tar_;
   modifier own {
     require(msg.sender == owner, "own");
     _;
@@ -51,7 +54,6 @@ contract gitarray {
     require(handshakes.isHandshake(msg.sender), "bluffalo");
     return arg;
   }
-  //
   function repo() public view returns (address) {
     // handshake in both repo and gitarray list
     require(handshakes.isHandshake(msg.sender), "raid");
@@ -87,14 +89,17 @@ contract gitarray {
     orgs[msg.sender] = _gitorg(msg.sender);
     return true;
   }
-  function tar () public {
+  function tar () public payable {
     //slow movement to prevent theft
+    tar_ += msg.value;
   }
-  function git () public {
+  function git (address _repo) public payable {
+    // require the repo map to the gas type?
     //called on commit in argctl to drain tar
   }
-  function down () public {
+  function down () public payable {
     //place ether down to prove value
+    down_ += msg.value;
   }
   //function isHandshake(address repo, address handshake) public returns (bool) {
     //require(msg.sender == _argctl, "the argctl address equals the address of argctl");
