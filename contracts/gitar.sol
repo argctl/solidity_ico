@@ -32,7 +32,7 @@ contract gitar {
       return false;
     }
     uint targit = tar * price;
-    require(msg.value > targit, "price");
+    require(msg.value == targit, "price");
     require(Gitarg.allowance(owner, address(this)) >= tar, "allowance");
 
     Gitarg.transferFrom(owner, msg.sender, tar);
