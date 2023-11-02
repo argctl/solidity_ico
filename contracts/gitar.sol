@@ -10,8 +10,10 @@ contract gitar {
   bool public safe = false;
   bool public locked = false;
   uint public threshold;
+  uint public ratio;
 
-  constructor (address gitarg_, uint _price, uint _threshold, uint ratio) {
+  constructor (address gitarg_, uint _price, uint _threshold, uint _ratio) {
+    ratio = _ratio;
     Gitarg = gitarg(gitarg_);
     if (ratio < 3) safe = true;
     require(Gitarg.balanceOf(msg.sender) >= Gitarg.totalSupply() / ratio);
