@@ -65,6 +65,7 @@ contract gitarray {
   }
   // REVIEW - customizable threshold?
   function repo(address[] memory _handshakes, string memory _name, string memory _url, address _owner, address _argctl) public returns(address) {
+    require(handshakes.isHandshake(msg.sender), "array");
     // TODO - review handshakes check for gitarray to check if sender is handshake
     // REVIEW - corp var
     uint _stamp = unique[gitorg.key(_url)];
@@ -73,7 +74,7 @@ contract gitarray {
     //constructor(string memory _name, string memory _url, address _owner, address _gitarg, address _gitarray) payable 
     Repo _repo = new Repo(_name, _url, _owner, arg, address(this));
     Handshakes handshakes_ = new Handshakes(_handshakes, _owner, threshold, true);
-    require(handshakes_.isHandshake(msg.sender));
+    require(handshakes_.isHandshake(msg.sender), "git");
     repos[msg.sender] = _repo;
     argctl ctl = argctl(_argctl);
     ctl.checkin(address(_repo), address(handshakes));
