@@ -75,15 +75,17 @@ contract gitarray {
     Repo _repo = new Repo(_name, _url, _owner, arg, address(this));
     Handshakes handshakes_ = new Handshakes(_handshakes, _owner, threshold, true);
     require(handshakes_.isHandshake(msg.sender), "git");
-    repos[msg.sender] = _repo;
+    repos[_owner] = _repo;
     argctl ctl = argctl(_argctl);
-    ctl.checkin(address(_repo), address(handshakes));
+    ctl.checkin(address(_repo), address(handshakes), _owner);
     signers[address(_repo)] = handshakes_;
     // REVIEW - return repo object or address?
     unique[gitorg.key(_url)] = block.timestamp;
     return address(_repo);
   }
   function ctl (address handshake) public returns (bool) {
+    // TODO - review handshake check?
+    require(address(ctls[handshake]) == address(0), "");
     ctls[handshake] = argctl(msg.sender);
     return true;
   }

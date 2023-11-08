@@ -45,16 +45,17 @@ contract argctl {
     require(handshakes.isHandshake(msg.sender), "defer");
     return _gitorg_;
   }
-  function repo(address[] memory _handshakes, string memory _name, string memory _url, address _owner, address _argctl) public returns(address) {
+  function repo(address[] memory _handshakes, string memory _name, string memory _url, address _argctl) public returns(address) {
     for (uint i = 0; i < _handshakes.length; i++) {
       require(handshakes.isHandshake(_handshakes[i]), "backhanded");
     }
-    address repo_ = Gitarray.repo(_handshakes, _name, _url, _owner, _argctl);
+    address repo_ = Gitarray.repo(_handshakes, _name, _url, msg.sender, _argctl);
     return repo_;
   }
   // NOT A SHORT SELL INTERFACE
-  function checkin (address repo, address handshakes) public {
+  function checkin (address repo, address handshakes, address handshake) public {
     repos[repo] = Sign(repo, msg.sender, handshakes);
+    Gitarray.ctl(handshake);
   }
   /*
   function check () public returns ( {
