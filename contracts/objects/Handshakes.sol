@@ -60,6 +60,7 @@ contract Handshakes {
     }
     for (uint i = 0; i < _handshakes.length; i++) {
       handshakes[_handshakes[i]] = block.timestamp;
+      stopper[msg.sender] = 0;
     }
     shakeList = _handshakes;
   }
