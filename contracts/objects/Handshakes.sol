@@ -93,7 +93,7 @@ contract Handshakes {
     }
   }
   // handshake add resembles a chain of addresses (linked list)
-  function add(address handshake) public own stop returns (uint) {
+  function add(address handshake) public member stop returns (uint) {
     handshakes[handshake] = block.timestamp;
     shakeList.push(handshake);
     stopper[msg.sender] = block.timestamp;
@@ -111,17 +111,17 @@ contract Handshakes {
   // REVIEW - restrict to owner (own review) for handshake address-is own handshake check too?
   function remove(address handshake) public own stop returns (uint) {
     // TODO - remove from shakeList? - shakeList only used for length
-    require(handshakes[handshake] != 0);
+    require(handshakes[handshake] != 0, "deepfake");
     handshakes[handshake] = 0;
     removed[handshake] = block.timestamp;
     return block.timestamp;
   }
-  function unstopper(address handshake, bool _epoch) public own rhyme returns (uint) {
+  function unstopper(address handshake, bool _epoch) public own rhyme stop returns (uint) {
     // REVIEW - should stopperEpoch have a different adder
     // TODO - multiply by thresholdDivider or another multiplier?
-    require(stopper[handshake] == 1);
+    if (!corp) require(stopper[handshake] == 1);
     stopper[handshake] = 0;
-    if (_epoch && msg.sender == owner) epoch();
+    if (_epoch) epoch();
     return block.timestamp;
   }
   function epoch () public own {
