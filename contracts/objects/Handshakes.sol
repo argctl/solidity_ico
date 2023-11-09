@@ -2,6 +2,7 @@
 pragma solidity >= "0.8.20";
 
 contract Handshakes {
+  // TODO - review creator/owner hostage scenario
   address private creator;
   address private owner;
   mapping(address => uint) private handshakes;
@@ -25,7 +26,9 @@ contract Handshakes {
   // timing linearly related to the length of a list
   modifier rhyme () {
     // x - f(x) or f(y) = f(x) - x or f(y) = -x ~RE~VIEW~
+    // 12 - 5 > 16
     require(block.number - stopperEpoch > shakeList.length, "emhyr");
+    //slant ryhme - just based on the epoch, less than (slugging) you have to predict the epochs
     _;
   }
 
@@ -116,6 +119,7 @@ contract Handshakes {
     removed[handshake] = block.timestamp;
     return block.timestamp;
   }
+  // unstopper pseudo ownership of add address for dictatorship
   function unstopper(address handshake, bool _epoch) public own rhyme stop returns (uint) {
     // REVIEW - should stopperEpoch have a different adder
     // TODO - multiply by thresholdDivider or another multiplier?
