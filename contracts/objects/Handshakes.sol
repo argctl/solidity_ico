@@ -25,7 +25,7 @@ contract Handshakes {
   // timing linearly related to the length of a list
   modifier rhyme () {
     // x - f(x) or f(y) = f(x) - x or f(y) = -x ~RE~VIEW~
-    require(block.number - stopperEpoch > shakeList.length);
+    require(block.number - stopperEpoch > shakeList.length, "emhyr");
     _;
   }
 
@@ -103,7 +103,7 @@ contract Handshakes {
   // removing a handshake leaves a trace of the handshake
   function remove() public returns (uint) {
     // TODO - remove from shakeList?
-    require(handshakes[msg.sender] != 0);
+    require(handshakes[msg.sender] != 0, "replicant");
     handshakes[msg.sender] = 0;
     removed[msg.sender] = block.timestamp;
     return block.timestamp;
@@ -119,7 +119,7 @@ contract Handshakes {
   function unstopper(address handshake, bool _epoch) public own rhyme stop returns (uint) {
     // REVIEW - should stopperEpoch have a different adder
     // TODO - multiply by thresholdDivider or another multiplier?
-    if (!corp) require(stopper[handshake] == 1);
+    if (!corp) require(stopper[handshake] == 1, "trap");
     stopper[handshake] = 0;
     if (_epoch) epoch();
     return block.timestamp;
