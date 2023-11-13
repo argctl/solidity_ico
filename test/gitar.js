@@ -1,5 +1,6 @@
 const gitar = artifacts.require('gitar')
 const gitarg = artifacts.require('gitarg')
+const { wait } = require('./utils')
 
 contract('gitar', accounts => {
   it('g', async () => {
@@ -8,17 +9,17 @@ contract('gitar', accounts => {
     const arg = await gitarg.deployed()
     const balance = await arg.balanceOf(accounts[0])
     await arg.approve(tar.address, 200)
-    console.log({ balance })
     const allowance = await arg.allowance(accounts[0], tar.address)
-    console.log({ allowance })
     const _git = await arg.balanceOf(accounts[5])
-    console.log({ _git: _git * 1 })
-    await tar.g(100, { value: 100000 * 100, from: accounts[5] })
-    const git = await arg.balanceOf(accounts[5])
     const eth = await web3.eth.getBalance(accounts[0])
-    console.log({ git: git * 1 })
+    const value = 100000 * 100
+    const { receipt } = await tar.g(100, { value, from: accounts[5] })
+    const { cumulativeGasUsed } = receipt
+    const git = await arg.balanceOf(accounts[5])
+    await wait(2000)
     const eth_ = await web3.eth.getBalance(accounts[0])
-    console.log({ eth, eth_ })
+    const transfer = eth_ - eth
+    assert.isBelow(Math.abs(transfer - value), cumulativeGasUsed, "change to less than cumulativeGas")
     //TODO - review price calc return
   })
   //gitarg private Gitarg;
