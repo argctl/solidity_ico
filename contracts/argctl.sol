@@ -45,6 +45,7 @@ contract argctl {
     require(handshakes.isHandshake(msg.sender), "defer");
     return _gitorg_;
   }
+  
   function repo(address[] memory _handshakes, string memory _name, string memory _url, address _argctl) public returns(address) {
     for (uint i = 0; i < _handshakes.length; i++) {
       require(handshakes.isHandshake(_handshakes[i]), "backhanded");
@@ -52,6 +53,15 @@ contract argctl {
     address repo_ = Gitarray.repo(_handshakes, _name, _url, msg.sender, _argctl);
     return repo_;
   }
+  /*
+  function repo(address repo) public returns(Repo) {
+    Sign memory sign = repos[repo];
+    Handshakes signers = Handshakes(sign.handshakes);
+    require(signers.isHandshake(msg.sender), "signer");
+    Repo _repo = Repo(sign.repo);
+    return _repo;
+  }
+  */
   // NOT A SHORT SELL INTERFACE
   function checkin (address repo, address handshakes, address handshake) public {
     repos[repo] = Sign(repo, msg.sender, handshakes);
@@ -68,10 +78,11 @@ contract argctl {
   }
   */
   function commit(address _repo, string memory _message, string memory _author, string memory _date) public returns(uint) {
-    Handshakes handshakes = Handshakes(repos[_repo].handshakes);
+    Handshakes _handshakes = Handshakes(repos[_repo].handshakes);
     Repo _repo = Repo(_repo);
-    bool shook = handshakes.isHandshake(msg.sender);
-    require(shook, "msg.sender is not a handshake");
+    //bool shook = handshakes.isHandshake(msg.sender);
+
+    require(_handshakes.isHandshake(msg.sender), "repository");
     uint extTimestamp = gitorg.timestamp();
     //function stamp (string memory _hash, uint timestamp, address _msgSender) public pure returns (bytes32)
     bytes32 hash = gitorg.stamp(_message, extTimestamp, msg.sender);
