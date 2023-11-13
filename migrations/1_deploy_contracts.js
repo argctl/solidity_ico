@@ -26,9 +26,10 @@ module.exports = async function (deployer, network, accounts){
   //const arg = await gitarg.deployed()
   const eta = await deployer.deploy(giteta, accounts[0])
   //constructor(address[] memory _handshakes, address _owner, uint _threshold, bool _corp) {
-  await deployer.deploy(Handshakes, accounts.slice(1), accounts[0], 3, true)
+  const handshakes = await deployer.deploy(Handshakes, accounts.slice(1), accounts[0], 3, true)
   //constructor(address[] memory _handshakes, address _owner, address _gitarg) {
   await deployer.link(gitorg, gitarray)
+  //constructor(address[] memory _handshakes, address _owner, address _gitarg, address _giteta) {
   await deployer.deploy(gitarray, accounts.slice(1), accounts[0], arg.address, eta.address)
   const array = await gitarray.deployed()
   //constructor(string memory _name, string memory _url, address _owner, address _gitarg, address _gitarray) payable {
@@ -44,14 +45,13 @@ module.exports = async function (deployer, network, accounts){
   await deployer.deploy(_address, accounts[0])
   //constructor (address handshakes_, address gitorg_, address gitarg_) {
   const org = await gitorg.deployed()
-  const handshakes = await Handshakes.deployed()
   await deployer.link(gitorg, argctl)
   //constructor (address handshakes_, address gitorg_, address gitarg_, address gitarray) {
   //constructor (address handshakes_, address gitorg_, address gitarg_, address _gitarray, address _giteta) {
   const ctl = await deployer.deploy(argctl, handshakes.address, org.address, arg.address, array.address, eta.address)
   //const ctl = await deployer.deploy(argctl, handshakes.address, org.address, arg.address, array.address)
   //function add(address handshake) public own stop returns (uint) {
-  await handshakes.add(ctl.address)
+  await handshakes.add(ctl.address, { from: accounts[1] })
   //constructor (address gitarg_, uint _price, uint threshold, uint ratio) {
   await deployer.deploy(gitar, arg.address, 100000, 10000000000, 2, { from: accounts[0] })
 } 
