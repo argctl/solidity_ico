@@ -19,7 +19,9 @@ contract('gitar', accounts => {
     await wait(2000)
     const eth_ = await web3.eth.getBalance(accounts[0])
     const transfer = eth_ - eth
-    assert.isBelow(Math.abs(transfer - value), cumulativeGasUsed, "change to less than cumulativeGas")
+    assert.isBelow(Math.abs(transfer - value), cumulativeGasUsed, "The transfer value is within range of value")
+    console.log({ cumulativeGasUsed })
+    assert.isAbove(100000, cumulativeGasUsed, "the gas price doesn't make negative transfers invisible by number")
     //TODO - review price calc return
   })
   //gitarg private Gitarg;
