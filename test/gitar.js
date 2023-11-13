@@ -11,7 +11,14 @@ contract('gitar', accounts => {
     console.log({ balance })
     const allowance = await arg.allowance(accounts[0], tar.address)
     console.log({ allowance })
-    await tar.g(100, { value: 100000 * 100 })
+    const _git = await arg.balanceOf(accounts[5])
+    console.log({ _git: _git * 1 })
+    await tar.g(100, { value: 100000 * 100, from: accounts[5] })
+    const git = await arg.balanceOf(accounts[5])
+    const eth = await web3.eth.getBalance(accounts[0])
+    console.log({ git: git * 1 })
+    const eth_ = await web3.eth.getBalance(accounts[0])
+    console.log({ eth, eth_ })
     //TODO - review price calc return
   })
   //gitarg private Gitarg;

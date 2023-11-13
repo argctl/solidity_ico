@@ -123,7 +123,9 @@ contract Handshakes {
   function unstopper(address handshake, bool _epoch) public own rhyme stop returns (uint) {
     // REVIEW - should stopperEpoch have a different adder
     // TODO - multiply by thresholdDivider or another multiplier?
+
     if (!corp) require(stopper[handshake] == 1, "trap");
+    //require(stopper[handshake] == 1, "trap");
     stopper[handshake] = 0;
     if (_epoch) epoch();
     return block.timestamp;
