@@ -1,32 +1,51 @@
-const _type = artifacts.require('_type')
-const _string = artifacts.require('_string')
-const { wait } = require('./utils')
-//const _string = artifacts.require('_string') 
+const argctl = artifacts.require('argctl')
+const gitarray = artifacts.require('gitarray')
+const repo = artifacts.require('repo')
+const Handshakes = artifacts.require('Handshakes')
 
-// TODO - private type?
-contract('_type', accounts => {
-  it('public owner', async () => {
-    const type_ = await _type.deployed()
-    assert.equal(await type_.O(), accounts[0], 'owner is the default owner and accessable')
-    //console.log('owner: ', await type_.O(), accounts[0])
+contract('argctl', (accounts) => {
+  let _repo
+  it('can add repo', async () => {
+    //function repo(address[] memory _handshakes, string memory _name, string memory _url, address _argctl) public returns(address) {
+    // TODO -  review get handshakes from handshakes object good or security issue?
+    //function repo(address[] memory _handshakes, string memory _name, string memory _url, address _argctl) public returns(address) {
+    const handshakes = accounts.slice(1)
+    const ctl = await argctl.deployed()
+    _repo = await ctl.repo(handshakes, "gitarg_eth_ico", "gitlab.com:me2211/gitarg_eth_ico.git", ctl.address)
+    console.log({ _repo })
   })
-  it('send changes owner', async () => {
-    const type_ = await _type.deployed() 
-    await type_.send(accounts[1])
-    assert.equal(await type_.O(), accounts[1], 'the owner changes when the type is sent')
+  it('can commit', async () => {
+    const ctl = await argctl.deployed()
+    const array = await gitarray.deployed()
+    //array.
+    //const _repo = await repo.deployed()
+    //const handshakes = await Handshakes.deployed()
+    /*
+    commit 84227419a8d956aa5f5ccfd27286705e202243fe
+    Author: David Kamer <me@davidkamer.com>
+    Date:   Sun Oct 1 03:40:44 2023 -0400
+
+    untyped proposal
+    */
+    
+    //function add(address handshake) public own stop returns (uint) {
+
+    //await handshakes.add(ctl.address)
+    //const handshakes = await Handshakes.at(_repo.address)
+    //const isHandshake = await handshakes.isHandshake({ from: ctl.address })
+    //const isHandshake_ = await handshakes.isHandshake({ from: accounts[1] })
+    //console.log({ isHandshake, isHandshake_ })
+    //function commit(address _repo, string memory _message, string memory _author, string memory _date) public returns(uint) {
+    const commitReceipt = await ctl.commit(_repo.address, 'untyped proposal', 'David Kamer <me@davidkamer.com>', 'Sun Oct 1 03:40:44 2023 -0400', { from: accounts[1] })
+    //console.log({ commitReceipt })
+
   })
-  it('string send', async () => {
-    const string_ = await _string.deployed()
-    await string_.send(accounts[1])
-    assert.equal(await string_.O(), accounts[1], 'the owner changes when the string is sent')
+  //function checkin (address repo, address handshakes) public {
+  it('checkin times', async () => {
+
   })
-  it('string', async () => {
-    const string_ = await _string.deployed()
-    const receipt = await string_.time({ from: accounts[1] })
-    console.log({ receipt })
-    console.log('log: ', receipt.logs[0].args[0])
-    const bytes = receipt.logs[0].args[0]
-    const decodedData = web3.eth.abi.decodeParameters(['bytes'], bytes)
-    console.log({ decodedData })
+  //function proof () public view returns (address) {
+  it('proof provides', async () => {
+
   })
 })
