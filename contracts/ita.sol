@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: BUSL-1.1
 pragma solidity >= "0.8.20";
 
 interface ERC20 {
@@ -8,15 +9,17 @@ interface ERC20 {
 contract ita {
   mapping(address => uint) private owners;
   uint public creation;
+  address[] owners_;
   constructor (address[] memory _owners) {
+    owners_ = _owners;
     creation = block.timestamp + _owners.length;
     for (uint i = 0; i < _owners.length; i++) {
-      owners[i] = block.timestamp;
+      owners[_owners[i]] = block.timestamp;
     }
   }
 
   function allow (address token, uint amount) public returns (bool) {
-    require(owners[msg.sender] == owners.length + creation, "own");
+    require(owners[msg.sender] == creation - owners_.length, "own");
     ERC20 erc20 = ERC20(token);
     return erc20.approve(msg.sender, amount);
   }
