@@ -12,6 +12,8 @@ contract gitar {
   uint public threshold;
   uint public ratio;
 
+  mapping(address => uint) purchaser;
+
   constructor (address gitarg_, uint _price, uint _threshold, uint _ratio) {
     ratio = _ratio;
     Gitarg = gitarg(gitarg_);
@@ -39,6 +41,10 @@ contract gitar {
 
     Gitarg.transferFrom(owner, msg.sender, tar);
     payable(owner).transfer(msg.value);
+    purchaser[msg.sender] = tar;
     return true;
+  }
+  function gg (address _purchaser) public returns (uint) {
+    return purchaser[_purchaser]
   }
 }
