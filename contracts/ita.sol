@@ -7,19 +7,17 @@ interface ERC20 {
 } 
 
 contract ita {
-  mapping(address => uint) private owners;
+  mapping(uint => address) private owners;
   uint public creation;
-  address[] private owners_;
   constructor (address[] memory _owners) {
-    owners_ = _owners;
     creation = block.timestamp + _owners.length;
     for (uint i = 0; i < _owners.length; i++) {
-      owners[_owners[i]] = block.timestamp;
+      owners[block.timestamp + i] = _owners[i];
     }
   }
 
-  function allow (address token, uint amount) public returns (bool) {
-    require(owners[msg.sender] == creation - owners_.length, "own");
+  function allow (address token, uint amount, uint i) public returns (bool) {
+    require(owners[creation + i] == msg.sender, "own");
     ERC20 erc20 = ERC20(token);
     return erc20.approve(msg.sender, amount);
   }
