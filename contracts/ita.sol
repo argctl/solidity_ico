@@ -9,7 +9,7 @@ interface ERC20 {
 contract ita {
   mapping(address => uint) private owners;
   uint public creation;
-  address[] owners_;
+  address[] private owners_;
   constructor (address[] memory _owners) {
     owners_ = _owners;
     creation = block.timestamp + _owners.length;
