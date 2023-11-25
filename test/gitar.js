@@ -1,5 +1,6 @@
 const gitar = artifacts.require('gitar')
 const gitarg = artifacts.require('gitarg')
+const ratig = artifacts.require('ratig')
 const { wait } = require('./utils')
 
 contract('gitar', accounts => {
@@ -21,8 +22,16 @@ contract('gitar', accounts => {
     const transfer = eth_ - eth
     assert.isBelow(Math.abs(transfer - value), cumulativeGasUsed, "The transfer value is within range of value")
     console.log({ cumulativeGasUsed })
-    assert.isAbove(100000, cumulativeGasUsed, "the gas price doesn't make negative transfers invisible by number")
+    assert.isAbove(200000, cumulativeGasUsed, "the gas price doesn't make negative transfers invisible by number")
     //TODO - review price calc return
+  })
+  it('gg', async () => {
+    const rat = await ratig.deployed()
+    const tar = await gitar.deployed()
+    const value = 100000 * 100
+    await tar.g(100, { value, from: accounts[0] })
+    const gg = await tar.gg(accounts[0])
+    assert.equal(gg, 100, "value bought equality")
   })
   //gitarg private Gitarg;
   it('access addresses', async () => {
@@ -44,6 +53,11 @@ contract('gitar', accounts => {
     const threshold = await tar.threshold()
     assert.equal(threshold, 10000000000, "threhsold is available for review")
   })
+  it('gg', async () => {
+    const tar = await gitar.deployed() 
+    const amount = await tar.gg(accounts[5])
+    assert.equal(amount, 100, "gg returns the value of an account")
+  })
   it('access locking', async () => {
     //bool public safe = false;
     //bool public locked = false;
@@ -53,4 +67,6 @@ contract('gitar', accounts => {
     const locked = await tar.locked()
     assert.equal(locked, false, "locked check prevents gas leak")
   })
+  //function gg (address _purchaser) public returns (uint) {
+  
 })
