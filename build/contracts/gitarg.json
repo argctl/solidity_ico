@@ -8512,10 +8512,16 @@
       "links": {},
       "address": "0xcBBfFa3F62a6b47C6C04fbE31B6Df3e8884Ee5C0",
       "transactionHash": "0x8d96969d8240c58aaf93cfc352fe6e9bc924a3a617a67e2d366f5e92a7aeb80a"
+    },
+    "1700085027767": {
+      "events": {},
+      "links": {},
+      "address": "0x773D39a99D53f8992236d2c1563aE2B193efcA8b",
+      "transactionHash": "0x6d24aa84f11ea88176247cc6c8015343894dde2c930b58b85a878597e4ab6767"
     }
   },
   "schemaVersion": "3.4.16",
-  "updatedAt": "2023-11-10T08:07:08.492Z",
+  "updatedAt": "2023-11-15T22:23:30.857Z",
   "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",

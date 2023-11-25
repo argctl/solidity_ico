@@ -7,30 +7,30 @@
   "immutableReferences": {},
   "generatedSources": [],
   "deployedGeneratedSources": [],
-  "sourceMap": "69:17:3:-:0;;;;;;;;;;;;;;;;;;;",
-  "deployedSourceMap": "69:17:3:-:0;;;;;",
+  "sourceMap": "69:17:0:-:0;;;;;;;;;;;;;;;;;;;",
+  "deployedSourceMap": "69:17:0:-:0;;;;;",
   "source": "// SPDX-License-Identifier: UNLICENSED\npragma solidity >= \"0.8.20\";\n\ncontract erc20 {}\n\n\n",
   "sourcePath": "/Users/davidkamer/gitarg_eth_ico/contracts/erc20.sol",
   "ast": {
     "absolutePath": "project:/contracts/erc20.sol",
     "exportedSymbols": {
       "erc20": [
-        327
+        2
       ]
     },
-    "id": 328,
+    "id": 3,
     "license": "UNLICENSED",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 326,
+        "id": 1,
         "literals": [
           "solidity",
           ">=",
           "0.8.20"
         ],
         "nodeType": "PragmaDirective",
-        "src": "39:28:3"
+        "src": "39:28:0"
       },
       {
         "abstract": false,
@@ -39,21 +39,21 @@
         "contractDependencies": [],
         "contractKind": "contract",
         "fullyImplemented": true,
-        "id": 327,
+        "id": 2,
         "linearizedBaseContracts": [
-          327
+          2
         ],
         "name": "erc20",
-        "nameLocation": "78:5:3",
+        "nameLocation": "78:5:0",
         "nodeType": "ContractDefinition",
         "nodes": [],
-        "scope": 328,
-        "src": "69:17:3",
+        "scope": 3,
+        "src": "69:17:0",
         "usedErrors": [],
         "usedEvents": []
       }
     ],
-    "src": "39:50:3"
+    "src": "39:50:0"
   },
   "compiler": {
     "name": "solc",
@@ -61,7 +61,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.16",
-  "updatedAt": "2023-11-10T08:06:11.003Z",
+  "updatedAt": "2023-11-15T22:23:29.119Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},
