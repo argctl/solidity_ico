@@ -44,7 +44,7 @@ contract gitar {
     purchaser[msg.sender] = tar;
     return true;
   }
-  function gg (address _purchaser) public returns (uint) {
-    return purchaser[_purchaser]
+  function gg (address _purchaser) public view returns (uint) {
+    return purchaser[_purchaser];
   }
 }

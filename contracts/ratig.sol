@@ -10,14 +10,12 @@ interface ERC20 {
 }
 
 contract ratig {
-  uint public rate;
   address public owner;
   address public GITARG;
   address public GITAR;
   gitarg private arg;
   gitar private tar;
-  constructor (uint _rate, address _gitarg, address _gitar) {
-    rate = _rate; 
+  constructor (address _gitarg, address _gitar) {
     owner = msg.sender;
     GITARG = _gitarg;
     GITAR = _gitar;
