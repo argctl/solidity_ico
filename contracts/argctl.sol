@@ -3,17 +3,18 @@ pragma solidity >= "0.8.20";
 import "./gitorg.sol";
 import "./libraries/gitorg.sol";
 import "./gitarg.sol";
-//import "./giteta.sol";
 import "./objects/Proposal.sol";
 import "./objects/Handshakes.sol";
 import "./gitarray.sol";
 import "./ltcgra.sol";
 import "./objects/Repo.sol";
+import "./giteta.sol";
 
 
 //spawner
 contract argctl {
   address private _gitorg_;
+  address private _giteta_;
   _gitorg  private Gitorg;
   address public _gitarg;
   address private _handshakes;
@@ -34,6 +35,7 @@ contract argctl {
   //constructor (address handshakes_, address gitorg_, address gitarg_, address _gitarray) {
     _gitarg = gitarg_;
     _gitorg_ = gitorg_;
+    _giteta_ = _giteta;
     Gitorg = _gitorg(gitorg_);
     _handshakes = handshakes_;
     handshakes = Handshakes(handshakes_);
@@ -77,15 +79,28 @@ contract argctl {
     return
   }
   */
-  function commit(address _repo, string memory _message, string memory _author, string memory _date) public returns(uint) {
+  function v () public payable returns (uint) {
+    uint vv = msg.value;
+    return vv;
+  }
+  function x () public view returns (uint) {
+    uint xx = Gitarg.balanceOf(address(this));
+    return xx;
+  }
+  function commit(address _giteta, address _repo, string memory _message, string memory _author, string memory _date) public payable returns(uint) {
     Handshakes _handshakes = Handshakes(repos[_repo].handshakes);
-    Repo _repo = Repo(_repo);
+    Repo repo_ = Repo(_repo);
     //bool shook = handshakes.isHandshake(msg.sender);
 
     require(_handshakes.isHandshake(msg.sender), "repository");
     uint extTimestamp = gitorg.timestamp();
     //function stamp (string memory _hash, uint timestamp, address _msgSender) public pure returns (bytes32)
     bytes32 hash = gitorg.stamp(_message, extTimestamp, msg.sender);
+    giteta giteta_ = giteta(_giteta);
+    // TODO - review - stable coin of wei if msg.value is still used, may want to parameterize
+    //function commit(address _repo, string memory message, string memory author, string memory date, uint escrow) public returns (uint)
+
+    giteta_.commit(_repo, _message, _author, _date, 1);
     return block.timestamp;
   }
   function tar (uint amount) public returns (uint price) {

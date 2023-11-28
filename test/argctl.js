@@ -1,7 +1,10 @@
+const gitarg = artifacts.require('gitarg')
 const argctl = artifacts.require('argctl')
 const gitarray = artifacts.require('gitarray')
+const giteta = artifacts.require('giteta')
 const repo = artifacts.require('repo')
 const Handshakes = artifacts.require('Handshakes')
+const { wait } = require('./utils')
 
 contract('argctl', (accounts) => {
   let _repo
@@ -35,8 +38,10 @@ contract('argctl', (accounts) => {
     //console.log({ _repo, accounts2: accounts[2] })
   })
   it('can commit', async () => {
+    const arg = await gitarg.deployed()
     const ctl = await argctl.deployed()
     const array = await gitarray.deployed()
+    const eta = await giteta.deployed()
     //array.
     //const _repo = await repo.deployed()
     //const handshakes = await Handshakes.deployed()
@@ -56,9 +61,17 @@ contract('argctl', (accounts) => {
     //const isHandshake_ = await handshakes.isHandshake({ from: accounts[1] })
     //console.log({ isHandshake, isHandshake_ })
     //function commit(address _repo, string memory _message, string memory _author, string memory _date) public returns(uint) {
+    await arg.transfer(ctl.address, 100, { from: accounts[0] })
+    const balance = await arg.balanceOf(ctl.address)
+    console.log({ balance })
+    await wait(2000)
+    const vv = await ctl.v.call({ value: 1 })
+    console.log({ vv })
+    //const xx = await ctl.x.call()
+    //console.log({ xx })
     const repo_ = await array.repo({ from: accounts[2] })
     console.log({ repo_ })
-    const commitReceipt = await ctl.commit(repo_, 'untyped proposal', 'David Kamer <me@davidkamer.com>', 'Sun Oct 1 03:40:44 2023 -0400', { from: accounts[1] })
+    const commitReceipt = await ctl.commit(eta.address, repo_, 'untyped proposal', 'David Kamer <me@davidkamer.com>', 'Sun Oct 1 03:40:44 2023 -0400', { from: accounts[1], value: 1 })
     //console.log({ commitReceipt })
 
   })
