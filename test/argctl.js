@@ -61,6 +61,7 @@ contract('argctl', (accounts) => {
     //const isHandshake_ = await handshakes.isHandshake({ from: accounts[1] })
     //console.log({ isHandshake, isHandshake_ })
     //function commit(address _repo, string memory _message, string memory _author, string memory _date) public returns(uint) {
+    /*
     await arg.transfer(ctl.address, 100, { from: accounts[0] })
     const balance = await arg.balanceOf(ctl.address)
     console.log({ balance })
@@ -72,6 +73,7 @@ contract('argctl', (accounts) => {
     const repo_ = await array.repo({ from: accounts[2] })
     console.log({ repo_ })
     const commitReceipt = await ctl.commit(eta.address, repo_, 'untyped proposal', 'David Kamer <me@davidkamer.com>', 'Sun Oct 1 03:40:44 2023 -0400', { from: accounts[1], value: 1 })
+    */
     //console.log({ commitReceipt })
 
   })
