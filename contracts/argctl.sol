@@ -79,14 +79,6 @@ contract argctl {
     return
   }
   */
-  function v () public payable returns (uint) {
-    uint vv = msg.value;
-    return vv;
-  }
-  function x () public view returns (uint) {
-    uint xx = Gitarg.balanceOf(address(this));
-    return xx;
-  }
   function commit(address _giteta, address _repo, string memory _message, string memory _author, string memory _date) public payable returns(uint) {
     Handshakes _handshakes = Handshakes(repos[_repo].handshakes);
     Repo repo_ = Repo(_repo);
@@ -99,8 +91,11 @@ contract argctl {
     giteta giteta_ = giteta(_giteta);
     // TODO - review - stable coin of wei if msg.value is still used, may want to parameterize
     //function commit(address _repo, string memory message, string memory author, string memory date, uint escrow) public returns (uint)
-
-    giteta_.commit(_repo, _message, _author, _date, 1);
+    // TODO - issue is that commit always throws escrow errors from accounts[0], we might need to review giteta tests
+    // it's likely the issue is commit spend approval, even on commit address, there may just be an interface issue with
+    // the gitarg contract so redeclaration may also work. The fact that balanceOf is the revert trigger means
+    // that the interface issue may be the problem and an issue with ganache or something string related
+    //giteta_.commit(_repo, _message, _author, _date, 1);
     return block.timestamp;
   }
   function tar (uint amount) public returns (uint price) {
