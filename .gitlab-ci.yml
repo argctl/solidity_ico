@@ -12,3 +12,5 @@ test:
   script:
     - ganache-cli -d &
     #- truffle test
+  only:
+    - $CI_COMMIT_REF_NAME
