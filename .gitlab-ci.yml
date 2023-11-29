@@ -1,14 +1,18 @@
-image: node:18
+image: ubuntu:20.04
 stages:
   - test
 
 before_script:
-  - npm install -g ganache-cli
-  - npm install -g truffle
-  - npm install
+  - apt-get update -qy
+  - apt-get install -y curl
 
 test:
   stage: test
   script:
+    - curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
+    - apt-get install -y nodejs
+    - npm install
+    - npm install -g ganache
+    - npm install -g truffle
     - ganache-cli -d &
     - truffle test
