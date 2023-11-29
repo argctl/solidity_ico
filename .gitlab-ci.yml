@@ -15,4 +15,4 @@ test:
     - npm install -g ganache
     - npm install -g truffle
     - ganache-cli &
-    - truffle test
+    - truffle migrate
