@@ -14,5 +14,5 @@ test:
     - npm install
     - npm install -g ganache
     - npm install -g truffle
-    - ganache-cli -d &
+    - ganache-cli &
     - truffle test
