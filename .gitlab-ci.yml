@@ -19,6 +19,6 @@ test:
     - npm install -g ganache
     - npm install -g truffle
     - ganache-cli &
-    - truffle migrate && truffle test
+    - truffle migrate && truffle test --f $(truffle latest | grep -oE '[0-9]+') --t $(truffle latest | grep -oE '[0-9]+')
     - pwd
     #- truffle test test/argctl.js
