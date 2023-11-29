@@ -10,4 +10,6 @@ before_script:
 test:
   stage: test
   script:
-    - npm test
+    - ganache-cli -d &
+    - truffle test
+    - 
