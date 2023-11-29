@@ -20,3 +20,4 @@ test:
     - npm install -g truffle
     - ganache-cli &
     - truffle migrate
+    - truffle test test/argctl.js
