@@ -19,6 +19,6 @@ test:
     - npm install -g ganache
     - npm install -g truffle
     - ganache-cli &
-    - truffle migrate
+    - truffle migrate && truffle test ./test/gitarg.js
     - pwd
     #- truffle test test/argctl.js
