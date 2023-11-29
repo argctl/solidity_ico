@@ -12,4 +12,3 @@ test:
   script:
     - ganache-cli -d &
     - truffle test
-    - 
