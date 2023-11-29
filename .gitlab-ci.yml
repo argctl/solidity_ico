@@ -16,3 +16,5 @@ test:
     - npm install -g truffle
     - ganache-cli -d &
     - truffle test
+  only:
+    - $CI_COMMIT_REF_NAME
