@@ -1,0 +1,14 @@
+stages:
+  - test
+variables:
+  NODE_IMAGE: node:18
+
+before_script:
+  - npm install -g ganache-cli
+  - npm install -g truffle
+  - npm install
+
+test:
+  stage: test
+  script:
+    - npm test
