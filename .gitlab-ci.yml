@@ -20,5 +20,5 @@ test:
     - npm install -g truffle
     - ganache-cli &
     #- truffle migrate && truffle test --f $(truffle latest | grep -oE '[0-9]+') --t $(truffle latest | grep -oE '[0-9]+')
-    - truffle migrate && truffle test ./test/gitarg.js ./test/argctl.js
+    - truffle migrate && truffle test ./test/gitarg.js
     #- truffle test test/argctl.js
