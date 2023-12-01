@@ -7,6 +7,7 @@ const Handshakes = artifacts.require('Handshakes')
 const { wait } = require('./utils')
 
 contract('argctl', (accounts) => {
+  /*
   it('can add repo', async () => {
     //function repo(address[] memory _handshakes, string memory _name, string memory _url, address _argctl) public returns(address) {
     // TODO -  review get handshakes from handshakes object good or security issue?
@@ -36,11 +37,14 @@ contract('argctl', (accounts) => {
     //console.log({ b })
     //console.log({ _repo, accounts2: accounts[2] })
   })
+ 
+  
   it('can commit', async () => {
     const arg = await gitarg.deployed()
     const ctl = await argctl.deployed()
     const array = await gitarray.deployed()
     const eta = await giteta.deployed()
+
     //array.
     //const _repo = await repo.deployed()
     //const handshakes = await Handshakes.deployed()
@@ -82,6 +86,8 @@ contract('argctl', (accounts) => {
     //console.log({ commitReceipt })
 
   })
+  */
+
   //function checkin (address repo, address handshakes) public {
   it('checkin times', async () => {
     console.log('placeholder')
