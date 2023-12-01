@@ -20,5 +20,4 @@ test:
     - npm install -g truffle
     - ganache-cli > /dev/null 2>&1 &
     - truffle migrate
-    - truffle test ./test/gitarg.js 
-      ./test/giteta.js
+    - truffle test
