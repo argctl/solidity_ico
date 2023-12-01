@@ -20,7 +20,8 @@ test:
     - npm install -g truffle
     - ganache-cli > /dev/null 2>&1 &
     #- truffle migrate && truffle test --f $(truffle latest | grep -oE '[0-9]+') --t $(truffle latest | grep -oE '[0-9]+')
-    - truffle migrate && truffle test "./test/giteta.js" "./test/gitarg.js" "./test/gitar.js" "./test/repo.js" "./test/ratig.js" "./test/type.js" "./test/Commit.js" "./test/Handshakes.js" "./test/gitorg.js"
+    - truffle migrate && truffle test "./test/giteta.js" "./test/gitarg.js" "./test/gitar.js" "./test/repo.js" "./test/ratig.js" "./test/type.js" "./test/Commit.js" "./test/Handshakes.js" "./test/gitorg.js" \
+      "./test/argctl.js"
     # issue: the structure of the command must have been played a 100 bijillion times in cache or just a parse error in code
     #&& truffle test ./test/argctl.js
     #- truffle test test/argctl.js

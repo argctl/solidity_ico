@@ -85,10 +85,10 @@ contract('argctl', (accounts) => {
   })
   //function checkin (address repo, address handshakes) public {
   it('checkin times', async () => {
-
+    console.log('placeholder')
   })
   //function proof () public view returns (address) {
   it('proof provides', async () => {
-
+    console.log('placeholder')
   })
 })
