@@ -37,7 +37,7 @@ contract('argctl', (accounts) => {
     //console.log({ b })
     //console.log({ _repo, accounts2: accounts[2] })
   })
- 
+
   
   it('can commit', async () => {
     const arg = await gitarg.deployed()
@@ -86,7 +86,7 @@ contract('argctl', (accounts) => {
     //console.log({ commitReceipt })
 
   })
-  */
+
 
   //function checkin (address repo, address handshakes) public {
   it('checkin times', async () => {
@@ -96,4 +96,5 @@ contract('argctl', (accounts) => {
   it('proof provides', async () => {
     console.log('placeholder')
   })
+  */
 })
