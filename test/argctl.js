@@ -1,7 +1,7 @@
 const gitarg = artifacts.require('gitarg')
 const argctl = artifacts.require('argctl')
 const gitarray = artifacts.require('gitarray')
-const giteta = artifacts.require('giteta')
+//const giteta = artifacts.require('giteta')
 const repo = artifacts.require('repo')
 const Handshakes = artifacts.require('Handshakes')
 const { wait } = require('./utils')
@@ -42,7 +42,7 @@ contract('argctl', (accounts) => {
     const arg = await gitarg.deployed()
     const ctl = await argctl.deployed()
     const array = await gitarray.deployed()
-    const eta = await giteta.deployed()
+    //const eta = await giteta.deployed()
 
     //array.
     //const _repo = await repo.deployed()
@@ -75,11 +75,11 @@ contract('argctl', (accounts) => {
 
     */
 
-    const repo_ = await array.repo({ from: accounts[2] })
+    //const repo_ = await array.repo({ from: accounts[2] })
     // TODO - review this causes the problem too, causes revert from accounts[0] which should not have a balance issue.
     //await eta.commit(repo_, 'untyped proposal', 'David Kamer <me@davidkamer.com>', 'Sun Oct 1 03:40:44 2023 -0400', 10)
-    console.log({ repo_ })
-    const commitReceipt = await ctl.commit(eta.address, repo_, 'untyped proposal', 'David Kamer <me@davidkamer.com>', 'Sun Oct 1 03:40:44 2023 -0400', { from: accounts[1], value: 1 })
+    //console.log({ repo_ })
+    //const commitReceipt = await ctl.commit(eta.address, repo_, 'untyped proposal', 'David Kamer <me@davidkamer.com>', 'Sun Oct 1 03:40:44 2023 -0400', { from: accounts[1], value: 1 })
     /*
     */
     //console.log({ commitReceipt })
