@@ -2,7 +2,7 @@ const gitarg = artifacts.require('gitarg')
 const argctl = artifacts.require('argctl')
 const gitarray = artifacts.require('gitarray')
 //const giteta = artifacts.require('giteta')
-const repo = artifacts.require('repo')
+const repo = artifacts.require('Repo')
 const Handshakes = artifacts.require('Handshakes')
 const { wait } = require('./utils')
 
