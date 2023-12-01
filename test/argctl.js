@@ -7,7 +7,6 @@ const Handshakes = artifacts.require('Handshakes')
 const { wait } = require('./utils')
 
 contract('argctl', (accounts) => {
-  let _repo
   it('can add repo', async () => {
     //function repo(address[] memory _handshakes, string memory _name, string memory _url, address _argctl) public returns(address) {
     // TODO -  review get handshakes from handshakes object good or security issue?
@@ -30,7 +29,7 @@ contract('argctl', (accounts) => {
     console.log({ handshakes })
     console.log('has value: ', handshakes.includes(accounts[2]))
     console.log('has value: ', handshakes.includes(ctl.address))
-    _repo = await ctl.repo(handshakes, "gitarg_eth_ico", "gitlab.com:me2211/gitarg_eth_ico.git", ctl.address, { from: accounts[2] })
+    const _repo = await ctl.repo(handshakes, "gitarg_eth_ico", "gitlab.com:me2211/gitarg_eth_ico.git", ctl.address, { from: accounts[2] })
     console.log({ _repo })
     //const array = await gitarray.deployed()
     //const b = await array.somethingdifferent({ from: accounts[3] })
