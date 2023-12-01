@@ -7,7 +7,6 @@ const Handshakes = artifacts.require('Handshakes')
 const { wait } = require('./utils')
 
 contract('argctl', (accounts) => {
-  /*
   it('can add repo', async () => {
     //function repo(address[] memory _handshakes, string memory _name, string memory _url, address _argctl) public returns(address) {
     // TODO -  review get handshakes from handshakes object good or security issue?
@@ -96,5 +95,4 @@ contract('argctl', (accounts) => {
   it('proof provides', async () => {
     console.log('placeholder')
   })
-  */
 })
