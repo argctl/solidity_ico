@@ -33,6 +33,7 @@ contract('argctl', (accounts) => {
     console.log({ _repo })
     const repo_ = await array.repo({ from: accounts[2] })
     console.log({ repo_ })
+    assert.equal(_repo, repo_, "repo is queryable")
     //const array = await gitarray.deployed()
     //const b = await array.somethingdifferent({ from: accounts[3] })
     //console.log({ b })
