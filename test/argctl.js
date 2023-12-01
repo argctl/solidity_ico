@@ -39,9 +39,9 @@ contract('argctl', (accounts) => {
 
   
   it('can commit', async () => {
-    const arg = await gitarg.deployed()
-    const ctl = await argctl.deployed()
-    const array = await gitarray.deployed()
+    //const arg = await gitarg.deployed()
+    //const ctl = await argctl.deployed()
+    //const array = await gitarray.deployed()
     //const eta = await giteta.deployed()
 
     //array.
@@ -83,6 +83,7 @@ contract('argctl', (accounts) => {
     /*
     */
     //console.log({ commitReceipt })
+    console.log('placeholder')
 
   })
 
