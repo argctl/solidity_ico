@@ -88,6 +88,7 @@ contract gitarray {
     address repo_ = address(_repo);
     Handshakes handshakes_ = new Handshakes(_handshakes, _owner, threshold, true);
     require(handshakes_.isHandshake(msg.sender), "git");
+    require(!repos[_owner], "owner");
     repos[_owner] = _repo;
     argctl ctl = argctl(_argctl);
     ctl.checkin(repo_, address(handshakes_), _owner);
