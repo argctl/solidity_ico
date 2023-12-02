@@ -76,7 +76,7 @@ contract gitarray {
     return address(repo_);
   }
   // REVIEW - customizable threshold?
-  function repo(address[] memory _handshakes, string memory _name, string memory _url, address _owner, address _argctl) public returns(address) {
+  function repo(address[] memory _handshakes, string memory _name, string memory _url, address _owner, address _argctl) public returns (address) {
     //require(handshakes.isHandshake(msg.sender), "array");
     // TODO - review handshakes check for gitarray to check if sender is handshake
     // REVIEW - corp var
