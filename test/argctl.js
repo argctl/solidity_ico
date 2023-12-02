@@ -32,7 +32,7 @@ contract('argctl', (accounts) => {
     const _repo = await ctl.repo(handshakes, "gitarg_eth_ico", "gitlab.com:me2211/gitarg_eth_ico.git", ctl.address, { from: accounts[2] })
 
     const repo_ = await array.repo({ from: accounts[2] })
-    console.log({ repo_, repo_ })
+    console.log({ repo_, _repo })
     //assert.equal(_repo, repo_, "repo is queryable")
     //const array = await gitarray.deployed()
     //const b = await array.somethingdifferent({ from: accounts[3] })
