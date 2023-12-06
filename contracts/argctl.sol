@@ -48,7 +48,7 @@ contract argctl {
     return _gitorg_;
   }
   
-  function repo(address[] memory _handshakes, string memory _name, string memory _url, address _argctl) public returns(address) {
+  function repo(address[] memory _handshakes, string memory _name, string memory _url, address _argctl) public returns (address) {
     for (uint i = 0; i < _handshakes.length; i++) {
       require(handshakes.isHandshake(_handshakes[i]), "backhanded");
     }

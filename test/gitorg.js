@@ -2,9 +2,15 @@ const _gitorg = artifacts.require('_gitorg')
 
 contract('_gitorg', () => {
   //function rate (uint rate_) public {
-  it('', () => {})
+  it('test', () => {
+    console.log('placeholder')
+  })
   //function listing (address _repo, uint price) public {
-  it('', () => {})
+  it('test', () => {
+    console.log('placeholder')
+  })
   //function list (address _repo) public {
-  it('', () => {})
+  it('', () => {
+    console.log('placeholder')
+  })
 })
