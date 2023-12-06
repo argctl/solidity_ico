@@ -29,12 +29,19 @@ contract('argctl', (accounts) => {
     console.log({ handshakes })
     console.log('has value: ', handshakes.includes(accounts[2]))
     console.log('has value: ', handshakes.includes(ctl.address))
+    try {
+      const _repo = await array.repo({ from: accounts[2] })
+      console.log({ _repo })
+    } catch (e) {
+      console.log({ e })
+    }
     const { receipt } = await ctl.repo(handshakes, "gitarg_eth_ico", "gitlab.com:me2211/gitarg_eth_ico.git", ctl.address, { from: accounts[2] })
     console.log({ receipt })
     await wait(2000)
     const receipt2 = await web3.eth.getTransactionReceipt(receipt.tx)
     console.log({ receipt2 })
-    //const repo_ = await array.repo({ from: accounts[2] })
+    const repo_ = await array.repo({ from: accounts[2] })
+    console.log({ repo_ })
     //console.log({ repo_, _repo })
     //assert.equal(_repo, repo_, "repo is queryable")
     //const array = await gitarray.deployed()
