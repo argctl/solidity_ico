@@ -29,25 +29,21 @@ contract('argctl', (accounts) => {
     console.log({ handshakes })
     console.log('has value: ', handshakes.includes(accounts[2]))
     console.log('has value: ', handshakes.includes(ctl.address))
+    let error
     try {
-      const _repo = await array.repo({ from: accounts[2] })
-      console.log({ _repo })
+      // i hAvE tHe rEaL aDDreSS
+      // the solution is either reveal it in an emit or keep it secret to reduce higher level fraud
+      const _repo = await array.repo({ from: accounts[2] }) // not returning
+      
     } catch (e) {
-      console.log({ e })
+      error = e
     }
+    assert.includes(error, "revert", "reverts from lack of repo assigned to address")
     const { receipt } = await ctl.repo(handshakes, "gitarg_eth_ico", "gitlab.com:me2211/gitarg_eth_ico.git", ctl.address, { from: accounts[2] })
     console.log({ receipt })
-    await wait(2000)
-    const receipt2 = await web3.eth.getTransactionReceipt(receipt.tx)
-    console.log({ receipt2 })
     const repo_ = await array.repo({ from: accounts[2] })
     console.log({ repo_ })
-    //console.log({ repo_, _repo })
-    //assert.equal(_repo, repo_, "repo is queryable")
-    //const array = await gitarray.deployed()
-    //const b = await array.somethingdifferent({ from: accounts[3] })
-    //console.log({ b })
-    //console.log({ _repo, accounts2: accounts[2] })
+    assert.equal(repo_.length, 42, "repo address returned after creation")
   })
 
   
