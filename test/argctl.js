@@ -40,8 +40,8 @@ contract('argctl', (accounts) => {
     }
     assert.include(error.toString(), "revert", "reverts from lack of repo assigned to address")
     console.log('typeof', typeof error)
-    console.log({ error })
-    //assert.throws(error, "revert", "reverts from lack of repo assigned to address")
+    console.log({ errorMessage: error.message })
+    assert.throws(error, "Error: VM Exception while processing transaction: revert", "reverts from lack of repo assigned to address")
     const { receipt } = await ctl.repo(handshakes, "gitarg_eth_ico", "gitlab.com:me2211/gitarg_eth_ico.git", ctl.address, { from: accounts[2] })
     console.log({ receipt })
     const repo_ = await array.repo({ from: accounts[2] })
