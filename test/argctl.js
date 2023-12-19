@@ -38,7 +38,7 @@ contract('argctl', (accounts) => {
     } catch (e) {
       error = e
     }
-    assert.includes(error, "revert", "reverts from lack of repo assigned to address")
+    assert.include(error, "revert", "reverts from lack of repo assigned to address")
     const { receipt } = await ctl.repo(handshakes, "gitarg_eth_ico", "gitlab.com:me2211/gitarg_eth_ico.git", ctl.address, { from: accounts[2] })
     console.log({ receipt })
     const repo_ = await array.repo({ from: accounts[2] })
