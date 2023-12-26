@@ -39,6 +39,8 @@ contract giteta {
   //constructor(address _wallet, address _repo, bytes memory _message, bytes memory _author, bytes memory _date) {
   function argctl (address _repo, string memory message, string memory author, string memory date, uint escrow) public returns (uint) {
     require(Gitarg.balanceOf(msg.sender) >= escrow, "not enough escrow - argctl interface");
+    require(Gitarg.allowance(msg.sender, address(this)) >= escrow);
+    // TODO - allowance too
     //emit Value(Gitarg.balanceOf(msg.sender));
     return 0;
   }
