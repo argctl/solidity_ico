@@ -79,7 +79,7 @@ contract argctl {
     return
   }
   */
-  function commit(address _arg, address _giteta, address _repo, string memory _message, string memory _author, string memory _date) public payable returns(uint) {
+  function commit(address _giteta, address _repo, string memory _message, string memory _author, string memory _date) public payable returns(uint) {
     Handshakes _handshakes = Handshakes(repos[_repo].handshakes);
     Repo repo_ = Repo(_repo);
     //bool shook = handshakes.isHandshake(msg.sender);
