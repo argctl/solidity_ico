@@ -39,7 +39,8 @@ contract giteta {
   //constructor(address _wallet, address _repo, bytes memory _message, bytes memory _author, bytes memory _date) {
   function commit(address _repo, string memory message, string memory author, string memory date, uint escrow) public returns (uint) {
     require(Gitarg.balanceOf(msg.sender) >= escrow, "not enough escrow");
-    // REVIEW - should the transfer be placed into the repo?
+    // REVIEW - should the transfer be placed into the repo?\
+    /*
     Commit c = new Commit(msg.sender, _repo, message, author, date);
     //🤯
     service += 1;
@@ -50,7 +51,9 @@ contract giteta {
     commits[repo].push(time);
     valuing[address(c)] = time;
     emit Com(address(c));
-    return Gitarg.balanceOf(address(c));
+    */
+    //return Gitarg.balanceOf(address(c));
+    return 0;
   }
   // raise value of commits - called when used successfully by chain
   function up(address payable _commit, bool _balance) public payable returns (uint) {
