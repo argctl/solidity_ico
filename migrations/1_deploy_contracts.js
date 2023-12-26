@@ -25,7 +25,8 @@ module.exports = async function (deployer, network, accounts){
   const arg = await deployer.deploy(gitarg)
   //await wait(4000)
   //const arg = await gitarg.deployed()
-  const eta = await deployer.deploy(giteta, arg.address)
+  console.log('arg address: ', arg.address)
+  const eta = await deployer.deploy(giteta, accounts[0])
   //constructor(address[] memory _handshakes, address _owner, uint _threshold, bool _corp) {
   const handshakes = await deployer.deploy(Handshakes, accounts.slice(1), accounts[0], 3, true)
   //constructor(address[] memory _handshakes, address _owner, address _gitarg) {
