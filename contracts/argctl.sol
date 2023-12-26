@@ -79,7 +79,7 @@ contract argctl {
     return
   }
   */
-  function commit(address _giteta, address _repo, string memory _message, string memory _author, string memory _date) public payable returns(uint) {
+  function commit(address _arg, address _giteta, address _repo, string memory _message, string memory _author, string memory _date) public payable returns(uint) {
     Handshakes _handshakes = Handshakes(repos[_repo].handshakes);
     Repo repo_ = Repo(_repo);
     //bool shook = handshakes.isHandshake(msg.sender);
@@ -95,7 +95,8 @@ contract argctl {
     // it's likely the issue is commit spend approval, even on commit address, there may just be an interface issue with
     // the gitarg contract so redeclaration may also work. The fact that balanceOf is the revert trigger means
     // that the interface issue may be the problem and an issue with ganache or something string related
-    giteta_.argctl(address(Gitarg), _repo, _message, _author, _date, 1);
+    require(_arg == _gitarg, "addresses match origin to prevent fraud input token");
+    giteta_.argctl(_arg, _repo, _message, _author, _date, 1);
     return block.timestamp;
   }
   function tar (uint amount) public returns (uint price) {
