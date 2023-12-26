@@ -89,9 +89,9 @@ contract('argctl', (accounts) => {
     // TODO - review this causes the problem too, causes revert from accounts[0] which should not have a balance issue.
     //await eta.commit(repo_, 'untyped proposal', 'David Kamer <me@davidkamer.com>', 'Sun Oct 1 03:40:44 2023 -0400', 10)
     console.log({ repo_ })
-    const balance = (await arg.balanceOf(ctl.address)) * 1
-    console.log({ balance })
-    arg.transfer(ctl.address, 1)
+    const _balance_ = (await arg.balanceOf(ctl.address)) * 1
+    console.log({ _balance_ })
+    await arg.transfer(ctl.address, 1)
     const balance2 = (await arg.balanceOf(ctl.address)) * 1
     console.log({ balance2 })
     const commitReceipt = await ctl.commit(eta.address, repo_, 'untyped proposal', 'David Kamer <me@davidkamer.com>', 'Sun Oct 1 03:40:44 2023 -0400', { from: accounts[2], value: 1 })
