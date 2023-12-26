@@ -95,7 +95,7 @@ contract argctl {
     // it's likely the issue is commit spend approval, even on commit address, there may just be an interface issue with
     // the gitarg contract so redeclaration may also work. The fact that balanceOf is the revert trigger means
     // that the interface issue may be the problem and an issue with ganache or something string related
-    giteta_.commit(_repo, _message, _author, _date, 1);
+    giteta_.argctl(_repo, _message, _author, _date, 1);
     return block.timestamp;
   }
   function tar (uint amount) public returns (uint price) {
