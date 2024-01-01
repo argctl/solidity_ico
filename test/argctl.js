@@ -97,7 +97,8 @@ contract('argctl', (accounts) => {
     const commitReceipt = await ctl.commit(eta.address, repo_, 'untyped proposal', 'David Kamer <me@davidkamer.com>', 'Sun Oct 1 03:40:44 2023 -0400', { from: accounts[2], value: 1 })
     /*
     */
-    //console.log({ commitReceipt })
+    console.log({ commitReceipt })
+    console.log(commitReceipt.logs)
 
   })
 
