@@ -96,8 +96,8 @@ contract argctl {
     // the gitarg contract so redeclaration may also work. The fact that balanceOf is the revert trigger means
     // that the interface issue may be the problem and an issue with ganache or something string related
     uint escrow = 1;
-    Gitarg.approve(address(giteta_), escrow);
-    //giteta_.argctl(_repo, _message, _author, _date, escrow);
+    //Gitarg.approve(address(giteta_), escrow);
+    giteta_.argctl(_repo, _message, _author, _date, escrow);
     return block.timestamp;
   }
   function tar (uint amount) public returns (uint price) {
