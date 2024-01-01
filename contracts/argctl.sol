@@ -36,6 +36,7 @@ contract argctl {
     _gitarg = gitarg_;
     _gitorg_ = gitorg_;
     _giteta_ = _giteta;
+    Gitarg = gitarg(gitarg_);
     Gitorg = _gitorg(gitorg_);
     _handshakes = handshakes_;
     handshakes = Handshakes(handshakes_);
