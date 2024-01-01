@@ -41,7 +41,7 @@ contract giteta {
     require(Gitarg.balanceOf(msg.sender) >= escrow, "not enough escrow - argctl interface");
     //require(Gitarg.allowance(msg.sender, address(this)) > 0);
     require(Gitarg.allowance(msg.sender, address(this)) >= escrow);
-
+    Commit c = new Commit(msg.sender, _repo, message, author, date);
     return 0;
   }
   function commit(address _repo, string memory message, string memory author, string memory date, uint escrow) public returns (uint) {
