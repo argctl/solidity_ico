@@ -40,10 +40,11 @@ contract giteta {
   function argctl (address _repo, string memory message, string memory author, string memory date, uint escrow) public returns (uint) {
     require(Gitarg.balanceOf(msg.sender) >= escrow, "not enough escrow - argctl interface");
     require(Gitarg.allowance(msg.sender, address(this)) > 0);
-    require(escrow == 1);
-    require(escrow >= 1);
-    uint allowance = Gitarg.allowance(msg.sender, address(this));
-    require(allowance >= escrow);
+    require(Gitarg.allowance(msg.sender, address(this)) >= escrow);
+    //require(escrow == 1);
+    //require(escrow >= 1);
+    //uint allowance = Gitarg.allowance(msg.sender, address(this));
+    //require(allowance >= escrow);
     //require(Gitarg.allowance(msg.sender, address(this)) >= escrow);
 
     return 0;
