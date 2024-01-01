@@ -43,6 +43,7 @@ contract giteta {
     require(escrow == 1);
     require(escrow >= 1);
     uint allowance = Gitarg.allowance(msg.sender, address(this));
+    require(allowance >= escrow);
     //require(Gitarg.allowance(msg.sender, address(this)) >= escrow);
 
     return 0;
