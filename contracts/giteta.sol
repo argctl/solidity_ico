@@ -42,6 +42,7 @@ contract giteta {
     require(Gitarg.allowance(msg.sender, address(this)) >= escrow);
     Commit c = new Commit(msg.sender, _repo, message, author, date);
     //🤯
+    service += 1;
     Gitarg.transferFrom(msg.sender, address(c), escrow);
     Repo repo = Repo(_repo);
     Time memory time = Time(address(c), block.timestamp);
