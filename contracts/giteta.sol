@@ -37,10 +37,11 @@ contract giteta {
   }
   // REVIEW - payinto repo?
   //constructor(address _wallet, address _repo, bytes memory _message, bytes memory _author, bytes memory _date) {
-  function argctl (address _repo, string memory message, string memory author, string memory date, uint escrow) public returns (uint) {
+  function commit (address _repo, string memory message, string memory author, string memory date, uint escrow) public returns (uint) {
     require(Gitarg.balanceOf(msg.sender) >= escrow, "not enough escrow - argctl interface");
     require(Gitarg.allowance(msg.sender, address(this)) >= escrow);
     Commit c = new Commit(msg.sender, _repo, message, author, date);
+    //🤯
     Gitarg.transferFrom(msg.sender, address(c), escrow);
     Repo repo = Repo(_repo);
     Time memory time = Time(address(c), block.timestamp);
@@ -49,6 +50,7 @@ contract giteta {
     emit Com(address(c));
     return Gitarg.balanceOf(address(c));
   }
+  /*
   function commit(address _repo, string memory message, string memory author, string memory date, uint escrow) public returns (uint) {
     require(Gitarg.balanceOf(msg.sender) >= escrow, "not enough escrow");
     // REVIEW - should the transfer be placed into the repo?\
@@ -64,6 +66,7 @@ contract giteta {
     emit Com(address(c));
     return Gitarg.balanceOf(address(c));
   }
+  */
   // raise value of commits - called when used successfully by chain
   function up(address payable _commit, bool _balance) public payable returns (uint) {
     Commit commit = Commit(_commit);
