@@ -43,7 +43,7 @@ contract giteta {
     Commit c = new Commit(msg.sender, _repo, message, author, date);
     //🤯
     service += 1;
-    Gitarg.transferFrom(msg.sender, address(c), escrow);
+    Gitarg.transferFrom(msg.sender, address(c), escrow - 1);
     Repo repo = Repo(_repo);
     Time memory time = Time(address(c), block.timestamp);
     commits[repo].push(time);
