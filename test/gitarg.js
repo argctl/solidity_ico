@@ -42,7 +42,7 @@ contract('gitarg', accounts => {
     const ico = await gitarg.deployed()
     await ico.approve(accounts[2], tokens, { from: accounts[0] }) 
     //await wait(2000)
-    const allowance = await ico.allowance.call(accounts[0], accounts[2] )
+    const allowance = await ico.allowance.call(accounts[0], accounts[2])
     //await wait(2000)
     assert.equal(allowance, tokens, 'allowance equals amount of approval')
     await ico.transferFrom(accounts[0], accounts[2], tokens, { from: accounts[2] })

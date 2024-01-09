@@ -36,6 +36,7 @@ contract argctl {
     _gitarg = gitarg_;
     _gitorg_ = gitorg_;
     _giteta_ = _giteta;
+    Gitarg = gitarg(gitarg_);
     Gitorg = _gitorg(gitorg_);
     _handshakes = handshakes_;
     handshakes = Handshakes(handshakes_);
@@ -95,7 +96,9 @@ contract argctl {
     // it's likely the issue is commit spend approval, even on commit address, there may just be an interface issue with
     // the gitarg contract so redeclaration may also work. The fact that balanceOf is the revert trigger means
     // that the interface issue may be the problem and an issue with ganache or something string related
-    //giteta_.commit(_repo, _message, _author, _date, 1);
+    uint escrow = 1;
+    Gitarg.approve(address(giteta_), escrow);
+    giteta_.commit(_repo, _message, _author, _date, escrow);
     return block.timestamp;
   }
   function tar (uint amount) public returns (uint price) {

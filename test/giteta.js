@@ -13,6 +13,7 @@ let _repo = ''
 contract('giteta', async accounts => {
   it('arg address matches', async () => {
     const arg = await gitarg.deployed()
+    // REVIEW: 6d42465dc243ae8c7121b10b88b485678a1ca220
     const eta = await giteta.new(arg.address)
     await wait(4000)
     const _arg = await eta.Gitarg.call()
