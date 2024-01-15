@@ -8,14 +8,15 @@ contract rig {
         // aaarrrggg
         // 
     }
-    function port (uint amount, uint stiphen) public returns (bool) {
-        require(stiphen <= gasLeft(), "stiphen prediction limiter fail");
+    modifier tar (uint stiphon) {
+        require(stiphon < gasLeft(), "stiphone prediction limiter fail");
+    }
+    function port (uint amount, uint stiphen) public tar(stiphen) returns (bool) {
         // left side, sell
         // cannons return loot
     }
 
-    function star (uint amount, uint stiphen) public returns (bool) {
-        require(stiphen <= gasLeft(), "stiphen prediction limiter fail");
+    function star (uint amount, uint stiphen) public tar(stiphen) returns (bool) {
         // right side, buy
         // balls rerun shoot
     }
