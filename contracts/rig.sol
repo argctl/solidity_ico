@@ -9,7 +9,7 @@ contract rig {
         // 
     }
     modifier tar (uint stiphon) {
-        require(stiphon < gasLeft(), "stiphone prediction limiter fail");
+        require(stiphon < gasleft(), "stiphone prediction limiter fail");
     }
     function port (uint amount, uint stiphen) public tar(stiphen) returns (bool) {
         // left side, sell
