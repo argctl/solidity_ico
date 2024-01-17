@@ -15,7 +15,7 @@ contract rig {
         require(stiphon < gasleft(), "stiphone prediction limiter fail");
         _;
     }
-    function port (uint amount, uint stiphen) public payble tar(stiphen) returns (bool) {
+    function port (uint amount, uint stiphen) public payable tar(stiphen) returns (bool) {
         // left side, sell
         // cannons return loot
         uint price = amount * sell;
@@ -28,6 +28,7 @@ contract rig {
         // balls rerun shoot
         uint cost = amount * buy;
         require(msg.value == cost, "rate mismatch");
+        //
         return false;
     }
 }
