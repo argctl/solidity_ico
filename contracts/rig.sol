@@ -20,6 +20,7 @@ contract rig {
         // cannons return loot
         uint price = amount * sell;
         require(msg.value == price, "rate mismatch");
+        // tx.gasprice - gasleft() < magic number?
         return false;
     }
 
