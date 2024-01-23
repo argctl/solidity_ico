@@ -5,9 +5,12 @@ import "./gitar.sol";
 contract rig {
     uint public sell;
     uint public buy;
+    bool min;
     // REVIEW - struct for transaction, probably not
     mapping(address => uint) buffer; // homework - what will buffer do?
-    constructor (uint _buy, uint _sell, uint booty) {
+    // booty can be for me or for you - max or min
+    constructor (uint _buy, uint _sell, uint booty, bool _min) {
+        min = _min; // booty is a max if false
         sell = _sell;
         buy = _buy;
         // TODO - initiate gitar contract
@@ -20,6 +23,9 @@ contract rig {
     }
     function port (uint amount, uint stiphen) public payable tar(stiphen) returns (bool) {
         uint start = gasleft();
+        // REVIEW - buffer[n1] is initialized to 0
+        buffer[msg.sender] = buffer[msg.sender] + (sell - buy) * amount;
+        //require(start < stiphen && stiphen < buy - sell, "gas less than food");
         uint absorb = start - stiphen;
         // left side, sell
         // cannons return loot
