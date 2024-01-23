@@ -19,7 +19,7 @@ contract rig {
         _;
     }
     function port (uint amount, uint stiphen) public payable tar(stiphen) returns (bool) {
-        uint start = gasLeft();
+        uint start = gasleft();
         uint absorb = start - stiphen;
         // left side, sell
         // cannons return loot
