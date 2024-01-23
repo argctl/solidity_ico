@@ -26,7 +26,8 @@ contract rig {
         // REVIEW - buffer[n1] is initialized to 0
         buffer[msg.sender] = buffer[msg.sender] + (sell - buy) * amount;
         //require(start < stiphen && stiphen < buy - sell, "gas less than food");
-        uint absorb = start - stiphen;
+        //uint absorb = start - stiphen;
+        require(start > stiphen, "limit to increase transactions to increase buffer");
         // left side, sell
         // cannons return loot
         uint price = amount * sell;
