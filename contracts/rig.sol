@@ -2,6 +2,7 @@ pragma solidity >= "0.8.20";
 import "./gitar.sol";
 
 // use escrow to pay gas for spread of 0.90 - 1.20 (as an example). 
+// rig like an oil rig
 contract rig {
     uint public sell;
     uint public buy;
@@ -22,17 +23,16 @@ contract rig {
         _;
     }
     function port (uint amount, uint stiphen) public payable tar(stiphen) returns (bool) {
-        uint start = gasleft();
-        // REVIEW - buffer[n1] is initialized to 0
-        buffer[msg.sender] = buffer[msg.sender] + (sell - buy) * amount;
-        //require(start < stiphen && stiphen < buy - sell, "gas less than food");
-        //uint absorb = start - stiphen;
-        require(start > stiphen, "limit to increase transactions to increase buffer");
         // left side, sell
         // cannons return loot
+        // REVIEW - buffer[n1] is initialized to 0
+        uint start = msg.gas * tx.gasprice;
+        // TODO - bungee more for forced escrow
+        require(start > stiphen, "limit to increase transactions to increase buffer");
+        buffer[msg.sender] = buffer[msg.sender] + (sell - buy) * amount;
         uint price = amount * sell;
         require(msg.value == price, "rate mismatch");
-        // tx.gasprice - gasleft() < magic number?
+        // TODO - sell the token amount for the price
         return false;
     }
 
