@@ -39,9 +39,12 @@ contract rig {
     function star (uint amount, uint stiphen) public payable tar(stiphen) returns (bool) {
         // right side, buy
         // balls rerun shoot
+        uint start = msg.gas * tx.gasprice;
+        require(start > stiphen, "limit to increase transactions to increase buffer");
+        buffer[msg.sender] = buffer[msg.sender] + (sell - buy) * amount;
         uint cost = amount * buy;
         require(msg.value == cost, "rate mismatch");
-        //
+        // TODO - buy the token amount for the price
         return false;
     }
 }
