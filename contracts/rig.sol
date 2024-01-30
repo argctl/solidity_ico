@@ -11,6 +11,7 @@ contract rig {
     bool min;
     // REVIEW - struct for transaction, probably not
     mapping(address => uint) buffer; // homework - what will buffer do?
+    // buffer rollover - remaining buffer used in gitar limiter
     // booty can be for me or for you - max or min
     constructor (uint _buy, uint _sell, uint booty, bool _min) {
         min = _min; // booty is a max if false
@@ -39,7 +40,7 @@ contract rig {
         uint price = (amount * sell) - stiphen;
         require(msg.value == price, "rate mismatch"); // review if we should make it greater than and return value
         // TODO - sell the token amount for the price
-        buffer[msg.sender] = buff - stiphen;
+        buffer[msg.sender] = buff - stiphen; //encourage whale decentralization
         return false;
     }
 
@@ -49,7 +50,7 @@ contract rig {
         uint start = gasleft() * tx.gasprice;
         require(start > stiphen, "limit to increase transactions to increase buffer");
         uint buff = buffer[msg.sender];
-        require(buff - stiphen > 0, "safe stiphen for contract");
+        require(buff - stiphen > 0, "safe stiphen for contract"); //opens us up to higher prices for higher transacts - fight large sum instability problem
         uint cost = (amount * buy) + stiphen;
         require(msg.value == cost, "rate mismatch");
         // TODO - buy the token amount for the price
