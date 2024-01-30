@@ -6,6 +6,8 @@ import "./gitar.sol";
 contract rig {
     uint public sell;
     uint public buy;
+    uint public loot; // this allows us to restart a similar contract or leave gracefully
+    uint public stakem;
     bool min;
     // REVIEW - struct for transaction, probably not
     mapping(address => uint) buffer; // homework - what will buffer do?
@@ -14,6 +16,8 @@ contract rig {
         min = _min; // booty is a max if false
         sell = _sell;
         buy = _buy;
+        loot = booty; //if (!_min) // as a maximum take
+        stakem = buy - sell - booty; // if (_min) // used to calculate rate of entire contracts value in loot
         // TODO - initiate gitar contract
         // booty is the max take for the stake
         // aaarrrggg
