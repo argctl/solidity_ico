@@ -26,7 +26,7 @@ contract rig {
         // left side, sell
         // cannons return loot
         // REVIEW - buffer[n1] is initialized to 0
-        uint start = msg.gas * tx.gasprice;
+        uint start = gasleft() * tx.gasprice;
         // TODO - bungee more for forced escrow
         require(start > stiphen, "limit to increase transactions to increase buffer");
         buffer[msg.sender] = buffer[msg.sender] + (sell - buy) * amount;
@@ -39,7 +39,7 @@ contract rig {
     function star (uint amount, uint stiphen) public payable tar(stiphen) returns (bool) {
         // right side, buy
         // balls rerun shoot
-        uint start = msg.gas * tx.gasprice;
+        uint start = gasleft() * tx.gasprice;
         require(start > stiphen, "limit to increase transactions to increase buffer");
         buffer[msg.sender] = buffer[msg.sender] + (sell - buy) * amount;
         uint cost = amount * buy;
