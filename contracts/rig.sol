@@ -30,9 +30,12 @@ contract rig {
         // TODO - bungee more for forced escrow
         require(start > stiphen, "limit to increase transactions to increase buffer");
         buffer[msg.sender] = buffer[msg.sender] + (sell - buy) * amount;
-        uint price = amount * sell;
-        require(msg.value == price, "rate mismatch");
+        uint buff = buffer[msg.sender];
+        require(buff - stiphen > 0, "safe stiphen for contract");
+        uint price = (amount * sell) - stiphen;
+        require(msg.value == price, "rate mismatch"); // review if we should make it greater than and return value
         // TODO - sell the token amount for the price
+        buffer[msg.sender] = buff - stiphen;
         return false;
     }
 
@@ -41,10 +44,12 @@ contract rig {
         // balls rerun shoot
         uint start = gasleft() * tx.gasprice;
         require(start > stiphen, "limit to increase transactions to increase buffer");
-        buffer[msg.sender] = buffer[msg.sender] + (sell - buy) * amount;
-        uint cost = amount * buy;
+        uint buff = buffer[msg.sender];
+        require(buff - stiphen > 0, "safe stiphen for contract");
+        uint cost = (amount * buy) + stiphen;
         require(msg.value == cost, "rate mismatch");
         // TODO - buy the token amount for the price
+        buffer[msg.sender] = buff - stiphen;
         return false;
     }
 }
