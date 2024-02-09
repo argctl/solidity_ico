@@ -23,7 +23,7 @@ contract rig {
         gitarg_ = _gitarg;
         arg = gitarg(_gitarg);
         tar = gitar(_gitar);
-        require(tar._gitarg == _gitarg, "address safe");
+        require(tar._gitarg() == _gitarg, "address safe");
         min = _min; // booty is a max if false
         sell = _sell;
         buy = _buy;
