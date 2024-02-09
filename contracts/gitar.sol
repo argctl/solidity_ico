@@ -31,12 +31,14 @@ contract gitar {
   function g (uint tar) public payable returns (bool) {
     //require(locked == false, "Locke");
     require(!locked, "Locke"); 
-    if (Gitarg.balanceOf(owner) < threshold) {// || Gitarg.allowance(owner, address(this)) <= tar) {
+    if (Gitarg.balanceOf(owner) < threshold) {
       lock();
       return false;
     }
     uint targit = tar * price;
     require(msg.value == targit, "price");
+    // TODO - tag version that pulls in full allowance even greater than tar.
+    // TODO - tag version that allowance less than a threshold creates gg alert to rig.
     require(Gitarg.allowance(owner, address(this)) >= tar, "allowance");
 
     Gitarg.transferFrom(owner, msg.sender, tar);
