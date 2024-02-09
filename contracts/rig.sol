@@ -1,5 +1,6 @@
 pragma solidity >= "0.8.20";
 import "./gitar.sol";
+import "./gitarg.sol";
 
 // use escrow to pay gas for spread of 0.90 - 1.20 (as an example). 
 // rig like an oil rig
@@ -9,15 +10,16 @@ contract rig {
     uint public loot; // this allows us to restart a similar contract or leave gracefully
     uint public stakem;
     bool min;
-    address public gitarg;
+    address public gitarg_;
+    gitarg arg; // REVIEW - access modifier
     // REVIEW - struct for transaction, probably not
     mapping(address => uint) buffer; // homework - what will buffer do?
     // buffer rollover - remaining buffer used in gitar limiter
     // booty can be for me or for you - max or min
     // TODO - can I create a token interface for generic erc?
     constructor (uint _buy, uint _sell, uint booty, bool _min, address _gitarg) {
-        gitarg = _gitarg;
-        //TODO - declare contract
+        gitarg_ = _gitarg;
+        arg = gitarg(_gitarg);
         min = _min; // booty is a max if false
         sell = _sell;
         buy = _buy;
