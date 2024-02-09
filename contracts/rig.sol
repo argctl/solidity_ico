@@ -1,3 +1,4 @@
+// control token
 pragma solidity >= "0.8.20";
 import "./gitar.sol";
 import "./gitarg.sol";
@@ -12,14 +13,17 @@ contract rig {
     bool min;
     address public gitarg_;
     gitarg arg; // REVIEW - access modifier
+    gitar tar; // REVIEW - access modifier
     // REVIEW - struct for transaction, probably not
     mapping(address => uint) buffer; // homework - what will buffer do?
     // buffer rollover - remaining buffer used in gitar limiter
     // booty can be for me or for you - max or min
     // TODO - can I create a token interface for generic erc?
-    constructor (uint _buy, uint _sell, uint booty, bool _min, address _gitarg) {
+    constructor (uint _buy, uint _sell, uint booty, bool _min, address _gitarg, address _gitar) {
         gitarg_ = _gitarg;
         arg = gitarg(_gitarg);
+        tar = gitar(_gitar);
+        require(tar._gitarg == _gitarg, "address safe");
         min = _min; // booty is a max if false
         sell = _sell;
         buy = _buy;
