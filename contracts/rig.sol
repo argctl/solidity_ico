@@ -17,6 +17,7 @@ contract rig {
     // TODO - can I create a token interface for generic erc?
     constructor (uint _buy, uint _sell, uint booty, bool _min, address _gitarg) {
         gitarg = _gitarg;
+        //TODO - declare contract
         min = _min; // booty is a max if false
         sell = _sell;
         buy = _buy;
