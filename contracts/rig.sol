@@ -29,17 +29,14 @@ contract rig {
         // booty is the max take for the stake
         // aaarrrggg
     }
-    modifier tar (uint stiphon) {
-        require(stiphon < gasleft(), "stiphone prediction limiter fail");
+    modifier start (uint stiphon) {
+        require((gasleft() * tx.gasprice) > stiphon, "gas to start);
         _;
     }
-    function port (uint amount, uint stiphen) public payable tar(stiphen) returns (bool) {
+    function port (uint amount, uint stiphen) public payable start(stiphen) returns (bool) {
         // left side, sell
         // cannons return loot
         // REVIEW - buffer[n1] is initialized to 0
-        uint start = gasleft() * tx.gasprice;
-        // TODO - bungee more for forced escrow
-        require(start > stiphen, "limit to increase transactions to increase buffer");
         buffer[msg.sender] = buffer[msg.sender] + (sell - buy) * amount;
         uint buff = buffer[msg.sender];
         require(buff - stiphen > 0, "safe stiphen for contract");
@@ -50,11 +47,9 @@ contract rig {
         return false;
     }
 
-    function star (uint amount, uint stiphen) public payable tar(stiphen) returns (bool) {
+    function star (uint amount, uint stiphen) public payable start(stiphen) returns (bool) {
         // right side, buy
         // balls rerun shoot
-        uint start = gasleft() * tx.gasprice;
-        require(start > stiphen, "limit to increase transactions to increase buffer");
         uint buff = buffer[msg.sender];
         require(buff - stiphen > 0, "safe stiphen for contract"); //opens us up to higher prices for higher transacts - fight large sum instability problem
         uint cost = (amount * buy) + stiphen;
