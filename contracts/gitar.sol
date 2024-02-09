@@ -13,7 +13,7 @@ contract gitar {
   uint public ratio;
 
   mapping(address => uint) purchaser;
-
+  // REVIEW - accept any erc 20 token with interface in future version? 
   constructor (address gitarg_, uint _price, uint _threshold, uint _ratio) {
     ratio = _ratio;
     Gitarg = gitarg(gitarg_);
@@ -41,7 +41,9 @@ contract gitar {
 
     Gitarg.transferFrom(owner, msg.sender, tar);
     payable(owner).transfer(msg.value);
-    purchaser[msg.sender] = tar;
+    //purchaser[msg.sender] += tar; // issue with initialization, copy var?
+    //value identity force
+    purchaser[msg.sender] = tar; // design choice? Per purchase for contract collator
     return true;
   }
   function gg (address _purchaser) public view returns (uint) {

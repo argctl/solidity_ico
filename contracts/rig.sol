@@ -9,11 +9,14 @@ contract rig {
     uint public loot; // this allows us to restart a similar contract or leave gracefully
     uint public stakem;
     bool min;
+    address public gitarg;
     // REVIEW - struct for transaction, probably not
     mapping(address => uint) buffer; // homework - what will buffer do?
     // buffer rollover - remaining buffer used in gitar limiter
     // booty can be for me or for you - max or min
-    constructor (uint _buy, uint _sell, uint booty, bool _min) {
+    // TODO - can I create a token interface for generic erc?
+    constructor (uint _buy, uint _sell, uint booty, bool _min, address _gitarg) {
+        gitarg = _gitarg;
         min = _min; // booty is a max if false
         sell = _sell;
         buy = _buy;
