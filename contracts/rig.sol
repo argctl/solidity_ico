@@ -23,6 +23,7 @@ contract rig {
     // booty can be for me or for you - max or min
     // TODO - can I create a token interface for generic erc?
     constructor (uint _buy, uint _sell, address _gitar) {
+        require(_buy < _sell, "chest");
         gitar_ = _gitar;
         tar = gitar(_gitar);
         gitarg_ = tar._gitarg();
@@ -44,8 +45,11 @@ contract rig {
         uint purchased = tar.gg(msg.sender);
         require(purchased <= amount, "treasure chest");
         require(buffer[msg.sender] == 0 || (!(amount < buffer[msg.sender]) && buffer[msg.sender] == 0), "parrot's keep");
+        // (3 - 1) * 10 = 20 
         buffer[msg.sender] = (sell - buy) * amount; // REVIEW - multiplier
         uint buff = buffer[msg.sender];
+        //  3, 6
+        // gas minimization is profitability for node runner, if gas isn't directly paid to node runner
         require(buff < (stiphen * stiphen) - stiphen, "ore"); // bridge level deflation mechanic
         require(msg.value == stiphen * stiphen, "gas"); //U
         return buffer[msg.sender];
@@ -61,7 +65,9 @@ contract rig {
         // TODO - amount is in token and the buffer is the token number
         // TODO - buy the token amount for the price, return the gas cost buffer in token
         buffer[msg.sender] = buff - stiphen; // the stiphen is sent as gitarg token
+        // we haven't set the gate, buffer < s^2 - s, then can buffer - s == 1 to set the gate 
         if (gate[msg.sender] == 0 && (buff - stiphen) == 1) gate[msg.sender] = tar.gg(msg.sender);
+        // (s(g)^2 - s(g)) - s(g) ?= 1 if s(g) = s(x1) < g(x2);
         gate[msg.sender] -= amount;
         require(gate[msg.sender] >= 0, "closed");
         payable(msg.sender).transfer(cost);

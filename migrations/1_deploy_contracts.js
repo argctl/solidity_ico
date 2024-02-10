@@ -14,6 +14,7 @@ const _address = artifacts.require('_address')
 const argctl = artifacts.require('argctl')
 const gitar = artifacts.require('gitar')
 const ratig = artifacts.require('ratig')
+const rig = artifacts.require('rig')
 
 const { wait } = require('../test/utils')
 
@@ -58,5 +59,6 @@ module.exports = async function (deployer, network, accounts){
   const tar = await deployer.deploy(gitar, arg.address, 100000, 10000000000, 2, { from: accounts[0] })
   //constructor (address _gitarg, address _gitar) {
   await deployer.deploy(ratig, arg.address, tar.address)
+  await deployer.deploy(rig, 90, 130, gitar.address)
 } 
 
