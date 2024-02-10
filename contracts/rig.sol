@@ -27,7 +27,7 @@ contract rig {
     constructor (uint _buy, uint _sell, uint booty, bool _min, address _gitar) {
         gitar_ = _gitar;
         tar = gitar(_gitar);
-        gitarg_ = tar._gitarg()
+        gitarg_ = tar._gitarg();
         arg = gitarg(gitarg_);
         min = _min; // booty is a max if false
         sell = _sell;
