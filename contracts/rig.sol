@@ -51,8 +51,8 @@ contract rig {
         uint buff = buffer[msg.sender];
         //  3, 6
         // gas minimization is profitability for node runner, if gas isn't directly paid to node runner
-        require(buff < (stiphen * stiphen) - stiphen, "ore"); // bridge level deflation mechanic
-        require(msg.value == stiphen * stiphen, "gas"); //U
+        //require(buff < (stiphen * stiphen) - stiphen, "ore"); // bridge level deflation mechanic
+        //require(msg.value == stiphen * stiphen, "gas"); //U
         //return buffer[msg.sender];
         return s;
     }
