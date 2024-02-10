@@ -37,8 +37,8 @@ contract rig {
         // aaarrrggg
     }
     modifier start (uint stiphon) {
-        emit Debug(stiphen);
-        emit Debug(s);
+        emit Debug(stiphon);
+        emit Debug(gasleft() * tx.gasprice);
         //require((gasleft() * tx.gasprice) > stiphon, "gas to start");
         _;
     }
