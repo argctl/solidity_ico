@@ -5,7 +5,7 @@ contract('rig', (accounts) => {
         const r = await rig.deployed()
         const buffer = await r.port(100, 1)
         console.log({ buffer })
-        console.log('receipt: ', buffer.receipt.logs)
-        
+        console.log('receipt: ', buffer.receipt.logs.args[0] * 1)
+
     })
 })
