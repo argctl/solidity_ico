@@ -8,6 +8,8 @@ contract('rig', (accounts) => {
         console.log('receipt1: ', buffer.receipt.logs[0] )
         console.log('receipt0: ', buffer.receipt.logs[0].args)
         console.log('receipt: ', buffer.receipt.logs[0].args[0] * 1)
+        console.log('logs: ', logs(buffer))
+        console.log('logsNumbered: ', logs(buffer).map(n => n * 1))
 
     })
 })
