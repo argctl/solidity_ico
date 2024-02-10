@@ -22,6 +22,7 @@ contract rig {
     // buffer rollover - remaining buffer used in gitar limiter
     // booty can be for me or for you - max or min
     // TODO - can I create a token interface for generic erc?
+    event Debug(uint gas);
     constructor (uint _buy, uint _sell, address _gitar) {
         require(_buy < _sell, "chest");
         gitar_ = _gitar;
@@ -43,6 +44,7 @@ contract rig {
         // left side, sell
         // cannons return loot
         uint s = gasleft() * tx.gasprice;
+        emit Debug(s);
         uint purchased = tar.gg(msg.sender);
         require(purchased <= amount, "treasure chest");
         require(buffer[msg.sender] == 0 || (!(amount < buffer[msg.sender]) && buffer[msg.sender] == 0), "parrot's keep");
