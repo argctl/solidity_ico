@@ -1,4 +1,5 @@
 const rig = artifacts.require('rig.sol')
+const { util } = require('utils')
 
 contract('rig', (accounts) => {
     it('qualifies a gitar contract user purchase', async () => {
