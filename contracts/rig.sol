@@ -37,10 +37,12 @@ contract rig {
         // aaarrrggg
     }
     modifier start (uint stiphon) {
-        require((gasleft() * tx.gasprice) > stiphon, "gas to start");
+        emit Debug(stiphen);
+        emit Debug(s);
+        //require((gasleft() * tx.gasprice) > stiphon, "gas to start");
         _;
     }
-    function port (uint amount, uint stiphen) public payable returns (uint) { //start(stiphen) returns (uint) {
+    function port (uint amount, uint stiphen) public payable start(stiphen) returns (uint) {
         // left side, sell
         // cannons return loot
         uint s = gasleft() * tx.gasprice;
