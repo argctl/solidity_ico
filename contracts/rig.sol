@@ -42,6 +42,7 @@ contract rig {
     function port (uint amount, uint stiphen) public payable start(stiphen) returns (uint) {
         // left side, sell
         // cannons return loot
+        uint s = gastleft() * tx.gasprice;
         uint purchased = tar.gg(msg.sender);
         require(purchased <= amount, "treasure chest");
         require(buffer[msg.sender] == 0 || (!(amount < buffer[msg.sender]) && buffer[msg.sender] == 0), "parrot's keep");
@@ -52,7 +53,8 @@ contract rig {
         // gas minimization is profitability for node runner, if gas isn't directly paid to node runner
         require(buff < (stiphen * stiphen) - stiphen, "ore"); // bridge level deflation mechanic
         require(msg.value == stiphen * stiphen, "gas"); //U
-        return buffer[msg.sender];
+        //return buffer[msg.sender];
+        return s;
     }
 
     function star (uint amount, uint stiphen) public payable start(stiphen) returns (bool) {
