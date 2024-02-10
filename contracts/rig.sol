@@ -42,7 +42,7 @@ contract rig {
     function port (uint amount, uint stiphen) public payable returns (uint) { //start(stiphen) returns (uint) {
         // left side, sell
         // cannons return loot
-        uint s = gastleft() * tx.gasprice;
+        uint s = gasleft() * tx.gasprice;
         uint purchased = tar.gg(msg.sender);
         require(purchased <= amount, "treasure chest");
         require(buffer[msg.sender] == 0 || (!(amount < buffer[msg.sender]) && buffer[msg.sender] == 0), "parrot's keep");
