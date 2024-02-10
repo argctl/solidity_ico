@@ -6,7 +6,7 @@ const wait = async ms => {
   })
 }
 
-const logs = ({ receipt }) =>  receipt.logs.flatMap(log => log)//log.args.map(arg => arg))
+const logs = ({ receipt }) =>  receipt.logs.flatMap(log => log.args['0'])//log.args.map(arg => arg))
 
 module.exports = {
   wait,
