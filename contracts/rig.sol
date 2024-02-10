@@ -44,6 +44,7 @@ contract rig {
         // left side, sell
         // cannons return loot
         uint s = gasleft() * tx.gasprice;
+        emit Debug(stiphen);
         emit Debug(s);
         uint purchased = tar.gg(msg.sender);
         require(purchased <= amount, "treasure chest");
