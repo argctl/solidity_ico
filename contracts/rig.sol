@@ -23,6 +23,7 @@ contract rig {
     // booty can be for me or for you - max or min
     // TODO - can I create a token interface for generic erc?
     event Debug(uint gas);
+    event Bool(bool compare);
     constructor (uint _buy, uint _sell, address _gitar) {
         require(_buy < _sell, "chest");
         gitar_ = _gitar;
@@ -39,6 +40,7 @@ contract rig {
     modifier start (uint stiphon) {
         emit Debug(stiphon);
         emit Debug(gasleft() * tx.gasprice);
+        emit Bool(gasleft() * tx.gasprice > stiphon);
         require((gasleft() * tx.gasprice) > stiphon, "gas to start");
         _;
     }
