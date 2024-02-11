@@ -5,7 +5,7 @@
 pragma solidity >= "0.8.20";
 import "./gitar.sol";
 import "./gitarg.sol";
-import "./gas.sol";
+import "./libraries/gas.sol";
 
 // use escrow to pay gas for spread of 0.90 - 1.20 (as an example). 
 // rig like an oil rig
