@@ -44,7 +44,7 @@ contract rig {
         //require((gasleft() * tx.gasprice) > stiphon, "gas to start");
         require(true, 'true test pass');
         require(144561168766332 > 1, "gas to start");
-        bool check = (gasleft() * tx.gasprice) > price;
+        bool check = (gasleft() * tx.gasprice) > stiphon;
         require(check, "gas to start");
         if ((gasleft() * tx.gasprice) > stiphon) emit Debug(42);
         _;
