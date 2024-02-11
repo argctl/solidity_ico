@@ -23,7 +23,7 @@ test:
     - truffle test
 
 try_the_lame:
-  image: trufflesuite/ganache:latest
+  image: trufflesuite/ganache:v7.4.2-alpha.3
   script:
     - truffle migrate
     - truffle test
