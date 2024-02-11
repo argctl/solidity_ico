@@ -49,7 +49,7 @@ module.exports = async function (deployer, network, accounts){
   await deployer.deploy(_string, "duck")
   await deployer.deploy(_address, accounts[0])
   //constructor (address handshakes_, address gitorg_, address gitarg_) {
-  //const org = await gitorg.deployed()
+  const org = await gitorg.deployed()
   await deployer.link(gitorg, argctl)
   //constructor (address handshakes_, address gitorg_, address gitarg_, address gitarray) {
   //constructor (address handshakes_, address gitorg_, address gitarg_, address _gitarray, address _giteta) {
