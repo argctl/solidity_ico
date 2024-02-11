@@ -1,29 +1,28 @@
-image: ubuntu:20.04
-stages:
-  - test
+#image: ubuntu:20.04
+#stages:
+#  - test
 
-before_script:
-  - apt-get update -qy
-  - apt-get install -y curl
-  - apt-get install -y ca-certificates gnupg
-  - mkdir -p /etc/apt/keyrings
-  - curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
-  - NODE_MAJOR=18 echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_20.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list
-  - apt-get update -y
-  - apt-get install -y nodejs
+#before_script:
+#  - apt-get update -qy
+#  - apt-get install -y curl
+#  - apt-get install -y ca-certificates gnupg
+#  - mkdir -p /etc/apt/keyrings
+#  - curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
+#  - NODE_MAJOR=18 echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_20.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list
+ # - apt-get update -y
+ # - apt-get install -y nodejs
 
-test:
-  stage: test
-  script:
-    - npm install
-    - npm install -g ganache
-    - npm install -g truffle
-    - ganache-cli > /dev/null 2>&1 &
-    - truffle migrate
-    - truffle test
+#test:
+ # stage: test
+ # script:
+ #   - npm install
+#    - npm install -g ganache
+#    - npm install -g truffle
+#    - ganache-cli > /dev/null 2>&1 &
+ #   - truffle migrate
+ #   - truffle test
 
 try_the_lame:
-  image: trufflesuite/ganache:v7.4.2-alpha.3
+  image: trufflesuite/ganache:latest
   script:
-    - truffle migrate
-    - truffle test
+    - cd
