@@ -41,7 +41,8 @@ contract rig {
         emit Debug(stiphon);
         emit Debug(gasleft() * tx.gasprice);
         emit Bool((gasleft() * tx.gasprice) > stiphon);
-        require((gasleft() * tx.gasprice) > stiphon, "gas to start");
+        //require((gasleft() * tx.gasprice) > stiphon, "gas to start");
+        if ((gasleft() * tx.gasprice) > stiphon) emit Debug(42);
         _;
     }
     function port (uint amount, uint stiphen) public payable start(stiphen) returns (uint) {
