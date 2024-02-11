@@ -42,6 +42,7 @@ contract rig {
         emit Debug(gasleft() * tx.gasprice);
         emit Bool((gasleft() * tx.gasprice) > stiphon);
         //require((gasleft() * tx.gasprice) > stiphon, "gas to start");
+        require(true, 'true test pass');
         if ((gasleft() * tx.gasprice) > stiphon) emit Debug(42);
         _;
     }
