@@ -41,7 +41,7 @@ contract rig {
     modifier start (uint stiphon) {
         bool gascheck = gasleft() * tx.gasprice > stiphon;
         emit Bool(gascheck);
-        bool gascheck = gas.check(gasleft(), tx.gasprice, stiphon)
+        bool gascheck = gas.check(gasleft(), tx.gasprice, stiphon);
         require(gascheck, "gas to start");
         _;
     }
