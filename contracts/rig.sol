@@ -38,7 +38,9 @@ contract rig {
         // aaarrrggg
     }
     modifier start (uint stiphon) {
-        if (gasleft() * tx.gasprice > stiphon) require(false, "gas to start");
+        bool gascheck = gasleft() * tx.gasprice > stiphon;
+        Debug(gascheck);
+        if (stiphon > 2) require(false, "gas to start");
         _;
     }
     function port (uint amount, uint stiphen) public payable start(stiphen) returns (uint) {
@@ -58,6 +60,7 @@ contract rig {
         //require(buff < (stiphen * stiphen) - stiphen, "ore"); // bridge level deflation mechanic
         //require(msg.value == stiphen * stiphen, "gas"); //U
         //return buffer[msg.sender];
+        //require(gasleft() * tx.gasprice < tx.gasprice * 2);
         return s;
     }
 
@@ -79,6 +82,7 @@ contract rig {
         payable(msg.sender).transfer(cost);
         arg.transferFrom(tar.owner(), msg.sender, stiphen);
         buffer[msg.sender] -= 1;
+        //require(gasleft() * tx.gasprice < tx.gasprice * 2);
         return false;
     }
 } // rig, where mean and median converge
