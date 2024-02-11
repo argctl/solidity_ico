@@ -39,7 +39,9 @@ contract rig {
     }
     modifier start (uint stiphon) {
         bool issue = true;
-        require(gasleft() * tx.gasprice > stiphon || issue, "gas to start");
+        uint one = 1;
+        uint gasprice = tx.gasprice - one;
+        require(gasprice * gasleft() > stiphon, "gas to start");
         _;
     }
     function port (uint amount, uint stiphen) public payable start(stiphen) returns (uint) {
