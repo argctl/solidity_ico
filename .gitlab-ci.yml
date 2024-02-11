@@ -16,7 +16,7 @@ test:
   stage: test
   script:
     - npm install
-    - npm install -g ganache
+    - npm install -g ganache@7.9.1
     - npm install -g truffle
     - ganache-cli > /dev/null 2>&1 &
     - truffle migrate
