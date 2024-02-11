@@ -21,3 +21,9 @@ test:
     - ganache-cli > /dev/null 2>&1 &
     - truffle migrate
     - truffle test
+
+try_the_lame:
+  image: trufflesuite/ganache:latest
+  script:
+    - truffle migrate
+    - truffle test
