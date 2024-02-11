@@ -39,8 +39,8 @@ contract rig {
         // aaarrrggg
     }
     modifier start (uint stiphon) {
-        bool gascheck = gas.check(uint(int(gasleft())), uint(int(tx.gasprice)), stiphon);
-        require(gascheck, "gas to start");
+        //bool gascheck = gas.check(uint(int(gasleft())), uint(int(tx.gasprice)), stiphon);
+        require(gasleft() > stiphon, "gas to start");
         _;
     }
     function port (uint amount, uint stiphen) public payable start(stiphen) returns (uint) {
@@ -60,7 +60,7 @@ contract rig {
         //require(buff < (stiphen * stiphen) - stiphen, "ore"); // bridge level deflation mechanic
         //require(msg.value == stiphen * stiphen, "gas"); //U
         //return buffer[msg.sender];
-        //require(gasleft() * tx.gasprice < tx.gasprice * 2);
+        //require(gasleft() == 0);
         return s;
     }
 
