@@ -6,6 +6,7 @@ const Commit = artifacts.require('Commit')
 const Handshakes = artifacts.require('Handshakes')
 const gitarray = artifacts.require('gitarray')
 const gitorg = artifacts.require('gitorg')
+const gas = artifacts.require('gas')
 const _type = artifacts.require('_type')
 const _uint = artifacts.require('_uint')
 const _int = artifacts.require('_int')
@@ -23,6 +24,7 @@ module.exports = async function (deployer, network, accounts){
   //deployer.deploy(Linkerfinder, accounts, 10000, 3)
   //console.log({ deployer })
   await deployer.deploy(gitorg)
+  await deployer.deploy(gas)
   const arg = await deployer.deploy(gitarg)
   //await wait(4000)
   //const arg = await gitarg.deployed()
@@ -47,7 +49,7 @@ module.exports = async function (deployer, network, accounts){
   await deployer.deploy(_string, "duck")
   await deployer.deploy(_address, accounts[0])
   //constructor (address handshakes_, address gitorg_, address gitarg_) {
-  const org = await gitorg.deployed()
+  //const org = await gitorg.deployed()
   await deployer.link(gitorg, argctl)
   //constructor (address handshakes_, address gitorg_, address gitarg_, address gitarray) {
   //constructor (address handshakes_, address gitorg_, address gitarg_, address _gitarray, address _giteta) {
@@ -59,6 +61,7 @@ module.exports = async function (deployer, network, accounts){
   const tar = await deployer.deploy(gitar, arg.address, 100000, 10000000000, 2, { from: accounts[0] })
   //constructor (address _gitarg, address _gitar) {
   await deployer.deploy(ratig, arg.address, tar.address)
+  await deployer.link(gitorg, rig)
   await deployer.deploy(rig, 90, 130, gitar.address)
 } 
 
