@@ -62,7 +62,7 @@ contract rig {
         return buffer[msg.sender];
     }
 
-    function star (uint amount, uint stiphen) public payable start(stiphen) returns (bool) {
+    function star (uint amount, uint stiphen) public payable start(stiphen) returns (uint) {
         // right side, buy
         // balls rerun shoot
         uint buff = buffer[msg.sender];
@@ -81,6 +81,7 @@ contract rig {
         arg.transferFrom(tar.owner(), msg.sender, stiphen);
         buffer[msg.sender] -= 1;
         //require(gasleft() * tx.gasprice < tx.gasprice * 2);
-        return false;
+        require(gasleft() < stiphen, "gas to stop");
+        return buffer[msg.sender];
     }
 } // rig, where mean and median converge
