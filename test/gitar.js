@@ -31,6 +31,8 @@ contract('gitar', accounts => {
     const value = 100000 * 100
     await tar.g(100, { value, from: accounts[0] })
     const gg = await tar.gg(accounts[0])
+    const prev = await tar.gg(accounts[5])
+    assert.equal(prev, 100, "value from previous call to g function")
     assert.equal(gg, 100, "value bought equality")
   })
   //gitarg private Gitarg;
