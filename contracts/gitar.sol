@@ -18,7 +18,9 @@ contract gitar {
     ratio = _ratio;
     Gitarg = gitarg(gitarg_);
     if (ratio < 3) safe = true;
-    require(Gitarg.balanceOf(msg.sender) >= Gitarg.totalSupply() / ratio);
+    // (Gitarg.totalSupply() / ratio) in parenthesis makes it clearer
+    // function allowance(address _owner, address _spender) public view returns (uint256 remaining) {
+    //require(Gitarg.allowance(sender, msg.sender) >= Gitarg.totalSupply() / ratio);
     owner = msg.sender;
     _gitarg = gitarg_;
     price = _price;

@@ -62,6 +62,10 @@ module.exports = async function (deployer, network, accounts){
   //constructor (address _gitarg, address _gitar) {
   await deployer.deploy(ratig, arg.address, tar.address)
   await deployer.link(gas, rig)
-  await deployer.deploy(rig, 90000, gitar.address)
+
+  //function approve(address _spender, uint256 _value) public returns (bool success) {
+  //await arg.approve(accounts[0], 
+  //constructor (address _gitarg, uint _buy, uint _sell) {
+  await deployer.deploy(rig, arg.address, 90000, 100000)
 } 
 

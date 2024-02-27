@@ -34,7 +34,6 @@ contract rig {
         tar = new gitar(gitarg_, sell, arg.totalSupply() / 3, 3);
         gitar_ = address(tar);
         buy = _buy;
-        
         // TODO - initiate gitar contract
         // booty is the max take for the stake
         // aaarrrggg
