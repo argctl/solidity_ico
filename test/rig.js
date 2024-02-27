@@ -46,6 +46,13 @@ contract('rig', accounts => {
           error = e
         }
         assert.equal(error.reason, "treasure chest", "Not gitar tracked sale fails")
+        //const stiphen = 55000
+        const stiphen = 12500
+        const receipt = await r.port(100, stiphen, { from: accounts[5], value: Math.pow(stiphen, 2), gas: 60000 })
+        const buffer = await r.buffer(accounts[5])
+        console.log({ buffer: buffer * 1 }) 
+        console.log({ receipt })
+        //const buffer = await r.port(99, 10000, { from: accounts[1] })
         /*
         console.log('receipt1: ', buffer.receipt.logs[0] )
         console.log('receipt0: ', buffer.receipt.logs[0].args)

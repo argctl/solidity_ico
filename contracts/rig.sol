@@ -18,20 +18,20 @@ contract rig {
     address public gitar_;
     address public gitarg_;
     // REVIEW - struct for transaction, probably not
-    mapping(address => uint) buffer; // homework - what will buffer do?
-    mapping(address => uint) gate; // gates close
+    mapping(address => uint) public buffer; // homework - what will buffer do?
+    mapping(address => uint) public gate; // gates close
     // buffer rollover - remaining buffer used in gitar limiter
     // booty can be for me or for you - max or min
     // TODO - can I create a token interface for generic erc?
     event Debug(uint gas);
     event Bool(bool compare);
-    constructor (uint _buy, uint _sell, address _gitar) {
-        require(_buy < _sell, "chest");
+    constructor (uint _buy, address _gitar) {
         gitar_ = _gitar;
         tar = gitar(_gitar);
+        sell = tar.price();
+        require(_buy < sell, "chest");
         gitarg_ = tar._gitarg();
         arg = gitarg(gitarg_);
-        sell = _sell;
         buy = _buy;
         
         // TODO - initiate gitar contract
@@ -47,7 +47,6 @@ contract rig {
         // left side, sell
         // cannons return loot
         //uint s = gasleft() * tx.gasprice;
-
         uint purchased = tar.gg(msg.sender);
         require(purchased >= amount, "treasure chest");
         require(buffer[msg.sender] == 0 || (!(amount < buffer[msg.sender]) && buffer[msg.sender] == 0), "parrot's keep");
@@ -70,7 +69,7 @@ contract rig {
         require(buff - stiphen > 0, "safe stiphen for contract"); //opens us up to higher prices for higher transacts - fight large sum instability problem
         uint cost = (amount * buy) + stiphen; // contract (me) cost
         // TODO - amount is in token and the buffer is the token number
-        // TODO - buy the token amount for the price, return the gas cost buffer in token
+        // TODO - buy the token amount for the price, return the gas cost buffer in token ???
         buffer[msg.sender] = buff - stiphen; // the stiphen is sent as gitarg token
         // we haven't set the gate, buffer < s^2 - s, then can buffer - s == 1 to set the gate 
         if (gate[msg.sender] == 0 && (buff - stiphen) == 1) gate[msg.sender] = tar.gg(msg.sender);

@@ -62,6 +62,6 @@ module.exports = async function (deployer, network, accounts){
   //constructor (address _gitarg, address _gitar) {
   await deployer.deploy(ratig, arg.address, tar.address)
   await deployer.link(gas, rig)
-  await deployer.deploy(rig, 90, 130, gitar.address)
+  await deployer.deploy(rig, 90000, gitar.address)
 } 
 

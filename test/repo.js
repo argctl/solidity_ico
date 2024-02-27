@@ -102,7 +102,8 @@ contract('Repo', async accounts => {
       console.log('method: ', repo.methods['verification(uint256)'])//(1, { from: await repo.owner() })
       const res = await repo.methods['verification(uint256)'](1, { from: accounts[4] })
     } catch (e) {
-      assert.equal(e.toString().split('\n')[0], "Error: VM Exception while processing transaction: revert the sender's timestamp was revoked more recently -- Reason given: the sender's timestamp was revoked more recently.")
+      console.log("e.reason: ", e.reason)
+      assert.equal(e.reason, "the sender's timestamp was revoked more recently")
     }
   })
   it('allows verification with the gitarray address', async () => {
