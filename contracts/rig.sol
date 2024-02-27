@@ -25,13 +25,14 @@ contract rig {
     // TODO - can I create a token interface for generic erc?
     event Debug(uint gas);
     event Bool(bool compare);
-    constructor (uint _buy, address _gitar) {
-        gitar_ = _gitar;
-        tar = gitar(_gitar);
-        sell = tar.price();
+    // await deployer.deploy(rig, arg.address, 90000, 100000)
+    constructor (address _gitarg, uint _buy, uint _sell) {
+        sell = _sell;
+        gitarg_ = _gitarg;
         require(_buy < sell, "chest");
-        gitarg_ = tar._gitarg();
         arg = gitarg(gitarg_);
+        tar = new gitar(gitarg_, sell, arg.totalSupply() / 3, 3);
+        gitar_ = address(tar);
         buy = _buy;
         
         // TODO - initiate gitar contract
