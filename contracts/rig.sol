@@ -10,6 +10,7 @@ import "./libraries/gas.sol";
 // use escrow to pay gas for spread of 0.90 - 1.20 (as an example). 
 // rig like an oil rig
 contract rig {
+    address public creator;
     uint public sell;
     uint public buy;
     uint public stakem;
@@ -27,10 +28,16 @@ contract rig {
     event Bool(bool compare);
     // await deployer.deploy(rig, arg.address, 90000, 100000)
     constructor (address _gitarg, uint _buy, uint _sell) {
+        creator = msg.sender;
         sell = _sell;
-        gitarg_ = _gitarg;
         require(_buy < sell, "chest");
-        arg = gitarg(gitarg_);
+        if (address(0) == _gitarg) {
+          arg = new gitarg();
+          gitarg_ = arg.address;
+        } else {
+          arg = gitarg(_gitarg);
+          gitarg_ = _gitarg;
+        }
         tar = new gitar(gitarg_, sell, arg.totalSupply() / 3, 3);
         gitar_ = address(tar);
         buy = _buy;
@@ -42,6 +49,11 @@ contract rig {
         //bool gascheck = gas.check(uint(int(gasleft())), uint(int(tx.gasprice)), stiphon);
         require(gasleft() > stiphon, "gas to start");
         _;
+    }
+    function fund () public returns (uint) {
+      require(msg.sender == creator); 
+      require(tar.locked, "sale over");
+      return block.timestamp;
     }
     function port (uint amount, uint stiphen) public payable start(stiphen) returns (uint) {
         // left side, sell
