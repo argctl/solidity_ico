@@ -27,12 +27,18 @@ contract('rig', accounts => {
     })
     it('qualifies a gitar contract user purchase', async () => {
         const r = await rig.deployed()
-        const tar = await gitar.deployed()
-        const arg = await gitarg.deployed()
+        //const arg = await gitarg.deployed()
+        //console.log({ tarAddress: tar.address, rTarAddress: await r.gitar_() })
+        const tar = await gitar.at(await r.gitar_())
+        const arg = await gitarg.at(await r.gitarg_())
+        //const balance = await arg.balanceOf(accounts[0])
+        //console.log({ balance: balance * 1 })
+        //await arg.transfer(accounts[5], balance, { from: accounts[0] })
         const tokens = 100
         const cost = 100000
         //arg.approve(tar.address, 200)
-        //await tar.g(tokens, { value: cost * tokens, from: accounts[5] })
+        await tar.g(tokens, { value: cost * tokens, from: accounts[5] })
+        await wait(10000)
         // for whatever reason this doesn't work between test groupings (contract tests), could adding time or checking order explain?
         const amount = await tar.gg(accounts[5])
         //const amount = await tar.gg(accounts[5])
@@ -51,7 +57,7 @@ contract('rig', accounts => {
         const receipt = await r.port(100, stiphen, { from: accounts[5], value: Math.pow(stiphen, 2), gas: 60000 })
         const buffer = await r.buffer(accounts[5])
         console.log({ buffer: buffer * 1 }) 
-        console.log({ receipt })
+        //console.log({ receipt })
         //const buffer = await r.port(99, 10000, { from: accounts[1] })
         /*
         console.log('receipt1: ', buffer.receipt.logs[0] )

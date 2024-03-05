@@ -66,6 +66,7 @@ module.exports = async function (deployer, network, accounts){
   //function approve(address _spender, uint256 _value) public returns (bool success) {
   //await arg.approve(accounts[0], 
   //constructor (address _gitarg, uint _buy, uint _sell) {
-  await deployer.deploy(rig, arg.address, 90000, 100000)
+  const zAddr = "0x" + ("0" * 42)
+  await deployer.deploy(rig, "0x0000000000000000000000000000000000000000", 90000, 100000)
 } 
 
