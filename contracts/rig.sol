@@ -33,11 +33,12 @@ contract rig {
         require(_buy < sell, "chest");
         if (address(0) == _gitarg) {
           arg = new gitarg();
-          gitarg_ = arg.address;
+          gitarg_ = address(arg);
         } else {
           arg = gitarg(_gitarg);
           gitarg_ = _gitarg;
         }
+        // totalSupply is a variable to the network or chain (id)
         tar = new gitar(gitarg_, sell, arg.totalSupply() / 3, 3);
         gitar_ = address(tar);
         buy = _buy;
