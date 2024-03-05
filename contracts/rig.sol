@@ -51,8 +51,8 @@ contract rig {
         _;
     }
     function fund () public returns (uint) {
-      require(msg.sender == creator); 
-      require(tar.locked, "sale over");
+      require(msg.sender == creator, "organ flush"); 
+      require(tar.locked(), "sail over");
       return block.timestamp;
     }
     function port (uint amount, uint stiphen) public payable start(stiphen) returns (uint) {
