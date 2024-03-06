@@ -16,6 +16,7 @@ const argctl = artifacts.require('argctl')
 const gitar = artifacts.require('gitar')
 const ratig = artifacts.require('ratig')
 const rig = artifacts.require('rig')
+const b = artifacts.require('b')
 
 const { wait } = require('../test/utils')
 
@@ -68,5 +69,7 @@ module.exports = async function (deployer, network, accounts){
   //constructor (address _gitarg, uint _buy, uint _sell) {
   const zAddr = "0x" + ("0" * 42)
   await deployer.deploy(rig, "0x0000000000000000000000000000000000000000", 90000, 100000)
+  //await deployer.deploy(rig, arg.address, 90000, 100000)
+  await deployer.deploy(b)
 } 
 
