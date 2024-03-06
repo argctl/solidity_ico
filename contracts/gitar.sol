@@ -41,8 +41,8 @@ contract gitar {
     require(msg.value == targit, "price");
     // TODO - tag version that pulls in full allowance even greater than tar.
     // TODO - tag version that allowance less than a threshold creates gg alert to rig.
-    require(Gitarg.allowance(owner, address(this)) >= tar, "allowance");
 
+    require(Gitarg.allowance(owner, address(this)) >= tar, "allowance");
     Gitarg.transferFrom(owner, msg.sender, tar);
     payable(owner).transfer(msg.value);
     //purchaser[msg.sender] += tar; // issue with initialization, copy var?
