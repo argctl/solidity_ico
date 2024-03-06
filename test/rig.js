@@ -1,6 +1,8 @@
 const gitarg = artifacts.require('gitarg')
 const rig = artifacts.require('rig')
 const gitar = artifacts.require('gitar')
+const b = artifacts.require('b')
+const bs = artifacts.require('bs')
 const { logs, wait } = require('./utils')
 
 contract('rig', accounts => {
@@ -26,39 +28,27 @@ contract('rig', accounts => {
     //TODO - review price calc return
     })
     it('qualifies a gitar contract user purchase', async () => {
+        //constructor (address _gitarg, uint _buy, uint _sell) {
+        const g = await rig.new((await gitarg.deployed()).address, 90000, 100000)
         const r = await rig.deployed()
-        //const arg = await gitarg.deployed()
-        //console.log({ tarAddress: tar.address, rTarAddress: await r.gitar_() })
-        const tar = await gitar.at(await r.gitar_())
-        const arg = await gitarg.at(await r.gitarg_())
-        //const balance = await arg.balanceOf(accounts[0])
-        //console.log({ balance: balance * 1 })
-        //await arg.transfer(accounts[5], balance, { from: accounts[0] })
+        const tar = await gitar.at(await g.gitar_())
+        //const tar = await gitar.deployed()
+        const arg = await gitarg.at(await g.gitarg_())
         const tokens = 100
-        const cost = 100000
-        //arg.approve(tar.address, 200)
-        await tar.g(tokens, { value: cost * tokens, from: accounts[5] })
-        await wait(10000)
-        // for whatever reason this doesn't work between test groupings (contract tests), could adding time or checking order explain?
-        const amount = await tar.gg(accounts[5])
-        //const amount = await tar.gg(accounts[5])
-        console.log({ amount: amount * 1 })
+        const price = await tar.price()
+        await tar.g(tokens, { value: price * tokens, from: accounts[5] })
+        /*
         assert.equal(amount * 1, 100, "amount from gitar contract is amount purchased")
         let error
         try {
-          // TODO - check if gt has purchase record in test for value in r.port
           const buffer = await r.port(100, 10000, { from: accounts[1] })
         } catch (e) {
           error = e
         }
         assert.equal(error.reason, "treasure chest", "Not gitar tracked sale fails")
-        //const stiphen = 55000
         const stiphen = 12500
         const receipt = await r.port(100, stiphen, { from: accounts[5], value: Math.pow(stiphen, 2), gas: 60000 })
-        const buffer = await r.buffer(accounts[5])
-        console.log({ buffer: buffer * 1 }) 
-        //console.log({ receipt })
-        //const buffer = await r.port(99, 10000, { from: accounts[1] })
+        */
         /*
         console.log('receipt1: ', buffer.receipt.logs[0] )
         console.log('receipt0: ', buffer.receipt.logs[0].args)
