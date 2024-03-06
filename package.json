@@ -25,5 +25,8 @@
   "bugs": {
     "url": "https://github.com/Epict33tus/solidity_ico/issues"
   },
-  "homepage": "https://github.com/Epict33tus/solidity_ico#readme"
+  "homepage": "https://github.com/Epict33tus/solidity_ico#readme",
+  "devDependencies": {
+    "hardhat": "^2.21.0"
+  }
 }
