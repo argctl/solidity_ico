@@ -58,21 +58,21 @@ contract gitarg {
     return totalSupply_;
   }
   function balanceOf(address _owner) public view returns (uint256 balance) {
-    require(!locked[msg.sender] && !locked[_owner]);
+    require(!locked[msg.sender] && !locked[_owner], "Locke's view");
     return balances[_owner];
   }
   function transfer(address _to, uint256 _value) public returns (bool success) {
-    require(!locked[msg.sender] && !locked[_to]);
-    require(_value <= balances[msg.sender]);
+    require(!locked[msg.sender] && !locked[_to], "Davy Jone's locker");
+    require(_value <= balances[msg.sender], "treasure chest");
     balances[msg.sender] = balances[msg.sender] - _value;
     balances[_to] = balances[_to] + _value;
     emit Transfer(msg.sender, _to, _value);
     return true;
   }
   function transferFrom(address _from, address _to, uint256 _value) public returns (bool success) {
-    require(!locked[msg.sender] && !locked[_from] && !locked[_to]);
-    require(_value <= balances[_from]);
-    require(_value <= allowed[_from][msg.sender]);
+    require(!locked[msg.sender] && !locked[_from] && !locked[_to], "Davy Jone's lockers");
+    require(_value <= balances[_from], "treasure chest");
+    require(_value <= allowed[_from][msg.sender], "iou");
     balances[_from] = balances[_from] - _value;
     allowed[_from][msg.sender] = allowed[_from][msg.sender] - _value;
     // _to should then be message sender
@@ -81,7 +81,7 @@ contract gitarg {
     return true;
   }
   function approve(address _spender, uint256 _value) public returns (bool success) {
-    require(!locked[msg.sender] && !locked[_spender]);
+    require(!locked[msg.sender] && !locked[_spender], "locket");
     allowed[msg.sender][_spender] = _value;
     emit Approval(msg.sender, _spender, _value);
     return true;
@@ -93,7 +93,7 @@ contract gitarg {
       //  return spendDownFunds[i].amount;
       //}
     //}
-    require(!locked[msg.sender] && !locked[_owner] && !locked[_spender]);
+    require(!locked[msg.sender] && !locked[_owner] && !locked[_spender], "closed locket");
     return allowed[_owner][_spender];
   }
 }
