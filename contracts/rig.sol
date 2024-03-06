@@ -1,3 +1,4 @@
+// ISC
 // control token
 // there's a point of convergance where the buffer converges with the gas cover stipend
 // the value is the transaction capability and there is always slightly more backbone
@@ -41,9 +42,8 @@ contract rig {
         // totalSupply is a variable to the network or chain (id)
         tar = new gitar(gitarg_, sell, arg.totalSupply() / 3, 3);
         gitar_ = address(tar);
+        arg.approve(gitar_, arg.totalSupply() / 3);
         buy = _buy;
-
-        arg.approve(address(tar), arg.totalSupply() / 3);
         // TODO - initiate gitar contract
         // booty is the max take for the stake
         // aaarrrggg
