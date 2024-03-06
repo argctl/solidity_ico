@@ -1,4 +1,5 @@
-pragma solidity >= "0.8.20";
+// SPDX-License-Identifier: AdaCore-doc
+pragma solidity 0.8.20;
 
 contract C {
   //constructor(address _handshakes, address gitorg_, address gitarg_, address gitarray_) {

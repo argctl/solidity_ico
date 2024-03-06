@@ -2,7 +2,7 @@
 // REVIEW - change to unlicense (unlinsenced?) 
 // Public Information Transaction System(s)
 // Content/Media Distribution Placement/Network
-pragma solidity >= "0.8.18";
+pragma solidity 0.8.20;
 
 import "../gitarray.sol";
 import "../gitarg.sol";

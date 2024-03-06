@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: UNLICENSED
+pragma solidity 0.8.20;
 import "./gitarg.sol";
 import "./gitarray.sol";
 import "./objects/Proposal.sol";
 import "./objects/Handshakes.sol";
-pragma solidity >= "0.8.20";
 
 contract _gitorg {
   // sales/market/voting

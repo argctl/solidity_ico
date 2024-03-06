@@ -1,4 +1,4 @@
-pragma solidity >= "0.8.20";
+pragma solidity 0.8.20;
 
 // return gitarg interface address, can be token or a proxy (even off chain)
 library ARGARRAY {

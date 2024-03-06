@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: UNLICENSED
-pragma solidity >="0.8.20";
+pragma solidity 0.8.20;
 // Intended use: exchange for services on gitarg decentralized platform and ada NFTs (release date June 2nd - June 15th 2023)
 // NICE-TO-HAVES: 
 // * lock password interface

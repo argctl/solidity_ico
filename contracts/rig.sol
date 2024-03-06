@@ -1,9 +1,9 @@
-// ISC
+// SPDX-License-Identifier: BUSL-1.1
 // control token
 // there's a point of convergance where the buffer converges with the gas cover stipend
 // the value is the transaction capability and there is always slightly more backbone
 // this is due to the gas relation function and buffer (acts as program counter)
-pragma solidity >= "0.8.20";
+pragma solidity 0.8.20;
 import "./gitar.sol";
 import "./gitarg.sol";
 import "./libraries/gas.sol";
@@ -53,7 +53,7 @@ contract rig {
         require(gasleft() > stiphon, "gas to start");
         _;
     }
-    function fund () public returns (uint) {
+    function fund () public view returns (uint) {
       require(msg.sender == creator, "organ flush"); 
       require(tar.locked(), "sail over");
       return block.timestamp;

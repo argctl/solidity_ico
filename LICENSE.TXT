@@ -31,3 +31,7 @@ In consideration of the right to use this License's text and the "Business Sourc
 3. To specify a Change Date.
 4. Not to modify this License in any other way.
 
+AdaCore Doc License
+
+This document may be copied, in whole or in part, in any form or by any means, as is or with alterations, provided that (1) alterations are clearly marked as alterations and (2) this copyright notice is included unmodified in any copy.
+

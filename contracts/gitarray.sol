@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: BUSL-1.1
-pragma solidity >= "0.8.20";
+pragma solidity 0.8.20;
 import "./giteta.sol";
 import "./ltcgra.sol";
 import "./gitarg.sol";
 import "./argctl.sol";
 import "./objects/Repo.sol";
-//import "./objects/Proposal.sol";
+import "./objects/Proposal.sol";
 import "./objects/Handshakes.sol";
 import "./libraries/gitorg.sol";
 import "./gitorg.sol";
