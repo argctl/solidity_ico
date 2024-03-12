@@ -1,6 +1,5 @@
-const _gitorg = artifacts.require('_gitorg')
 
-contract('_gitorg', () => {
+describe('_gitorg', () => {
   //function rate (uint rate_) public {
   it('test', () => {
     console.log('placeholder')

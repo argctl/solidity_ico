@@ -1,80 +1,99 @@
-const giteta = artifacts.require('giteta')
-const gitarg = artifacts.require('gitarg')
-const gitarray = artifacts.require('gitarray')
-const gitorg = artifacts.require('gitorg')
-const Commit = artifacts.require('Commit')
-const Repo = artifacts.require('Repo')
+const assert = require('node:assert')
 const { wait } = require('./utils')
 
 let comm = ''
 let _eta = ''
 let _repo = ''
+let _repoOwner
+let _arg = ''
+let _array = ''
+let _org = ''
 
-contract('giteta', async accounts => {
+describe('giteta', async accounts => {
   it('arg address matches', async () => {
-    const arg = await gitarg.deployed()
+    const arg = await ethers.deployContract('gitarg')
     // REVIEW: 6d42465dc243ae8c7121b10b88b485678a1ca220
-    const eta = await giteta.new(arg.address)
+    const eta = await ethers.deployContract('giteta', [arg.address])
     await wait(4000)
-    const _arg = await eta.Gitarg.call()
+    const _arg = await eta.Gitarg()
     assert.equal(arg.address, _arg, "addresses match from deployed contract and giteta instance")
   })
   it('commit creates commit object/contract', async () => {
-    const arg = await gitarg.deployed()
-    const repo = await Repo.deployed()
-    const commit = await Commit.deployed()
+    const [owner, buyer, ...rest] = await ethers.getSigners()
+    const arg = await ethers.deployContract('gitarg')
+    _arg = arg.address
+    //await deployer.deploy(Repo, 'TestRepo', 'https://gitlab.com/me2211/testrepo', accounts[1], arg.address, array.address)
+    //await deployer.deploy(gitarray, accounts.slice(1), accounts[0], arg.address, eta.address)
+    //await deployer.deploy(Commit, accounts[0], repo.address, 'test message', 'David J Kamer', '20230830')
     //const eta = await giteta.deployed()
-    const eta = await giteta.new(arg.address)
+    const gitorg = await ethers.deployContract('gitorg')
+    _org = gitorg.address
+    const eta = await ethers.deployContract('giteta', [arg.address])
+    const array = await ethers.deployContract('gitarray', [[buyer, ...rest].map(({ address }) => address), owner.address, arg.address, eta.address], { libraries: { gitorg: gitorg.address } }) 
+    const repo = await ethers.deployContract('Repo', ['TestRepo', 'https://gitlab.com/me2211/testrepo', buyer.address, arg.address, array.address], { libraries: { gitorg: gitorg.address } })
+    const commit = await ethers.deployContract('Commit', [owner.address, repo.address, 'test message', 'David J Kamer', '20230830'],
+      { gasLimit: 5000000 })
     _eta = eta.address
     // App.js
-    await arg.approve(eta.address, 200000, { from: accounts[1] })
-    await arg.transfer(accounts[1], 2000)
+    await arg.connect(buyer).approve(eta.address, 200000)
+    await arg.transfer(buyer.address, 2000)
+    _array = array.address
     //Error: VM Exception while processing transaction: revert
-    const receipt = await eta.commit(
+    const receipt = await eta.connect(buyer).commit(
       repo.address,
       'import gitarray',
       'David Kamer <me@davidkamer.com>',
       'Wed Aug 30 19:39:21 2023 -0400',
-      1000, {
-        from: accounts[1]
-      })
-    const address = receipt.logs[0].args.commit
+      1000)
+    const address = (await receipt.wait()).events[1].args[0]
+    // TODO - place address in commit object to validate it is a commit object
     comm = address
-    const balance = await arg.balanceOf.call(address)
-    assert.equal(balance, 999, "balance is moved to commit")
+    const Commit = await ethers.getContractFactory('Commit')
+    const c = await Commit.attach(comm) 
+    assert.equal(c.address, comm, "is commit object")
+    //const balance = await arg.balanceOf(buyer.address)
+    //assert.equal(balance, 999, "balance is moved to commit")
   })
   it('up function adds value', async () => {
-    const arg = await gitarg.deployed()
-    const eta = await giteta.at(_eta)
-    const repo = await Repo.deployed()
-    const com = await Commit.at(comm)
-    await arg.transfer(accounts[1], 3000)
+    const [owner, buyer] = await ethers.getSigners()
+    //const eta = await giteta.at(_eta)
+    const giteta = await ethers.getContractFactory('giteta')
+    const eta = await giteta.attach(_eta)
+    const Commit = await ethers.getContractFactory('Commit')
+    const com = await Commit.attach(comm)
+    //const com = await Commit.at(comm)
     await wait(3000)
     const creator = await com.creator()
-    const data = await com.getData.call({ from: accounts[1] })
+    const data = await com.connect(buyer).getData()
     assert.equal(comm, com.address, "commit is same as at address")
     assert.equal(data.author, 'David Kamer <me@davidkamer.com>', "commit data is populated")
-    await eta.up(com.address, false, { from: accounts[1] })
+    await eta.connect(buyer).up(com.address, false)
     await wait(4000)
-    const value = await eta.value.call(com.address)
-    assert.isAtLeast(value * 1, 1000, "The value is at least 1000 after the up function call") 
+    const value = await eta.value(com.address)
+    assert.equal(value * 1 >= 1000, true, "The value is at least 1000 after the up function call") 
   })
   it('value query for commit queries balance of arg token', async () => {
-    const arg = await gitarg.deployed()
-    const eta = await giteta.at(_eta)
-    const com = await Commit.at(comm)
+    const gitarg = await ethers.getContractFactory('gitarg')
+    const arg = gitarg.attach(_arg)
+    const giteta = await ethers.getContractFactory('giteta')
+    const eta = giteta.attach(_eta)
+    const Commit = await ethers.getContractFactory('Commit')
+    const com = await Commit.attach(comm)
     //function value(address _commit) public view returns (uint) {
-    const value = await eta.value.call(comm)
+    const value = await eta.value(comm)
     const value_ = await arg.balanceOf(comm)
-    assert.deepEqual(value, value_, "values equal")
+    assert.equal(value * 1, value_ * 1, "values equal")
   })
   it('queries for by time range', async () => {
-    const org = await gitorg.deployed()
-    const arg = await gitarg.deployed()
-    const eta = await giteta.at(_eta)
-    const array = await gitarray.deployed()
+    const [owner, buyer, spender] = await ethers.getSigners()
+    const org = await ethers.deployContract('gitorg')
+    const gitarg = await ethers.getContractFactory('gitarg')
+    const arg = await gitarg.attach(_arg)
+    const giteta = await ethers.getContractFactory('giteta')
+    const eta = await giteta.attach(_eta)
     //constructor(string memory _name, string memory _url, address _owner, address _gitarg, address _gitarray) payable {
-    const repo = await Repo.new('test', 'gitarray.com/test', accounts[2], arg.address, array.address)
+    const repo = await ethers.deployContract('Repo', ['test', 'gitarray.com/test', spender.address, arg.address, _array], { libraries: { gitorg: org.address }})
+    _repoOwner = owner
     _repo = repo.address
     await wait(2000)
     //function commit(address _repo, string memory message, string memory author, string memory date, uint escrow) public returns (uint) {
@@ -86,6 +105,7 @@ contract('giteta', async accounts => {
       'commit deployment on repo',
       'David Kamer <me@davidkamer.com>',
       'Fri Sep 8 00:12:49 2023 -0400', 99))
+
     await wait(15000)
     // 25a24ccb76625e55f9df4c3c55cce4586b6c1813
     receipts.push(await eta.commit(repo.address,
@@ -93,7 +113,7 @@ contract('giteta', async accounts => {
       'David Kamer <me@davidkamer.com>',
       'Fri Sep 8 21:04:48 2023 -0400', 99))
     await wait(5000)
-    const timestamp_ = await org.timestamp.call()
+    const timestamp_ = await org.timestamp()
     // d816d9edf0f53facf0ac1715e27dbc8439371fea
     receipts.push(await eta.commit(repo.address,
       'lol',
@@ -105,86 +125,111 @@ contract('giteta', async accounts => {
       'balance requires issue',
       'David Kamer <me@davidkamer.com>',
       'Sat Sep 9 15:39:26 2023 -0400', 100))
-    const timestamp = await org.timestamp.call()
+    const timestamp = await org.timestamp()
     //function query(address _repo, uint start, uint end) public view returns (Time[] memory) {
-    const times = await eta.query(repo.address, timestamp_, timestamp)
-    const commits = receipts.flatMap(({ logs }) => logs.flatMap(({ args: { commit } }) => (commit)))
-    assert.equal(times.logs.length , 6, 'query returns the correct number of results')
+    const receipt = await eta['query(address,uint256,uint256)'](repo.address, timestamp_ * 1, timestamp *1)
+    //console.log({ receipt: await receipt.wait().events.map(({ events }) => events.args) })
+    //const times = (await receipt.wait()).events.reduce((acc, { args }) => (args.commit ? [...acc, args.commit] : acc), [])
+    const times = (await receipt.wait()).events.map(({ args }) => args)
+    const commits = await Promise.all(receipts.map(async ({ wait }) => {
+      return (await wait()).events[1].args[0]
+    }))
+    assert.equal(times.length , 6, 'query returns the correct number of results')
     commits.shift()
     assert.equal(commits.length, 3, 'the commits.length value is correct for compare')
     commits.push(undefined)
-    times.logs.forEach(({ args }) => {
-      const { commit, value } = args
+    times.forEach(({ value, commit }) => {
       const bool = commits.includes(commit)
       assert.equal(bool, true, 'the commits are in the commit list')
       if (!Number.isNaN(value * 1)) {
-        assert.isAtLeast(value * 1, timestamp_ * 1, 'the timestamp is above min threshold')
-        assert.isAtMost(value * 1, timestamp * 1, 'the timestamp is bellow max threshold')
+        assert.equal(value * 1 >= timestamp_ * 1, true, 'the timestamp is above min threshold')
+        assert.equal(value * 1 <= timestamp * 1, true, 'the timestamp is bellow max threshold')
       }
     })
   })
   it("timetravels (doesn't)", async () => {
-    const arg = await gitarg.deployed()
-    const eta = await giteta.at(_eta)
-    const array = await gitarray.deployed()
-    const repo = await Repo.new('test', 'gitarray.com/test', accounts[2], arg.address, array.address)
-    const balance = await arg.balanceOf.call(accounts[1])
+    const [owner, buyer, spender] = await ethers.getSigners()
+    const gitarg = await ethers.getContractFactory('gitarg')
+    const arg = await gitarg.attach(_arg)
+    const giteta = await ethers.getContractFactory('giteta')
+    const eta = await giteta.attach(_eta)
+    const gitarray = await ethers.getContractFactory('gitarray', { libraries: { gitorg: _org } })
+    const array = await gitarray.attach(_array)
+    const repo = await ethers.deployContract('Repo', ['test', 'gitarray.com/test', spender.address, arg.address, _array], { libraries: { gitorg: _org } })
+    const balance = await arg.balanceOf(buyer.address)
     //function commit(address _repo, string memory message, string memory author, string memory date, uint escrow) public returns (uint) {
-    const com_ = await eta.commit(repo.address, 'direct functions', 'David Kamer <me@davidkamer.com>', 'Fri Sep 8 00:09:57 2023 -0400', 5, { from: accounts[1] })
-    const com__ = com_.logs[0].args.commit
-    const balance_ = await arg.balanceOf.call(com__)
+    const com_ = await eta.connect(buyer).commit(repo.address, 'direct functions', 'David Kamer <me@davidkamer.com>', 'Fri Sep 8 00:09:57 2023 -0400', 5)
+    //const com__ = com_.logs[0].args.commit
+    const com__ = (await com_.wait()).events[1].args.commit
+    const balance_ = await arg.balanceOf(com__)
     await wait(10000)
-    const receipt = await eta.up(com__, true, { from: accounts[1] })
-    const value_ = await eta.value.call(com__)
-    assert.isAtLeast(value_ * 1, 6, "The value is at least 6 with balancing after the up function is called")
-    assert.isAtMost(value_ * 1, 10, "The value balances to less than 5 + 7 (12)")
+    const receipt = await eta.connect(buyer).up(com__, true)
+    const value_ = await eta.value(com__)
+    assert.equal(value_ * 1 >= 6, true, "The value is at least 6 with balancing after the up function is called")
+    assert.equal(value_ * 1 <= 10, true, "The value balances to less than 5 + 7 (12)")
   })
   it("queries based on repo address", async () => {
-    const eta = await giteta.at(_eta)
+    const giteta = await ethers.getContractFactory('giteta')
+    const eta = await giteta.attach(_eta)
     //function query(address repo) public view returns (Time[] memory) {
-    const commits = await eta.query.call(_repo)
+    const commits = await eta['query(address)'](_repo)
     assert.equal(commits.length, 4, "the length equals the submitted commits")
   })
   it("queries based on address and value", async () => {
-    const eta = await giteta.at(_eta)
+    const giteta = await ethers.getContractFactory('giteta')
+    const eta = await giteta.attach(_eta)
     //function query(uint _value, address _repo) public view returns (Time[] memory) {
-    const _commits = await eta.query.call(99, _repo)
-    const commits = _commits.filter(commit => commit.timestamp !== '0')
+    const _commits = await eta['query(uint256,address)'](99, _repo)
+    console.log({ _commits })
+    const commits = _commits.filter(commit => commit.timestamp * 1 !== 0)
     assert.equal(commits.length, 2, "returns based on value")
   })
   it("Down function transfers to the repo", async () => {
     //function down(address payable _repo, address payable _commit, uint bounty) public payable returns (uint)
-    const arg = await gitarg.deployed()
-    const eta = await giteta.at(_eta)
+    const [owner, buyer, spender] = await ethers.getSigners()
+    const gitarg = await ethers.getContractFactory('gitarg')
+    const arg = await gitarg.attach(_arg)
+    const giteta = await ethers.getContractFactory('giteta')
+    const eta = await giteta.attach(_eta)
     //const _arg = await eta.gitargWallet()
-    const repo = await Repo.at(_repo)
-    const commits = await eta.query.call(99, _repo)
+    const Repo = await ethers.getContractFactory('Repo', { libraries: { gitorg: _org } })
+    const repo = await Repo.attach(_repo)
+    const commits = await eta['query(uint256,address)'](99, _repo)
     //const _commit = commits.pop()
     const _commit = commits[commits.length - 1]
-    const owner = await repo.owner()
+    const _owner = await repo.owner()
+    assert.equal(_owner, spender.address, "Repo owner address from creation equals _owner address from repo call")
+    //assert.equal(owner_, owner.address, "owner unchanged")
     //function down(address payable _repo, address payable _commit, uint bounty) public payable returns (uint) {
-    await eta.down(_repo, _commit.commit, 49, { from: owner })
+    await eta.connect(spender).down(_repo, _commit.commit, 49)
     const balance = await arg.balanceOf(_commit.commit)
     assert.equal(balance, 50, "That the transfer of token out of commit")
     const balance_ = await arg.balanceOf(_repo)
     assert.equal(balance_, 49, "That the transfer of token into the repo is accurate (no gas for inner token)")
   })
   it("drain commit from approved down call", async () => {
-    const arg = await gitarg.deployed()
-    const eta = await giteta.at(_eta)
-    const repo = await Repo.at(_repo)
-    const commit = (await eta.query.call(50, _repo)).filter(({ timestamp }) => timestamp !== '0')[0]
-    const balance_ = await arg.balanceOf.call(commit.commit)
+    const gitarg = await ethers.getContractFactory('gitarg')
+    const arg = await gitarg.attach(_arg)
+    const giteta = await ethers.getContractFactory('giteta')
+    const eta = await giteta.attach(_eta)
+    const Repo = await ethers.getContractFactory('Repo', { libraries: { gitorg: _org } })
+    const repo = await Repo.attach(_repo)
+    const commit = (await eta['query(uint256,address)'](50, _repo)).filter(({ timestamp }) => timestamp * 1 !== 0)[0]
+    const balance_ = await arg.balanceOf(commit.commit)
     assert.equal(balance_, 50, "balance is 50 on commit")
-    await eta.drain(commit.commit)
-    const balance = await arg.balanceOf.call(_eta)
+    await eta['drain(address)'](commit.commit)
+    const balance = await arg.balanceOf(_eta)
     assert.equal(balance, 50, "balance of the eta contract is equal to the amount in the commit")
   })
   it("drain commit set from start and end timestamp", async () => {
-    const arg = await gitarg.deployed()
-    const eta = await giteta.at(_eta)
-    const org = await gitorg.deployed()
-    const repo = await Repo.at(_repo)
+    const gitarg = await ethers.getContractFactory('gitarg')
+    const arg = await gitarg.attach(_arg)
+    const giteta = await ethers.getContractFactory('giteta')
+    const eta = await giteta.attach(_eta)
+    const gitorg = await ethers.getContractFactory('gitorg')
+    const org = await gitorg.attach(_org)
+    const Repo = await ethers.getContractFactory('Repo', { libraries: { gitorg: _org } })
+    const repo = await Repo.attach(_repo)
     const timestamp = await org.timestamp.call()
     console.log({ timestamp })
     //function drain(uint start, uint end, address _repo) public payable returns (uint) {

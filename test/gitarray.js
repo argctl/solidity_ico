@@ -1,7 +1,5 @@
-const gitarray = artifacts.require('gitarray')
-const argctl = artifacts.require('argctl')
 
-contract('gitarray', () => {
+describe('gitarray', () => {
   
   //function org () public returns (bool) {
   it('organization', () => {})

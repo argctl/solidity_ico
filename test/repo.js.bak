@@ -1,9 +1,6 @@
-const Repo = artifacts.require('Repo')
-const gitorg = artifacts.require('../contracts/libraries/gitorg.sol')
-const gitarray = artifacts.require('../contracts/gitarray.sol')
 const { wait } = require('./utils')
 
-contract('Repo', async accounts => {
+describe('Repo', async accounts => {
   it('has repo name from deployed Repo object', async () => {
     const repo = await Repo.deployed()
     const name = await repo.name()

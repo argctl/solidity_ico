@@ -27,6 +27,8 @@
   },
   "homepage": "https://github.com/Epict33tus/solidity_ico#readme",
   "devDependencies": {
+    "@nomiclabs/hardhat-ethers": "^2.2.3",
+    "chai": "^5.1.0",
     "hardhat": "^2.21.0"
   }
 }

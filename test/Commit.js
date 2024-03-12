@@ -1,8 +1,4 @@
-const Commit = artifacts.require('Commit')
-const Repo = artifacts.require('Repo')
-const gitarg = artifacts.require('gitarg')
-
-contract('Commit', accounts => {
+describe('Commit', accounts => {
   it('can create a commit independent of repo', async () => {
   //constructor(address _wallet, address _repo, string memory _message, string memory _author, string memory _date) {
     const repo = await Repo.deployed()

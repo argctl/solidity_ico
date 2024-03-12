@@ -1,8 +1,5 @@
-const Handshakes = artifacts.require('Handshakes')
-const Proposal = artifacts.require('Proposal')
-const _uint = artifacts.require('_uint')
 
-contract('Handshakes', (accounts) => {
+describe('Handshakes', (accounts) => {
   //function isHandshake(address sender) public view member returns(bool) {
   it('isHandshake sender retreives the handshake when the sender is a member', async () => {
     const handshakes = await Handshakes.deployed()

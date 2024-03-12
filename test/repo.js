@@ -1,28 +1,42 @@
-const Repo = artifacts.require('Repo')
-const gitorg = artifacts.require('../contracts/libraries/gitorg.sol')
-const gitarray = artifacts.require('../contracts/gitarray.sol')
+const assert = require('node:assert')
 const { wait } = require('./utils')
 
-contract('Repo', async accounts => {
+let _repo
+let gitorg
+
+describe('Repo', async () => {
   it('has repo name from deployed Repo object', async () => {
-    const repo = await Repo.deployed()
+    //await deployer.deploy(Repo, 'TestRepo', 'https://gitlab.com/me2211/testrepo', accounts[1], arg.address, array.address)
+    const [owner, buyer, spender, holder, trader] = await ethers.getSigners()
+    const org = await ethers.deployContract('gitorg')
+    gitorg = org.address
+    const arg = await ethers.deployContract('gitarg')
+    //const eta = await deployer.deploy(giteta, arg.address)
+    const eta = await ethers.deployContract('giteta', [arg.address])
+    //await deployer.deploy(gitarray, accounts.slice(1), accounts[0], arg.address, eta.address)
+    const array = await ethers.deployContract('gitarray', [[buyer, spender, holder, trader].map(({ address }) => address), owner.address, arg.address, eta.address], { libraries: { gitorg } })
+    const repo = await ethers.deployContract('Repo', ['TestRepo', 'https://gitlab.com/me2211/testrepo', owner.address, arg.address, array.address], { libraries: { gitorg } })
+    _repo = repo.address
     const name = await repo.name()
     assert.equal(name, 'TestRepo', 'name from migration sticks') 
   })
   it('has repo url from deployed Repo object', async () => {
-    const repo = await Repo.deployed()
+    const Repo = await ethers.getContractFactory('Repo', { libraries: { gitorg } })
+    const repo = await Repo.attach(_repo)
     const url = await repo.url()
     assert.equal(url, 'https://gitlab.com/me2211/testrepo', 'test repo has accurate url')
   })
   it('adds value to repo', async () => {
     const value = 10000
-    const repo = await Repo.deployed()
+    const [owner, buyer, spender] = await ethers.getSigners()
+    const Repo = await ethers.getContractFactory('Repo', { libraries: { gitorg } })
+    const repo = await Repo.attach(_repo)
     //function add() payable public {
-    await repo.add({ from: accounts[2], value })
-    const contribution = await repo._buyerContributions.call(accounts[2])
+    await repo.connect(spender).add({ value })
+    const contribution = await repo._buyerContributions(spender.address)
     assert.equal(value, contribution * 1, 'contribution is equal to value input')
-    await repo.add({ from: accounts[2], value })
-    const contribution_ = await repo._buyerContributions.call(accounts[2])
+    await repo.connect(spender).add({ value })
+    const contribution_ = await repo._buyerContributions(spender.address)
     assert.equal(value * 2, contribution_ * 1, 'contribution adds on buyerContribution')
   })
   /*
@@ -74,56 +88,76 @@ contract('Repo', async accounts => {
   })
   */
   it('stamp(s), hashes functions', async () => {
-    const repo = await Repo.deployed()
+    const Repo = await ethers.getContractFactory('Repo', { libraries: { gitorg } })
+    const repo = await Repo.attach(_repo)
     //function stamp(string memory _hash) public {
     const _hash = '1f8fb8d143a0873188c4ed36e843b911bf433e2c'
     //const org = await gitorg.deployed()
     const receipt = await repo.stamp(_hash)
-    const timestamp = receipt.logs[0].args['timestamp'] * 1
+    console.log({ receipt })
+    const timestamp = (await receipt.wait()).events[0].args['timestamp'] * 1
     await wait(2000)
     //function verification(uint iteration) public view created returns (bytes32) {
-    const receipt_ = await repo.verification(1)
-    const hash_ = await receipt_.logs[0].args['hash']
+    const receipt_ = await repo['verification(uint256)'](1)
+    const hash_ = (await receipt_.wait()).events[0].args['hash']
     const receipt__ = await repo._stamp(_hash, timestamp)
-    const hash__ = receipt__.logs[0].args['hash']
+    const hash__ = (await receipt__.wait()).events[0].args['hash']
     // issue with call and computation in non-solidity call
     assert.equal(hash_, hash__, 'hashes match')
   })
   it('allow adds user to allow list', async () => {
-    const repo = await Repo.deployed()
-    await repo.allow(accounts[4], { from: await repo.owner() })
-    const allowed = (await repo.allowed(accounts[4])) * 1
-    assert.isAbove(allowed, 1, 'allowed timestamp is above 1')
+    const [owner, buyer, spender, holder, trader] = await ethers.getSigners()
+    const Repo = await ethers.getContractFactory('Repo', { libraries: { gitorg } })
+    const repo = await Repo.attach(_repo)
+    assert.equal(await repo.owner(), owner.address, "owner matches default creation signer/account")
+    await repo.connect(owner).allow(trader.address)
+    const allowed = (await repo.allowed(trader.address)) * 1
+    assert.equal(allowed > 1, true, 'allowed timestamp is above 1')
   })
   it('disallow adds user to disallow list', async () => {
-    const repo = await Repo.deployed()
-    await repo.revoke(accounts[4], false, { from: await repo.owner() })
+    const [owner, buyer, spender, holder, trader] = await ethers.getSigners()
+    const Repo = await ethers.getContractFactory('Repo', { libraries: { gitorg } })
+    const repo = await Repo.attach(_repo)
+    assert.equal(await repo.owner(), owner.address, "repo owner matches default creation signer/account")
+    await repo.connect(owner).revoke(trader.address, false)
+    let error
     try {
-      console.log('method: ', repo.methods['verification(uint256)'])//(1, { from: await repo.owner() })
-      const res = await repo.methods['verification(uint256)'](1, { from: accounts[4] })
+      const res = await repo.connect(trader)['verification(uint256)'](1)
     } catch (e) {
-      console.log("e.reason: ", e.reason)
-      assert.equal(e.reason, "the sender's timestamp was revoked more recently")
+      error = e.toString()
     }
+    assert.equal(
+      error.split('\n')[0],
+      "Error: VM Exception while processing transaction: reverted with reason string 'the sender's timestamp was revoked more recently'",
+      "the sender's timestamp was revoked more recently")
   })
   it('allows verification with the gitarray address', async () => {
     //function verification(address payable _gitarray, uint iteration) public auth returns (bytes32) {
-    const repo = await Repo.deployed()
+    const [owner, buyer] = await ethers.getSigners()
+    const Repo = await ethers.getContractFactory('Repo', { libraries: { gitorg } })
+    const repo = await Repo.attach(_repo)
     //gitarray address is not creator from deployer because of migration arch
     //const array = await gitarray.deployed()
-    const receipt = await repo.verification(accounts[0], 1)
-    const receipt_ = await repo.verification(1)
-    const hash_ = receipt.logs[0].args.hash
-    const hash__ = receipt.logs[0].args.hash
+    const receipt = await repo["verification(address,uint256)"](owner.address, 1)
+    const receipt_ = await repo["verification(uint256)"](1)
+    const hash_ = (await receipt.wait()).events[0].args.hash
+    const hash__ = (await receipt.wait()).events[0].args.hash
     assert.equal(hash_, hash__, 'hashes match from creator address verify')
+    let error
     try {
-      await repo.verification(accounts[1], 1) 
+      await repo['verification(address,uint256)'](buyer.address, 1) 
     } catch (e) {
-      assert.equal(e.reason, 'verification address is not creator', 'Error given when verification is on wrong creator address')
+      error = e.toString()
     }
+    assert.equal(
+      error.split('\n'),
+      "Error: VM Exception while processing transaction: reverted with reason string 'verification address is not creator'",
+      'Error given when verification is on wrong creator address')
   })
   it('restricts private access vars', async () => {
-    const repo = await Repo.deployed()
+    const [owner, buyer, spender] = await ethers.getSigners()
+    const Repo = await ethers.getContractFactory('Repo', { libraries: { gitorg } })
+    const repo = await Repo.attach(_repo)
     //bytes32[] private hash;
     //address private array;
     //address private arg;
@@ -146,7 +180,7 @@ contract('Repo', async accounts => {
       assert.equal(e.toString().split('\n')[0], 'TypeError: repo.arg is not a function', 'var arg is private')
     }
     try {
-      await repo.buyerContributions(accounts[2])
+      await repo.buyerContributions(spender)
     } catch (e) {
       assert.equal(e.toString().split('\n')[0], 'TypeError: repo.buyerContributions is not a function', 'var buyerContributions is private')
     }
