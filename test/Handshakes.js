@@ -1,11 +1,15 @@
+const assert = require('node:assert')
 
 describe('Handshakes', (accounts) => {
   //function isHandshake(address sender) public view member returns(bool) {
   it('isHandshake sender retreives the handshake when the sender is a member', async () => {
-    const handshakes = await Handshakes.deployed()
-    const handshakey = await handshakes.isHandshake(accounts[1], { from: accounts[1] })
+    const [owner, buyer, spender, holder, trader, user] = await ethers.getSigners()
+    //const handshakes = await deployer.deploy(Handshakes, accounts.slice(1), accounts[0], 3, true)
+    const _handshakes = [buyer, spender, holder, trader, user].map(({ address }) => address)
+    const handshakes = await ethers.deployContract('Handshakes', [_handshakes, owner.address, 3, true])
+    const handshakey = await handshakes.connect(buyer)['isHandshake(address)'](buyer.address)
     console.log({ handshakey })
-    assert.equal(handshakey, true, "accounts[1] is a handshake")
+    assert.equal(handshakey, true, "buyer is a handshake")
   })
   //function isHandshake() public view returns(bool) {
   it('tracks handshakes mutually', async () => {
