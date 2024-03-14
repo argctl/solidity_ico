@@ -1,5 +1,6 @@
 const assert = require('node:assert')
 
+let _Handshakes
 describe('Handshakes', (accounts) => {
   //function isHandshake(address sender) public view member returns(bool) {
   it('isHandshake sender retreives the handshake when the sender is a member', async () => {
@@ -7,16 +8,19 @@ describe('Handshakes', (accounts) => {
     //const handshakes = await deployer.deploy(Handshakes, accounts.slice(1), accounts[0], 3, true)
     const _handshakes = [buyer, spender, holder, trader, user].map(({ address }) => address)
     const handshakes = await ethers.deployContract('Handshakes', [_handshakes, owner.address, 3, true])
+    _Handshakes = handshakes.address
     const handshakey = await handshakes.connect(buyer)['isHandshake(address)'](buyer.address)
     console.log({ handshakey })
     assert.equal(handshakey, true, "buyer is a handshake")
   })
   //function isHandshake() public view returns(bool) {
   it('tracks handshakes mutually', async () => {
-    const handshakes = await Handshakes.deployed()
-    const handshakey = await handshakes.isHandshake({ from: accounts[1] })
+    const [owner, buyer] = await ethers.getSigners()
+    const Handshakes = await ethers.getContractFactory('Handshakes')
+    const handshakes = await Handshakes.attach(_Handshakes)
+    const handshakey = await handshakes.connect(buyer)['isHandshake()']()
     console.log({ handshakey })
-    assert.equal(handshakey, true, 'accounts[1] is a handshake')
+    assert.equal(handshakey, true, 'buyer account is a handshake')
   })
   //function setProposal(address _proposal) public own returns(uint) {
   it('setProposal links an address of a proposal', async () => {
