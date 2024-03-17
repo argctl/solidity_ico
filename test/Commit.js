@@ -1,9 +1,19 @@
+const assert = require('node:assert')
+let gitorg
 describe('Commit', accounts => {
   it('can create a commit independent of repo', async () => {
   //constructor(address _wallet, address _repo, string memory _message, string memory _author, string memory _date) {
-    const repo = await Repo.deployed()
+    //await deployer.deploy(Repo, 'TestRepo', 'https://gitlab.com/me2211/testrepo', accounts[1], arg.address, array.address)
+    const [owner, buyer, spender, holder, trader, user] = await ethers.getSigners()
+    const handshakes = [buyer, spender, holder, trader, user].map(({ address }) => address)
+    const org = await ethers.deployContract('gitorg')
+    gitorg = org.address
+    const arg = await ethers.deployContract('gitarg')
+    const eta = await ethers.deployContract('giteta', [arg.address])
+    const array = await ethers.deployContract('gitarray', [handshakes, owner.address, arg.address, eta.address], { libraries: { gitorg } })
+    const repo = await ethers.deployContract('Repo', ['TestRepo', 'https://gitlab.com/me2211/testrepo', buyer.address, arg.address, array.address], { libraries: { gitorg } })
     // REVIEW - should change repo.address to repo type check? - standards review
-    const commit = new Commit(accounts[0], repo.address, 'commit some code', 'David J Kamer', 'Wed Aug 30 19:39:21 2023 -0400')
+    const commit = await ethers.deployContract('Commit', [buyer.address, repo.address, 'commit some code', 'David J Kamer', 'Wed Aug 30 19:39:21 2023 -0400'])
     console.log('length: ', commit.address.length)
     assert.equal(commit.address.length, 42, 'commit address exists for new commit')
   })
