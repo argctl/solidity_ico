@@ -1,0 +1,9 @@
+contract gitarray
+  function main takes handshake list and handshake address
+    procedure creates handshakes
+    procedure verifies list is in current handshakes
+    returns null or 0
+  function modifyProof takes address
+    returns on both handshake objects
+  function doubleGitarray takes handshake list
+    returns match of sender on both lists
