@@ -24,15 +24,17 @@ describe('Handshakes', (accounts) => {
   })
   //function setProposal(address _proposal) public own returns(uint) {
   it('setProposal links an address of a proposal', async () => {
-    const uint = await _uint.new(100)
+    const uint = await ethers.deployContract('_uint', [100])
     //constructor(address _object) {
-    const proposal = await Proposal.new(uint.address)
+    const proposal = await ethers.deployContract('Proposal', [uint.address])
 
   })
   //function shake() public member {
   it('shake registers handshake address as approved list of shakes', async () => {
-    const handshakes = await Handshakes.deployed()
-    await handshakes.shake({ from: accounts[1]  })
+    const [owner, buyer] = await ethers.getSigners()
+    const Handshakes = await ethers.getContractFactory('Handshakes')
+    const handshakes = await Handshakes.attach(_Handshakes)
+    await handshakes.connect(buyer).shake()
   })
   //function check(address[] memory shakes, address[] memory noshakes) public view own {
   it('check shakes vs no shakes all noshakes except account[1]', async () => {
