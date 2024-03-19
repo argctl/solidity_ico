@@ -7,7 +7,8 @@ import "./objects/Handshakes.sol";
 
 contract _gitorg {
   // sales/market/voting
-  address private _gitarg;
+  // review - access only from gitarrays through handshake?
+  address public _gitarg;
   address public _gitarray;
   address private _rate;
   // trope - gitarray needed?
@@ -16,7 +17,7 @@ contract _gitorg {
     _gitarg = gitarg_;
     _gitarray = gitarray_;
     gitarray _gitarray_ = gitarray(gitarray_);
-    _gitarray_.org();
+    //_gitarray_.org();
   }
   function rate (uint rate_) public {
     if (_rate == address(0)) {
@@ -35,6 +36,13 @@ contract _gitorg {
   }
   function open (address _proposal) public {
     // TODO - send _type from proposal
+  }
+  function stamp (string memory _hash, uint timestamp, address _msgSender) public pure returns (bytes32) {
+    return keccak256(abi.encodePacked(_hash, timestamp, _msgSender));
+  }
+  function key (string memory _hash) public pure returns (bytes32) {
+    // REVIEW - keccak is a rainbow table or one way hash?
+    return keccak256(abi.encodePacked(_hash));
   }
   //function _gitarray_
 }

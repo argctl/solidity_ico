@@ -17,7 +17,7 @@ contract ita {
       owners[_owners[i]] = block.timestamp;
     }
   }
-
+  // TODO - secondary owners list
   function allow (address token, uint amount) public returns (bool) {
     require(owners[msg.sender] == creation - owners_.length, "own");
     ERC20 erc20 = ERC20(token);

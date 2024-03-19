@@ -14,11 +14,11 @@ module.exports = {
   networks: {
     hardhat: {
       gasPrice: 5000000000,
-      allowUnlimitedContractSize: true
+      //allowUnlimitedContractSize: true
     },
     localhost: {
       gasPrice: 5000000000,
-      allowUnlimitedContractSize: true
+      //allowUnlimitedContractSize: true
     }
   }
 };

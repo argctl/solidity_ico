@@ -3,10 +3,10 @@ pragma solidity 0.8.20;
 import "./gitorg.sol";
 import "./libraries/gitorg.sol";
 import "./gitarg.sol";
-import "./objects/Proposal.sol";
+//import "./objects/Proposal.sol";
 import "./objects/Handshakes.sol";
 import "./gitarray.sol";
-import "./ltcgra.sol";
+//import "./ltcgra.sol";
 import "./objects/Repo.sol";
 import "./giteta.sol";
 
@@ -18,6 +18,7 @@ contract argctl {
   _gitorg  private Gitorg;
   address public _gitarg;
   address private _handshakes;
+  mapping(bytes32 => uint) public unique;
   Handshakes handshakes;
   gitarray Gitarray;
   gitarg Gitarg;
@@ -53,7 +54,10 @@ contract argctl {
     for (uint i = 0; i < _handshakes.length; i++) {
       require(handshakes.isHandshake(_handshakes[i]), "backhanded");
     }
+    uint _stamp = unique[gitorg.key(_url)];
+    require(_stamp == 0, "repo not unique"); 
     address repo_ = Gitarray.repo(_handshakes, _name, _url, msg.sender, _argctl);
+    unique[gitorg.key(_url)] = block.timestamp;
     return repo_;
   }
   /*
