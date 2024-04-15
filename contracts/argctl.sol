@@ -30,10 +30,7 @@ contract argctl {
   mapping(address => Sign) private repos;
 
   // TODO - handshake checkmarks for preverification or creation from gitarray?
-  // interface
-  /// trope
   constructor (address handshakes_, address gitorg_, address gitarg_, address _gitarray, address _giteta) {
-  //constructor (address handshakes_, address gitorg_, address gitarg_, address _gitarray) {
     _gitarg = gitarg_;
     _gitorg_ = gitorg_;
     _giteta_ = _giteta;
@@ -60,46 +57,22 @@ contract argctl {
     unique[gitorg.key(_url)] = block.timestamp;
     return repo_;
   }
-  /*
-  function repo(address repo) public returns(Repo) {
-    Sign memory sign = repos[repo];
-    Handshakes signers = Handshakes(sign.handshakes);
-    require(signers.isHandshake(msg.sender), "signer");
-    Repo _repo = Repo(sign.repo);
-    return _repo;
-  }
-  */
-  // NOT A SHORT SELL INTERFACE
+  
   function checkin (address repo, address handshakes, address handshake) public {
     repos[repo] = Sign(repo, msg.sender, handshakes);
     Gitarray.ctl(handshake);
   }
-  /*
-  function check () public returns ( {
-    //by msg.sender or handshake? starting with msg.sender for review
-    // TODO - repos from msg.sender handshake?
-    Sign repo_ = repos[_repo];
-    Handshakes handshakes_ = Handshakes(repo_.handshakes);
-    require(msg.sender == handshakes_.isHandshake(msg.sender), "checker");
-    return
-  }
-  */
+
   function commit(address _giteta, address _repo, string memory _message, string memory _author, string memory _date) public payable returns(uint) {
     Handshakes _handshakes = Handshakes(repos[_repo].handshakes);
     Repo repo_ = Repo(_repo);
+    // more security with gitarray?
     //bool shook = handshakes.isHandshake(msg.sender);
 
     require(_handshakes.isHandshake(msg.sender), "repository");
     uint extTimestamp = gitorg.timestamp();
-    //function stamp (string memory _hash, uint timestamp, address _msgSender) public pure returns (bytes32)
     bytes32 hash = gitorg.stamp(_message, extTimestamp, msg.sender);
     giteta giteta_ = giteta(_giteta);
-    // TODO - review - stable coin of wei if msg.value is still used, may want to parameterize
-    //function commit(address _repo, string memory message, string memory author, string memory date, uint escrow) public returns (uint)
-    // TODO - issue is that commit always throws escrow errors from accounts[0], we might need to review giteta tests
-    // it's likely the issue is commit spend approval, even on commit address, there may just be an interface issue with
-    // the gitarg contract so redeclaration may also work. The fact that balanceOf is the revert trigger means
-    // that the interface issue may be the problem and an issue with ganache or something string related
     uint escrow = 1;
     Gitarg.approve(address(giteta_), escrow);
     giteta_.commit(_repo, _message, _author, _date, escrow);
