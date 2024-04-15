@@ -7,25 +7,24 @@
     "test": "test"
   },
   "scripts": {
-    "test": "node runner"
+    "test": "hardhat test"
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/Epict33tus/solidity_ico.git"
+    "url": "git+ssh://git@github.com/argctl/solidity_ico.git"
   },
   "keywords": [
     "solidity",
     "gitarg",
     "giteta",
-    "gitarray",
-    "truffle"
+    "gitarray"
   ],
   "author": "David J Kamer",
   "license": "SEE LICENSE IN LICENSE.md",
   "bugs": {
-    "url": "https://github.com/Epict33tus/solidity_ico/issues"
+    "url": "https://github.com/argctl/solidity_ico/issues"
   },
-  "homepage": "https://github.com/Epict33tus/solidity_ico#readme",
+  "homepage": "https://github.com/argctl/solidity_ico#readme",
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.2.3",
     "chai": "^5.1.0",
