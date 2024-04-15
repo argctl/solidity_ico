@@ -23,7 +23,7 @@ contract gitarray {
   address private arg;
   mapping(address => _gitorg) private orgs; // this can be private or ctls, then we can use ctl anchor to verify the two // true many->many
   argctl private ARGCTL;
-  address public eta;
+  address private eta;
   // !IMPORTANT
   // !!!
   // REVIEW - threshold divider 
