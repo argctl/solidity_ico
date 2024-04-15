@@ -75,8 +75,10 @@ contract gitarray {
     signers[repo_] = handshakes_;
     return repo_;
   }
+  // someone could spam addresses by calling this, with a 0 check we would have camped spaces and need a new gitarray
   function ctl (address handshake) public returns (bool) {
-    require(address(ctls[handshake]) == address(0), "");
+    // an argctl or an address can register itself so other's can't lie about it
+    require(address(ctls[handshake]) == address(0) || msg.sender == handshake, "anchor");
     ctls[handshake] = argctl(msg.sender);
     return true;
   }

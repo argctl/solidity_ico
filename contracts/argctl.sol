@@ -81,5 +81,11 @@ contract argctl {
   function tar (uint amount) public returns (uint price) {
     return 1; 
   }
+  // anchor function allows us to reset our control over gitarray, id object
+  function anchor (address _gitarray) public {
+    // review - anchor to org too
+    gitarray array = gitarray(_gitarray);
+    array.ctl(address(this));
+  }
 }
 
