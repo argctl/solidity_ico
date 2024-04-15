@@ -18,11 +18,12 @@ contract gitarray {
   Handshakes private handshakes;
   mapping(address => Repo) repos;
   // REVIEW - address only with check
-  mapping(address => argctl) private ctls;
+  // unable to compile when private because of size restriction
+  mapping(address => argctl) public ctls; // this should be public so that mapped trust can occur with repo creation
   address private arg;
-  mapping(address => _gitorg) public orgs;
+  mapping(address => _gitorg) private orgs; // this can be private or ctls, then we can use ctl anchor to verify the two // true many->many
   argctl private ARGCTL;
-  address private eta;
+  address public eta;
   // !IMPORTANT
   // !!!
   // REVIEW - threshold divider 
@@ -51,6 +52,7 @@ contract gitarray {
     signers[msg.sender] = handshakes;
 
   }
+  // owner of repo can verify that the repo is part of gitarray instance if it is a handshake on both objects and submits this transaction 
   function repo() public view returns (address) {
     // handshake in both repo and gitarray list
 
@@ -61,6 +63,7 @@ contract gitarray {
     require(handshakes_.isHandshake(msg.sender), "arid");
     return address(repo_);
   }
+  // add repo as a group with a representative in the group
   function repo(address[] memory _handshakes, string memory _name, string memory _url, address _owner, address _argctl) public returns (address) {
     // TODO - review handshakes check for gitarray to check if sender is handshake
     // REVIEW - corp var

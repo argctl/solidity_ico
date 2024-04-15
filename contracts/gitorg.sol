@@ -5,6 +5,7 @@ import "./gitarray.sol";
 import "./objects/Proposal.sol";
 import "./objects/Handshakes.sol";
 
+// TODO - change to Gitorg? 
 contract _gitorg {
   // sales/market/voting
   // review - access only from gitarrays through handshake?
