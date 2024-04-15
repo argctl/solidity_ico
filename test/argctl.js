@@ -28,8 +28,10 @@ describe('argctl', () => {
     _eta = eta.address
     const array = await ethers.deployContract('gitarray', [handshakes, owner.address, arg.address, eta.address], { libraries: { gitorg } })
     _array = array.address
+    //constructor(address gitarg_, address gitarray_) {
+    const Gitorg = await ethers.deployContract('_gitorg', [_arg, _array])
     //const ctl = await deployer.deploy(argctl, handshakes.address, org.address, arg.address, array.address, eta.address)
-    const ctl = await ethers.deployContract('argctl', [_handshakes.address, org.address, arg.address, array.address, eta.address], { libraries: { gitorg } })
+    const ctl = await ethers.deployContract('argctl', [_handshakes.address, Gitorg.address, arg.address, array.address, eta.address], { libraries: { gitorg } })
     _ctl = ctl.address
     //await _handshakes.add(ctl.address)
     await _handshakes.connect(user).add(array.address)
