@@ -12,7 +12,7 @@ import "./gitorg.sol";
 contract gitarray {
 
   address creator;
-  address owner;
+  //address owner;
   uint threshold;
   mapping(address => Handshakes) signers;
   Handshakes private handshakes;
@@ -27,16 +27,17 @@ contract gitarray {
   // !IMPORTANT
   // !!!
   // REVIEW - threshold divider 
-  modifier own {
+  /*modifier own {
     require(msg.sender == owner, "own");
     _;
-  }
+  } */
+  event Repo_(address repo_); 
   constructor(address[] memory _handshakes, address _owner, address _gitarg, address _giteta) {
     arg = _gitarg;
     eta = _giteta;
     threshold = _handshakes.length;
     creator = msg.sender;
-    owner = _owner;
+    //owner = _owner;
     // REVIEW - corp var
     // corp set to true indication of member for isHandshake, but member is already only check - caching?
     // TODO - corp var should likely be set to false? or is this the setter and handshakes interface? review in GITORG.ORG code
@@ -64,11 +65,12 @@ contract gitarray {
     return address(repo_);
   }
   // add repo as a group with a representative in the group
-  function repo(address[] memory _handshakes, string memory _name, string memory _url, address _owner, address _argctl) public returns (address) {
+  function repo(address[] memory _handshakes, string memory _name, string memory _url, address _owner, address _argctl) public returns (address repo_) {
     // TODO - review handshakes check for gitarray to check if sender is handshake
     // REVIEW - corp var
     Repo _repo = new Repo(_name, _url, _owner, arg, address(this));
     address repo_ = address(_repo);
+    emit Repo_(repo_);
     Handshakes handshakes_ = new Handshakes(_handshakes, _owner, threshold, true);
     require(handshakes_.isHandshake(msg.sender), "git");
     require(address(repos[_owner]) == address(0), "owner");
