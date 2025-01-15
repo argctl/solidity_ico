@@ -87,9 +87,11 @@ contract rig {
         // TODO - buy the token amount for the price, return the gas cost buffer in token ???
         buffer[msg.sender] = buff - stiphen; // the stiphen is sent as gitarg token
         // we haven't set the gate, buffer < s^2 - s, then can buffer - s == 1 to set the gate 
+        // REVIEW
         if (gate[msg.sender] == 0 && (buff - stiphen) == 1) gate[msg.sender] = tar.gg(msg.sender);
         // (s(g)^2 - s(g)) - s(g) ?= 1 if s(g) = s(x1) < g(x2);
         gate[msg.sender] -= amount;
+        // gate[msg.sender] will revert if require doesn't pass
         require(gate[msg.sender] >= 0, "closed");
         payable(msg.sender).transfer(cost);
         arg.transferFrom(tar.owner(), msg.sender, stiphen);
